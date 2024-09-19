@@ -1,3 +1,4 @@
+import { css, Global } from '@emotion/react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Layout from './components/Layout';
@@ -55,6 +56,16 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div>
+      <Global
+        styles={css`
+          :root {
+            --color-main: #89a06b;
+            --color-side: rgba(0, 66, 47, 43);
+            --color-gray: #aaa;
+            --color-black: #2c2c2c;
+          }
+        `}
+      />
       <RouterProvider router={router} />
     </div>
   );
