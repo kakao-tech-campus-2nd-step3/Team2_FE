@@ -1,6 +1,8 @@
+import Content from './Content';
 import Header from './Header';
+import type { ColumnDetail } from './type';
 
-const data = {
+const data: ColumnDetail = {
   id: '1',
   title: '칼럼의 제목이 여기에 들어갑니다',
   imgurl: 'https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg',
@@ -13,8 +15,17 @@ const data = {
       content: '제목입니다.',
     },
     {
+      tag: 'h3',
+      content: '제목입니다.',
+    },
+    {
       tag: 'p',
-      content: '내용입니다.',
+      content:
+        '내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.',
+    },
+    {
+      tag: 'h2',
+      content: '제목입니다.',
     },
     {
       tag: 'img',
@@ -32,6 +43,7 @@ export default function ColumnDetail() {
         auth={data.auth}
         keyword={data.keyword}
       />
+      <Content content={data.content} />
     </>
   );
 }
