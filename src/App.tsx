@@ -64,6 +64,10 @@ function App() {
             --color-gray: #aaa;
             --color-black: #2c2c2c;
           }
+          p,
+          li {
+            line-height: 120%;
+          }
         `}
       />
       <RouterProvider router={router} />
