@@ -1,5 +1,15 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
+import { JSX } from "react";
 
+/**
+ * Props 타입 정의
+ * @typedef {object} Props
+ * @property {string} title - 제목
+ * @property {string} imgurl - 이미지 URL
+ * @property {string} createdAt - 생성 날짜
+ * @property {string} auth - 작성자
+ * @property {string[]} keyword - 키워드 배열
+ */
 type Props = {
   title: string;
   imgurl: string;
@@ -7,7 +17,13 @@ type Props = {
   auth: string;
   keyword: string[];
 };
-export default function Header({ title, imgurl, createdAt, auth, keyword }: Props) {
+
+/**
+ * Header 컴포넌트
+ * @param {Props} props - Header 컴포넌트가 받을 props
+ * @returns {JSX.Element} - 헤더를 렌더링하는 JSX 요소
+ */
+export default function Header({ title, imgurl, createdAt, auth, keyword }: Props): JSX.Element {
   return (
     <>
       <HeaderContainer imgurl={imgurl}>
@@ -27,7 +43,8 @@ export default function Header({ title, imgurl, createdAt, auth, keyword }: Prop
 
 const HeaderContainer = styled.div<{ imgurl: string }>`
   text-align: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${(props) => props.imgurl});
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(${(props) => props.imgurl});
   padding: 26px 100px 10px;
 `;
 const Keywords = styled.div`
