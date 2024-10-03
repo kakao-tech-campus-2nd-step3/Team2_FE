@@ -1,4 +1,5 @@
 import { css, Global } from '@emotion/react';
+import { JSX } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Layout from '@/components/Layout';
@@ -53,7 +54,11 @@ const router = createBrowserRouter([
   },
 ]);
 
-function App() {
+/**
+ * The main application component.
+ * @returns {JSX.Element} The rendered application component.
+ */
+function App(): JSX.Element {
   return (
     <div>
       <Global
