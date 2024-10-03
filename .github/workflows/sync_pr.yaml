@@ -1,0 +1,38 @@
+name: Create PR to forked repo (Preview)
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - "weekly/**"
+
+jobs:
+  create-pr:
+    name: Create PR to forked repo
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source branch
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Add forked remote
+        run: |
+          git remote add forked-repo https://dandamdandam:${{ secrets.PAT }}@github.com/dandamdandam/Team2_FE.git
+          git config user.name "dandamdandam"
+          git config user.email "${{ secrets.EMAIL }}"
+
+      - name: Push source branch to forked repo
+        run: |
+          git push forked-repo ${{ github.event.pull_request.head.ref }}:copied --force
+
+      - name: Create Pull Request to preview branch
+        run: |
+          gh pr create --title "Sync PR from ${{ github.event.pull_request.head.ref }} to preview" --body "Automatically created PR from ${{ github.event.pull_request.head.ref }} to preview branch" --head copied --base preview --repo dandamdandam/Team2_FE
+
+      - name: Clean up
+        run: |
+          git remote remove forked-repo
