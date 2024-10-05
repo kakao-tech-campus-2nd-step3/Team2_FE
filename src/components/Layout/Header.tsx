@@ -54,6 +54,7 @@ const Header: React.FC = () => {
 
 const styles = {
   header: {
+    position: 'relative' as 'relative',
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -64,12 +65,16 @@ const styles = {
   logoContainer: {
     display: "flex",
     alignItems: "center",
+    flexGrow: 1,
   },
   logo: {
     width: "50px", 
     height: "50px",
   },
   title: {
+    position: 'absolute' as 'absolute',
+    left: '50%',
+    transform: 'translateX(-50%)',
     fontSize: "30px",
     fontWeight: "bold",
     color: "#9BC678", 
@@ -77,6 +82,8 @@ const styles = {
   iconContainer: {
     display: "flex",
     gap: "30px", 
+    flexGrow: 1,
+    justifyContent: "flex-end"
   },
   icon: {
     width: "28px",
