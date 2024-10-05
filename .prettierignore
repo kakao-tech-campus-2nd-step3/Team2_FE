@@ -8,3 +8,5 @@
 **/dist
 **/*.html
 **/assets
+
+eslint.config.js

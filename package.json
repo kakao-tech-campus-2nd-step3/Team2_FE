@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint --cache .",
-    "prettier": "prettier --cache --write .",
+    "prettier": "prettier --write .",
+    "prettier-check": "prettier --check .",
+    "lint-check": "eslint .",
+    "tsc-check": "tsc --noEmit",
+    "check": "prettier --check . && eslint . && tsc --noEmit",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
