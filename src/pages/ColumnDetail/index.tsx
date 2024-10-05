@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 import Content from './Content';
 import Header from './Header';
 import type { ColumnDetail } from './type';
@@ -33,7 +35,11 @@ const data: ColumnDetail = {
     },
   ],
 };
-export default function ColumnDetail() {
+
+/**
+ * @returns {JSX.Element} - 칼럼 상세 페이지를 렌더링하는 JSX 요소
+ */
+export default function ColumnDetail(): JSX.Element {
   return (
     <>
       <Header

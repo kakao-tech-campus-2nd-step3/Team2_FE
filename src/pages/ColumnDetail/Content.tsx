@@ -1,9 +1,16 @@
-import styled from '@emotion/styled';
-import type { Content } from './type';
-import { useRef } from 'react';
 import { keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
+import { JSX, useRef } from 'react';
 
-export default function Content({ content }: { content: Content[] }) {
+import type { Content } from './type';
+
+/**
+ * Content 컴포넌트
+ * @param {object} props - 컴포넌트가 받을 props
+ * @param {Content[]} props.content - 콘텐츠 배열
+ * @returns {JSX.Element} - 콘텐츠를 렌더링하는 JSX 요소
+ */
+export default function Content({ content }: { content: Content[] }): JSX.Element {
   const refs = useRef<{ [key: string]: HTMLElement | null }>({});
 
   const scrollToElement = (index: number) => {
