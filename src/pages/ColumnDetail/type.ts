@@ -1,5 +1,5 @@
 export type Content = {
-  tag: 'h2' | 'h3' | 'p' | 'img';
+  tag: "h2" | "h3" | "p" | "img";
   content: string;
 };
 

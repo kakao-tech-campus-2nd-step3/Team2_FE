@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import { JSX } from 'react';
+import styled from "@emotion/styled";
+import { JSX } from "react";
 
 /**
  * Props 타입 정의
@@ -43,7 +43,8 @@ export default function Header({ title, imgurl, createdAt, auth, keyword }: Prop
 
 const HeaderContainer = styled.div<{ imgurl: string }>`
   text-align: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${(props) => props.imgurl});
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(${(props) => props.imgurl});
   padding: 26px 100px 10px;
 `;
 const Keywords = styled.div`
