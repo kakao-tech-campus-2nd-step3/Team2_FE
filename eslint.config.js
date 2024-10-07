@@ -6,7 +6,6 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import tseslint from 'typescript-eslint'
-import jsdoc from 'eslint-plugin-jsdoc'
 
 export default [
   {
@@ -18,13 +17,11 @@ export default [
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       'simple-import-sort': simpleImportSort,
-      'jsdoc': jsdoc,
     },
     rules: {
       'react-refresh/only-export-components': 'warn',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
-      'jsdoc/require-description': 'warn',
       "@typescript-eslint/naming-convention": [
         "error",
         {
@@ -57,7 +54,6 @@ export default [
       ...reactHooks.configs.recommended.rules,
     },
   },
-  jsdoc.configs['flat/recommended'],
   eslintConfigPrettier,
   js.configs.recommended,
   ...tseslint.configs.recommended,
