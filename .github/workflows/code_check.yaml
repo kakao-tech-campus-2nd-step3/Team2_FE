@@ -33,3 +33,6 @@ jobs:
 
       - name: Run TSC check
         run: npm run tsc-check
+
+      - name: Run build
+        run: npm run build
