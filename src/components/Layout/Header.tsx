@@ -37,10 +37,10 @@ const Header: React.FC = () => {
 
       {/* 오른쪽 아이콘 3개 */}
       <div style={styles.iconContainer}>
-        <Link to="/store">
+        <Link to="/products">
           <img src={storeIcon} alt="Store" style={styles.icon} />
         </Link>
-        <Link to="/news">
+        <Link to="/columns">
           <img src={cloumnIcon} alt="News" style={styles.icon} />
         </Link>
         <Link to="/login">
