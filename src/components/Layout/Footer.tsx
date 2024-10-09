@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Footer: React.FC = () => {
   return (
@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
               <p style={styles.p}>정다연</p>
             </div>
             <div>
-              <p style={styles.p}>박지희</p> 
+              <p style={styles.p}>박지희</p>
               <p style={styles.p}>이채연</p>
             </div>
             <div>
@@ -53,16 +53,11 @@ const Footer: React.FC = () => {
         <div style={styles.rightSection}>
           <h4 style={styles.subscribeTitle}>Subscribe</h4>
           <div style={styles.subscribeContainer}>
-            <input
-              type="email"
-              placeholder="Get product updates"
-              style={styles.input}
-            />
+            <input type="email" placeholder="Get product updates" style={styles.input} />
             <button style={styles.subscribeButton}>&#10132;</button> {/* 오른쪽 화살표 */}
           </div>
         </div>
       </div>
-
     </footer>
   );
 };
@@ -70,71 +65,70 @@ const Footer: React.FC = () => {
 // 스타일링 객체
 const styles = {
   footer: {
-    backgroundColor: '#f5f5f5',
-    padding: '20px',
-    textAlign: 'center' as 'center',
-    borderTop: '1px solid #ddd',
+    backgroundColor: "#f5f5f5",
+    padding: "20px",
+    textAlign: "center" as const,
+    borderTop: "1px solid #ddd",
   },
   container: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: '20px',
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    marginBottom: "20px",
   },
   leftSection: {
-    textAlign: 'left' as 'left',
+    textAlign: "left" as const,
     flex: 1,
   },
   centerSection: {
-    textAlign: 'left' as 'left',
+    textAlign: "left" as const,
     flex: 1.5,
   },
   developerTitle: {
-    fontWeight: 'bold',
-    marginBottom: '10px',
+    fontWeight: "bold",
+    marginBottom: "10px",
   },
   developers: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '250px',
-    margin: '30px 0',
+    display: "flex",
+    justifyContent: "space-between",
+    width: "250px",
+    margin: "30px 0",
   },
   rightSection: {
-    textAlign: 'left' as 'left',
+    textAlign: "left" as const,
     flex: 1,
   },
   subscribeTitle: {
-    fontWeight: 'bold',
-    margin: '0px 0px 30px 0px'
+    fontWeight: "bold",
+    margin: "0px 0px 30px 0px",
   },
   subscribeContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'left',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "left",
   },
   input: {
-    padding: '8px',
-    fontSize: '14px',
-    borderRadius: '4px 0 0 4px',
-    border: '1px solid #ccc',
+    padding: "8px",
+    fontSize: "14px",
+    borderRadius: "4px 0 0 4px",
+    border: "1px solid #ccc",
   },
   subscribeButton: {
-    padding: '8px',
-    fontSize: '14px',
-    backgroundColor: '#89A06B',
-    color: 'white',
-    borderRadius: '0 4px 4px 0',
-    border: 'none',
-    cursor: 'pointer',
+    padding: "8px",
+    fontSize: "14px",
+    backgroundColor: "#89A06B",
+    color: "white",
+    borderRadius: "0 4px 4px 0",
+    border: "none",
+    cursor: "pointer",
   },
   logo: {
-    width: '50px',
-    height: 'auto',
+    width: "50px",
+    height: "auto",
   },
   p: {
-    padding: '10px',
-  }
+    padding: "10px",
+  },
 };
 
 export default Footer;
-
