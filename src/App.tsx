@@ -66,12 +66,16 @@ function App(): JSX.Element {
           :root {
             --color-main: #89a06b;
             --color-side: rgba(0, 66, 47, 43);
+            --color-background: #f7ffef;
             --color-gray: #aaa;
             --color-black: #2c2c2c;
           }
           p,
           li {
             line-height: 120%;
+          }
+          body {
+            color: var(--color-black);
           }
         `}
       />
