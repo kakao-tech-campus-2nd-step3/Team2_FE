@@ -77,24 +77,27 @@ export default function Content({ content }: { content: Content[] }): JSX.Elemen
 const Container = styled.div({
   position: "relative",
 });
-const Index = styled.ul`
-  position: sticky;
-  top: 30vh;
-  right: 0;
-  height: 0;
-  padding: 1rem;
-  color: var(--color-gray);
-  font-size: var(--font-size-small);
-  cursor: pointer;
-  text-align: right;
-  li:hover {
-    text-decoration: underline;
-  }
-`;
-const ContentContainer = styled.div`
-  width: 65%;
-  margin: 0 auto;
-`;
+
+const Index = styled.ul({
+  position: "sticky",
+  top: "30vh",
+  right: 0,
+  height: 0,
+  padding: "1rem",
+  color: "var(--color-gray)",
+  fontSize: "var(--font-size-small)",
+  cursor: "pointer",
+  textAlign: "right",
+  li: {
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
+});
+const ContentContainer = styled.div({
+  width: "65%",
+  margin: "0 auto",
+});
 
 const highlight = keyframes`
   0% {
@@ -107,29 +110,29 @@ const highlight = keyframes`
     background-color: #fff;
   }
 `;
-const H2 = styled.h2`
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 20px;
-  &.highlight {
-    animation: ${highlight} 1s ease-out;
-  }
-`;
-const H3 = styled.h3`
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 15px;
-  &.highlight {
-    animation: ${highlight} 1s ease-out;
-  }
-`;
-const P = styled.p`
-  font-size: var(--font-size-base);
-  line-height: 1.3;
-  margin-top: 10px;
-`;
-const Img = styled.img`
-  width: calc(100% - 160px);
-  margin: 20px 80px;
-  border-radius: 10px;
-`;
+const H2 = styled.h2({
+  fontSize: "20px",
+  fontWeight: "bold",
+  marginTop: "20px",
+  "&.highlight": {
+    animation: `${highlight} 1s ease-out`,
+  },
+});
+const H3 = styled.h3({
+  fontSize: "18px",
+  fontWeight: "bold",
+  marginTop: "15px",
+  "&.highlight": {
+    animation: `${highlight} 1s ease-out`,
+  },
+});
+const P = styled.p({
+  fontSize: "var(--font-size-base)",
+  lineHeight: 1.3,
+  marginTop: "10px",
+});
+const Img = styled.img({
+  width: "calc(100% - 160px)",
+  margin: "20px 80px",
+  borderRadius: "10px",
+});
