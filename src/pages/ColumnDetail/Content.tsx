@@ -29,7 +29,7 @@ export default function Content({ content }: { content: Content[] }): JSX.Elemen
   };
 
   return (
-    <>
+    <Container>
       <Index>
         {content.map((item, index) => {
           switch (item.tag) {
@@ -42,7 +42,7 @@ export default function Content({ content }: { content: Content[] }): JSX.Elemen
             case "h3":
               return (
                 <li key={index} onClick={() => scrollToElement(index)}>
-                  &nbsp;&nbsp;{item.content}
+                  {item.content}&nbsp;&nbsp;
                 </li>
               );
           }
@@ -70,24 +70,29 @@ export default function Content({ content }: { content: Content[] }): JSX.Elemen
           }
         })}
       </ContentContainer>
-    </>
+    </Container>
   );
 }
 
+const Container = styled.div({
+  position: "relative",
+});
 const Index = styled.ul`
-  position: fixed;
-  top: 200px;
+  position: sticky;
+  top: 30vh;
   right: 0;
-  width: calc((100vw - 700px) / 2 - 20px);
+  height: 0;
+  padding: 1rem;
   color: var(--color-gray);
-  font-size: 12px;
+  font-size: var(--font-size-small);
   cursor: pointer;
+  text-align: right;
   li:hover {
     text-decoration: underline;
   }
 `;
 const ContentContainer = styled.div`
-  width: 700px;
+  width: 65%;
   margin: 0 auto;
 `;
 
@@ -119,11 +124,12 @@ const H3 = styled.h3`
   }
 `;
 const P = styled.p`
+  font-size: var(--font-size-base);
+  line-height: 1.3;
   margin-top: 10px;
 `;
 const Img = styled.img`
-  width: 500px;
-  margin: 20px 100px;
+  width: calc(100% - 160px);
+  margin: 20px 80px;
   border-radius: 10px;
-  margin-top: 10px;
 `;

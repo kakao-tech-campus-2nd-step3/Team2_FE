@@ -45,30 +45,33 @@ const HeaderContainer = styled.div<{ imgurl: string }>`
   text-align: center;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url(${(props) => props.imgurl});
-  padding: 26px 100px 10px;
+  padding: 26px 15% 10px;
 `;
 const Keywords = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 6px;
   border-bottom: 1px solid var(--color-gray);
-  margin: 0 100px;
+  margin: 0 15%;
+  padding: 6px 0;
 `;
 const Keyword = styled.div`
   display: inline-block;
-  font-size: 14px;
+  font-size: var(--font-size-small);
   border: 1px solid var(--color-gray);
   border-radius: 10px;
   padding: 6px;
-  margin: 6px 3px;
+  white-space: nowrap;
 `;
 
 const Title = styled.h1`
-  font-size: 24px;
+  font-size: var(--font-size-large);
   font-weight: bold;
   color: #fff;
 `;
 const ColumnInfo = styled.div`
-  font-size: 16px;
+  font-size: var(--font-size-base);
   color: #fff;
   width: 100%;
   text-align: right;

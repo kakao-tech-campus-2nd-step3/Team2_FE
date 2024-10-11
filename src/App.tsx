@@ -68,6 +68,14 @@ function App(): JSX.Element {
             --color-side: rgba(0, 66, 47, 43);
             --color-gray: #aaa;
             --color-black: #2c2c2c;
+            --font-size-large: 24px;
+            --font-size-base: 15px;
+            --font-size-small: 12px;
+            @media (max-width: 768px) {
+              --font-size-large: 21px;
+              --font-size-base: 12px;
+              --font-size-small: 10px;
+            }
           }
           p,
           li {
