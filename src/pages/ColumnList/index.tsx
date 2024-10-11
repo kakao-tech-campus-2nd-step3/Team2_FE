@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 import ColumnCard from "./ColumnCard";
 import { ColumnListResponse } from "./type";
+import useSortingBtns from "./useSortingBtns";
 
 const data: ColumnListResponse = {
   columns: [
@@ -32,11 +33,16 @@ const data: ColumnListResponse = {
 };
 
 export default function ColumnList() {
+  const { activeState: sortby, SortingBtns } = useSortingBtns({
+    btnNames: ["최신 순", "인기 순"],
+    btnValues: ["new", "popular"],
+  });
   return (
     <>
       <H1>읽을거리</H1>
-      {/* 필터링 버튼 */}
+      <SortingBtns />
       <ColumnListSection>
+        {sortby}
         {data.columns.map((column) => (
           <ColumnCard key={column.id} {...column} />
         ))}

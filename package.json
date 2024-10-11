@@ -19,8 +19,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json}": [
       "eslint --fix",
-      "npm run prettier-check",
-      "npm run prettier"
+      "npm run prettier-check"
     ]
   },
   "dependencies": {
