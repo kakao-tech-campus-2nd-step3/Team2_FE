@@ -81,6 +81,12 @@ function App(): JSX.Element {
           li {
             line-height: 120%;
           }
+          button {
+            border: none;
+            background-color: transparent;
+            padding: 0;
+            cursor: pointer;
+          }
         `}
       />
       <RouterProvider router={router} />
