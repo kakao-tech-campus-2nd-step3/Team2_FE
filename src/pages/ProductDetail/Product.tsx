@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa"; // 화살표 아이콘
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 export default function Product({ detail }: { detail: ProductDetail }): JSX.Element {
   const [isDetailOpen, setDetailOpen] = useState(true);
 
-  // 상세 정보 열고 닫기 토글
   const toggleDetail = () => setDetailOpen(!isDetailOpen);
 
   return (
@@ -48,6 +47,8 @@ const DetailImage = styled.img`
   max-width: 600px;
   height: auto;
   margin: 20px auto;
+  display: block;
+  background-color: #eaeaea;
   display: block;
   background-color: #eaeaea;
 `;
