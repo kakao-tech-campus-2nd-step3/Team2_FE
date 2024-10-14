@@ -1,5 +1,6 @@
 import { JSX } from "react";
 
+import Product from "./Product";
 import ProductInfo from "./ProductInfo";
 import type { ProductDetail } from "./type";
 
@@ -24,6 +25,7 @@ export default function ProductDetail(): JSX.Element {
   return (
     <>
       <ProductInfo product={data} />
+      <Product detail={data} />
     </>
   );
 }
