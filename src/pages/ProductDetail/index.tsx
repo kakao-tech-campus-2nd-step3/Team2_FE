@@ -8,7 +8,7 @@ const data: ProductDetail = {
   name: "상품명",
   price: "5000",
   imgurl: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg",
-  totalrate: "3.8",
+  totalrate: "3.6",
   moreinfo: "추가 설명",
   producturl:
     "https://www.getyourguide.com/ko-kr/roma-l33/roma-kolroseum-igseupeureseu-tueo-mic-poreom-ibjang-t457508/?ranking_uuid=db08e83a-62a1-4717-9945-6a2da1739289",

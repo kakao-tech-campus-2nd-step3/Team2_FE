@@ -82,8 +82,9 @@ const ImageContainer = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  height: auto;
+  height: 300px;
   background-color: #eaeaea;
+  object-fit: cover;
 `;
 
 const LikeButton = styled.button`
@@ -143,7 +144,7 @@ const RatingSection = styled.div`
 
 const Stars = styled.div`
   display: flex;
-  gap: 5px; /* 별 간격을 조정 */
+  gap: 5px;
 `;
 
 const Star = styled.span`
@@ -152,6 +153,7 @@ const Star = styled.span`
 `;
 
 const StarEmpty = styled.span`
+  z-index: 0;
   font-size: 24px;
   color: #ddd;
 `;
@@ -162,9 +164,13 @@ const StarPartial = styled.div`
   width: 24px;
   height: 24px;
   overflow: hidden;
+  & > * {
+    position: absolute;
+  }
 `;
 
 const StarFull = styled.span<{ width?: string }>`
+  z-index: 1;
   font-size: 24px;
   color: #ffd700;
   display: inline-block;
