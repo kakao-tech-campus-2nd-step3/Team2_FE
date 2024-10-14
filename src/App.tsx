@@ -15,39 +15,39 @@ import { RouterPath } from "@/utils/path";
 
 const router = createBrowserRouter([
   {
-    path: RouterPath.root,
+    path: RouterPath.root.path,
     element: <Layout />,
     children: [
       {
-        path: RouterPath.home,
+        path: RouterPath.home.path,
         element: <Home />,
       },
       {
-        path: RouterPath.productList,
+        path: RouterPath.productList.path,
         element: <ProductList />,
       },
       {
-        path: RouterPath.columnList,
+        path: RouterPath.columnList.path,
         element: <ColumnList />,
       },
       {
-        path: RouterPath.columnDetail,
+        path: RouterPath.columnDetail.path,
         element: <ColumnDetail />,
       },
       {
-        path: RouterPath.productDetail,
+        path: RouterPath.productDetail.path,
         element: <ProductDetail />,
       },
       {
-        path: RouterPath.myAccount,
+        path: RouterPath.myAccount.path,
         element: <MyAccount />,
       },
       {
-        path: RouterPath.login,
+        path: RouterPath.login.path,
         element: <Login />,
       },
       {
-        path: RouterPath.notFound,
+        path: RouterPath.notFound.path,
         element: <NotFound />,
       },
     ],
