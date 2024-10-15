@@ -1,20 +1,39 @@
 export const RouterPath = {
-  root: "/",
-  home: "/home",
-  productList: "/products",
-  columnList: "/columns",
-  columnDetail: "/columns/:columnId",
-  productDetail: "/products/:productId",
-  myAccount: "/my-account",
-  login: "/login",
-  notFound: "*",
-};
-
-export const getDynamicPath = {
-  columnDetail: (columnId: string) => RouterPath.columnDetail.replace(":columnId", columnId),
-  productDetail: (productId: string) => RouterPath.productDetail.replace(":productId", productId),
-  login: (redirect?: string) => {
-    const currentRedirect = redirect ?? window.location.href;
-    return `${RouterPath.login}?redirect=${encodeURIComponent(currentRedirect)}`;
+  root: {
+    path: "/",
+  },
+  home: {
+    path: "/",
+    getPath: () => RouterPath.home.path,
+  },
+  productList: {
+    path: "/products",
+    getPath: () => RouterPath.productList.path,
+  },
+  columnList: {
+    path: "/columns",
+    getPath: () => RouterPath.columnList.path,
+  },
+  columnDetail: {
+    path: "/columns/:columnId",
+    getPath: (columnId: string) => RouterPath.columnDetail.path.replace(":columnId", columnId),
+  },
+  productDetail: {
+    path: "/products/:productId",
+    getPath: (productId: string) => RouterPath.productDetail.path.replace(":productId", productId),
+  },
+  myAccount: {
+    path: "/my-account",
+    getPath: () => RouterPath.myAccount.path,
+  },
+  login: {
+    path: "/login",
+    getPath: (redirect?: string) => {
+      const currentRedirect = redirect ?? window.location.href;
+      return `${RouterPath.login}?redirect=${encodeURIComponent(currentRedirect)}`;
+    },
+  },
+  notFound: {
+    path: "*",
   },
 };
