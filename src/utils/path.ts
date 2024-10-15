@@ -1,6 +1,6 @@
 export const RouterPath = {
   root: "/",
-  home: "/",
+  home: "/home",
   productList: "/products",
   columnList: "/columns",
   columnDetail: "/columns/:columnId",
