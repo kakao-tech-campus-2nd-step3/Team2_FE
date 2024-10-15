@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
+import { ProductDetail } from "./type";
+
 export default function Product({ detail }: { detail: ProductDetail }): JSX.Element {
   const [isDetailOpen, setDetailOpen] = useState(true);
 
