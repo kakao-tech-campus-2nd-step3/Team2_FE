@@ -74,7 +74,7 @@ function App(): JSX.Element {
             @media (max-width: 768px) {
               --font-size-large: 21px;
               --font-size-base: 12px;
-              --font-size-small: 10px;
+              --font-size-small: 9px;
             }
           }
           p,

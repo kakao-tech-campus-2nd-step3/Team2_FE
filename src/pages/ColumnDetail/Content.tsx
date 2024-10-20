@@ -42,7 +42,7 @@ export default function Content({ content }: { content: Content[] }): JSX.Elemen
             case "h3":
               return (
                 <li key={index} onClick={() => scrollToElement(index)}>
-                  {item.content}&nbsp;&nbsp;
+                  &nbsp;&nbsp;{item.content}
                 </li>
               );
           }
@@ -81,13 +81,12 @@ const Container = styled.div({
 const Index = styled.ul({
   position: "sticky",
   top: "30vh",
-  right: 0,
+  marginLeft: "85%",
   height: 0,
   padding: "1rem",
   color: "var(--color-gray)",
   fontSize: "var(--font-size-small)",
   cursor: "pointer",
-  textAlign: "right",
   li: {
     "&:hover": {
       textDecoration: "underline",
