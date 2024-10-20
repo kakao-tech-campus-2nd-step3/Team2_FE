@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 import { useSearchParams } from "react-router-dom";
 
 import ColumnCard from "./ColumnCard";
-import SortingBtns, { queryKey } from "./SortingBtns";
+import Pagination, { queryKey as pageToken } from "./Pagination";
+import SortingBtns, { queryKey as sortBy } from "./SortingBtns";
 import { ColumnListResponse } from "./type";
 
 const data: ColumnListResponse = {
@@ -64,11 +65,18 @@ export default function ColumnList() {
       <H1>읽을거리</H1>
       <SortingBtns btnNames={["최신 순", "인기 순"]} btnValues={["new", "popular"]} />
       <ColumnListSection>
-        {searchParams.get(queryKey)}
+        <div>
+          {/* TODO sort와 page 쿼리 적용하기 */}
+          {searchParams.get(sortBy)} {searchParams.get(pageToken)}
+        </div>
         {data.columns.map((column) => (
           <ColumnCard key={column.id} {...column} />
         ))}
       </ColumnListSection>
+      <Pagination
+        totalResults={data.pageInfo.totalResults}
+        resultsPerPage={data.pageInfo.resultsPerPage}
+      />
     </>
   );
 }
