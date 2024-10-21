@@ -46,10 +46,6 @@ export default [
           "selector": "enumMember",
           "format": ["UPPER_CASE"]
         },
-        {
-          selector: "function",  // function
-          format: ["camelCase"],
-        },
       ],
       ...reactHooks.configs.recommended.rules,
     },
