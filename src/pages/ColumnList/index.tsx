@@ -10,13 +10,14 @@ const data: ColumnListResponse = {
   columns: [
     {
       id: 1,
-      title: "Column Title 1",
-      subtitle: "Column Subtitle 1",
+      title: "이탈리아 프리프롬 식품, 이대로 괜찮은가?",
+      subtitle:
+        "Column Subtitle 1 Column Subtitle 1Column Subtitle 1Column Subtitle 1Column Subtitle 1Column Subtitle 1Column Subtitle 1Column Subtitle 1Column Subtitle 1Column Subtitle 1",
       imgurl: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg",
     },
     {
       id: 2,
-      title: "Column Title 2",
+      title: "이탈리아 프리프롬 식품, 이대로 괜찮은가?",
       subtitle: "Column Subtitle 2",
       imgurl: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg",
     },
@@ -30,7 +31,8 @@ const data: ColumnListResponse = {
       id: 4,
       title: "Column Title 4",
       subtitle: "Column Subtitle 4",
-      imgurl: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg",
+      imgurl:
+        "https://octapi.lxzin.com/interior/vImgFileSeq/202210/11/8ede80a1-1d0c-4839-bcc3-97bd4f357ecd.jpg",
     },
     {
       id: 5,
@@ -63,7 +65,9 @@ export default function ColumnList() {
   return (
     <>
       <H1>읽을거리</H1>
-      <SortingBtns btnNames={["최신 순", "인기 순"]} btnValues={["new", "popular"]} />
+      <SortingBtnsSection>
+        <SortingBtns btnNames={["최신 순", "인기 순"]} btnValues={["new", "popular"]} />
+      </SortingBtnsSection>
       <ColumnListSection>
         <div>
           {/* TODO sort와 page 쿼리 적용하기 */}
@@ -83,15 +87,30 @@ export default function ColumnList() {
 
 const H1 = styled.h1({
   textAlign: "center",
-  fontSize: "1.5rem",
-  margin: "1rem 0",
+  fontSize: "var(--font-size-large)",
+  fontWeight: "bold",
+  marginTop: "1rem",
+});
+
+const SortingBtnsSection = styled.section({
+  display: "flex",
+  justifyContent: "right",
+  width: "65%",
+  margin: "0 auto",
+  padding: "1rem 0",
+  "@media (max-width: 768px)": {
+    width: "90%",
+  },
 });
 const ColumnListSection = styled.section({
-  width: "50rem",
+  width: "65%",
   margin: "0 auto",
-  backgroundColor: "red",
 
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
   gap: "1rem",
+  "@media (max-width: 768px)": {
+    width: "90%",
+    gridTemplateColumns: "1fr",
+  },
 });

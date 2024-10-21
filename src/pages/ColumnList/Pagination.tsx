@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { useState } from "react";
 
 import { useQueryParam } from "@/utils/hooks/useQueryParam";
@@ -36,26 +37,52 @@ export default function Pagination({ totalResults, resultsPerPage }: Props) {
   };
 
   return (
-    <>
-      <button onClick={() => changePage(pageNum - 1)} disabled={pageNum === 1}>
+    <Container>
+      <PageBtn onClick={() => changePage(pageNum - 1)} disabled={pageNum === 1}>
         <span className="material-symbols-outlined">arrow_left_alt</span>
         <span>이전</span>
-      </button>
+      </PageBtn>
       <div>
         {pageBtns.map((i) => (
-          <button
+          <PageNumBtn
             key={i}
             onClick={() => changeState(String(i))}
             disabled={activeState === String(i)}
           >
             {i}
-          </button>
+          </PageNumBtn>
         ))}
       </div>
-      <button onClick={() => changePage(pageNum + 1)} disabled={pageNum === maxPageNum}>
+      <PageBtn onClick={() => changePage(pageNum + 1)} disabled={pageNum === maxPageNum}>
         <span>다음</span>
         <span className="material-symbols-outlined">arrow_right_alt</span>
-      </button>
-    </>
+      </PageBtn>
+    </Container>
   );
 }
+
+const Container = styled.div({
+  display: "flex",
+  justifyContent: "center",
+  gap: "1rem",
+  padding: "1rem",
+});
+
+const PageNumBtn = styled.button({
+  width: "2rem",
+  height: "2rem",
+  borderRadius: "0.5rem",
+  "&:disabled": {
+    color: "white",
+    backgroundColor: "var(--color-main)",
+  },
+});
+const PageBtn = styled.button({
+  "&:disabled": {
+    color: "var(--color-gray)",
+  },
+
+  display: "flex",
+  alignItems: "center",
+  fontVariationSettings: "'wght' 200",
+});

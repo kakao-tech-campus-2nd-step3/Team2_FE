@@ -21,20 +21,23 @@ export const queryKey = "sortby";
 export default function SortingBtns({ btnNames, btnValues }: Props) {
   const { activeState, changeState } = useQueryParam(queryKey, btnValues);
   return (
-    <>
+    <Container>
       {btnValues.map((value, index) => (
         <Btn key={value} onClick={() => changeState(value)} isActive={activeState === value}>
           {btnNames[index]}
         </Btn>
       ))}
-    </>
+    </Container>
   );
 }
 
+const Container = styled.div({
+  display: "flex",
+  gap: "0.5rem",
+});
 const Btn = styled.button<{ isActive: boolean }>((props) => ({
   padding: "0.4rem 0.6rem",
   borderRadius: "0.5rem",
-  margin: "0 0.5rem",
   cursor: "pointer",
   border: "none",
   ...(props.isActive
