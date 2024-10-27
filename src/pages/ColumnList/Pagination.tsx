@@ -38,7 +38,11 @@ export default function Pagination({ totalResults, resultsPerPage }: Props) {
 
   return (
     <Container>
-      <PageBtn onClick={() => changePage(pageNum - 1)} disabled={pageNum === 1}>
+      <PageBtn
+        aria-label="이전 페이지"
+        onClick={() => changePage(pageNum - 1)}
+        disabled={pageNum === 1}
+      >
         <span className="material-symbols-outlined">arrow_left_alt</span>
         <span>이전</span>
       </PageBtn>
@@ -53,7 +57,11 @@ export default function Pagination({ totalResults, resultsPerPage }: Props) {
           </PageNumBtn>
         ))}
       </div>
-      <PageBtn onClick={() => changePage(pageNum + 1)} disabled={pageNum === maxPageNum}>
+      <PageBtn
+        aria-label="다음 페이지"
+        onClick={() => changePage(pageNum + 1)}
+        disabled={pageNum === maxPageNum}
+      >
         <span>다음</span>
         <span className="material-symbols-outlined">arrow_right_alt</span>
       </PageBtn>

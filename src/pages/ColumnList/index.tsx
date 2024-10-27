@@ -66,7 +66,18 @@ export default function ColumnList() {
     <>
       <H1>읽을거리</H1>
       <SortingBtnsSection>
-        <SortingBtns btnNames={["최신 순", "인기 순"]} btnValues={["new", "popular"]} />
+        <SortingBtns
+          sortingBtns={[
+            {
+              name: "최신 순",
+              value: "recent",
+            },
+            {
+              name: "인기 순",
+              value: "popular",
+            },
+          ]}
+        />
       </SortingBtnsSection>
       <ColumnListSection>
         <div>

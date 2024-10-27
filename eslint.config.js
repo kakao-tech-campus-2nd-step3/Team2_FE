@@ -39,7 +39,7 @@ export default [
         },
         {
           selector: "function",  // exported function (컴포넌트 명)
-          format: ["PascalCase"],
+          format: ["PascalCase", "camelCase"],
           modifiers: ["exported"],
         },
         {
