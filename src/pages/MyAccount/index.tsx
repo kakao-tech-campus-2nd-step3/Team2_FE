@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 
+import Background from "@/components/Background";
+
 import DashBoard from "./DashBoard";
 
 // /api/users/info
@@ -13,13 +15,13 @@ const userInfo = {
 
 export default function MyAccount() {
   return (
-    <>
+    <Background>
       <Profile>
         <img src={userInfo.user_img_url} alt="user profile image" />
         <h2>{userInfo.user_name}</h2>
       </Profile>
       <DashBoard allergies={userInfo.allergies} freefrom={userInfo.freefrom} />
-    </>
+    </Background>
   );
 }
 

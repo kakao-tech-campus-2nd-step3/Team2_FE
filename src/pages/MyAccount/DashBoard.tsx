@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 import Categories from "@/components/Categories";
 import Spacing from "@/components/Spacing";
+import { RouterPath } from "@/utils/path";
 
 type Props = {
   allergies: string[];
@@ -20,10 +22,10 @@ export default function DashBoard({ allergies, freefrom }: Props) {
       </div>
       <div>
         <H3>기록</H3>
-        <BtnWithIcon>
+        <BtnWithIcon to={RouterPath.myReviews.getPath()}>
           <span className="material-symbols-outlined">edit_square</span>나의 리뷰
         </BtnWithIcon>
-        <BtnWithIcon>
+        <BtnWithIcon to={RouterPath.myFavorites.getPath()}>
           <span className="material-symbols-outlined">favorite</span>찜 목록
         </BtnWithIcon>
       </div>
@@ -40,6 +42,7 @@ const Container = styled.div({
 
   border: `var(--color-gray) 1px solid`,
   borderRadius: "0.5rem",
+  background: "white",
   "@media (max-width: 768px)": {
     gridTemplateColumns: "1fr",
     "& > div:nth-of-type(1)::after": {
@@ -59,7 +62,7 @@ const H3 = styled.h3({
   padding: "0.7rem 0 1rem",
 });
 
-const BtnWithIcon = styled.button({
+const BtnWithIcon = styled(Link)({
   border: `var(--color-gray) 1px solid`,
   borderRadius: "0.5rem",
   padding: "0.2rem",
