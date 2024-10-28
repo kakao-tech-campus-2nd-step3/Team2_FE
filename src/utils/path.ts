@@ -26,6 +26,14 @@ export const RouterPath = {
     path: "/my-account",
     getPath: () => RouterPath.myAccount.path,
   },
+  myReviews: {
+    path: "/my-account/reviews",
+    getPath: () => RouterPath.myReviews.path,
+  },
+  myFavorites: {
+    path: "/my-account/favorites",
+    getPath: () => RouterPath.myFavorites.path,
+  },
   login: {
     path: "/login",
     getPath: (redirect?: string) => {

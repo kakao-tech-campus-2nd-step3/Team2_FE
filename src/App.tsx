@@ -13,6 +13,8 @@ import ProductList from "@/pages/ProductList";
 import { RouterPath } from "@/utils/path";
 
 import GlobalStyles from "./globalStyle";
+import MyFavorites from "./pages/MyFavorites";
+import MyReviews from "./pages/MyReviews";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,14 @@ const router = createBrowserRouter([
       {
         path: RouterPath.myAccount.path,
         element: <MyAccount />,
+      },
+      {
+        path: RouterPath.myReviews.path,
+        element: <MyReviews />,
+      },
+      {
+        path: RouterPath.myFavorites.path,
+        element: <MyFavorites />,
       },
       {
         path: RouterPath.login.path,
