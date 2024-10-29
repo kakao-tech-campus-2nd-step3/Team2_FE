@@ -1,5 +1,6 @@
 import { JSX } from "react";
 
+import Bottom from "./Bottom";
 import Content from "./Content";
 import Header from "./Header";
 import type { ColumnDetail } from "./type";
@@ -50,6 +51,7 @@ export default function ColumnDetail(): JSX.Element {
         keyword={data.keyword}
       />
       <Content content={data.content} />
+      <Bottom />
     </>
   );
 }

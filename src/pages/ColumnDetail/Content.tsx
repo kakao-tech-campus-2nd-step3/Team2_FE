@@ -29,7 +29,7 @@ export default function Content({ content }: { content: Content[] }): JSX.Elemen
   };
 
   return (
-    <>
+    <Container>
       <Index>
         {content.map((item, index) => {
           switch (item.tag) {
@@ -70,26 +70,33 @@ export default function Content({ content }: { content: Content[] }): JSX.Elemen
           }
         })}
       </ContentContainer>
-    </>
+    </Container>
   );
 }
 
-const Index = styled.ul`
-  position: fixed;
-  top: 200px;
-  right: 0;
-  width: calc((100vw - 700px) / 2 - 20px);
-  color: var(--color-gray);
-  font-size: 12px;
-  cursor: pointer;
-  li:hover {
-    text-decoration: underline;
-  }
-`;
-const ContentContainer = styled.div`
-  width: 700px;
-  margin: 0 auto;
-`;
+const Container = styled.div({
+  position: "relative",
+});
+
+const Index = styled.ul({
+  position: "sticky",
+  top: "30vh",
+  marginLeft: "85%",
+  height: 0,
+  padding: "1rem",
+  color: "var(--color-gray)",
+  fontSize: "var(--font-size-small)",
+  cursor: "pointer",
+  li: {
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
+});
+const ContentContainer = styled.div({
+  width: "65%",
+  margin: "0 auto",
+});
 
 const highlight = keyframes`
   0% {
@@ -102,28 +109,29 @@ const highlight = keyframes`
     background-color: #fff;
   }
 `;
-const H2 = styled.h2`
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 20px;
-  &.highlight {
-    animation: ${highlight} 1s ease-out;
-  }
-`;
-const H3 = styled.h3`
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 15px;
-  &.highlight {
-    animation: ${highlight} 1s ease-out;
-  }
-`;
-const P = styled.p`
-  margin-top: 10px;
-`;
-const Img = styled.img`
-  width: 500px;
-  margin: 20px 100px;
-  border-radius: 10px;
-  margin-top: 10px;
-`;
+const H2 = styled.h2({
+  fontSize: "20px",
+  fontWeight: "bold",
+  marginTop: "20px",
+  "&.highlight": {
+    animation: `${highlight} 1s ease-out`,
+  },
+});
+const H3 = styled.h3({
+  fontSize: "18px",
+  fontWeight: "bold",
+  marginTop: "15px",
+  "&.highlight": {
+    animation: `${highlight} 1s ease-out`,
+  },
+});
+const P = styled.p({
+  fontSize: "var(--font-size-base)",
+  lineHeight: 1.3,
+  marginTop: "10px",
+});
+const Img = styled.img({
+  width: "calc(100% - 160px)",
+  margin: "20px 80px",
+  borderRadius: "10px",
+});
