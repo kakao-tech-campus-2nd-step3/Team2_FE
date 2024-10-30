@@ -1,5 +1,5 @@
 export type ProductDetail = {
-  id: string;
+  id: number;
   name: string;
   price: string;
   imgurl: string;
@@ -9,4 +9,10 @@ export type ProductDetail = {
   imageurl2: string;
   freformcate: string[];
   allregycate: string[];
+};
+
+export type Review = {
+  rate: number;
+  content: string;
+  productid: number;
 };

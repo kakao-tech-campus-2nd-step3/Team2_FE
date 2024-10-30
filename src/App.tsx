@@ -1,4 +1,3 @@
-import { css, Global } from "@emotion/react";
 import { JSX } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -12,6 +11,8 @@ import NotFound from "@/pages/NotFound";
 import ProductDetail from "@/pages/ProductDetail";
 import ProductList from "@/pages/ProductList";
 import { RouterPath } from "@/utils/path";
+
+import GlobalStyles from "./globalStyle";
 
 const router = createBrowserRouter([
   {
@@ -61,24 +62,7 @@ const router = createBrowserRouter([
 function App(): JSX.Element {
   return (
     <div>
-      <Global
-        styles={css`
-          :root {
-            --color-main: #89a06b;
-            --color-side: rgba(0, 66, 47, 43);
-            --color-background: #f7ffef;
-            --color-gray: #aaa;
-            --color-black: #2c2c2c;
-          }
-          p,
-          li {
-            line-height: 120%;
-          }
-          body {
-            color: var(--color-black);
-          }
-        `}
-      />
+      <GlobalStyles />
       <RouterProvider router={router} />
     </div>
   );

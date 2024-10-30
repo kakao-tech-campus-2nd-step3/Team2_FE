@@ -34,21 +34,17 @@ export default [
           format: ["PascalCase"],
         },
         {
-          selector: "memberLike",  // Property 멤버
-          format: ["camelCase"],
+          selector: "memberLike",
+          format: []
         },
         {
           selector: "function",  // exported function (컴포넌트 명)
-          format: ["PascalCase"],
+          format: ["PascalCase", "camelCase"],
           modifiers: ["exported"],
         },
         {
           "selector": "enumMember",
           "format": ["UPPER_CASE"]
-        },
-        {
-          selector: "function",  // function
-          format: ["camelCase"],
         },
       ],
       ...reactHooks.configs.recommended.rules,

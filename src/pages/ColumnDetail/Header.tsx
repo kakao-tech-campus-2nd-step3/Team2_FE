@@ -41,35 +41,38 @@ export default function Header({ title, imgurl, createdAt, auth, keyword }: Prop
   );
 }
 
-const HeaderContainer = styled.div<{ imgurl: string }>`
-  text-align: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url(${(props) => props.imgurl});
-  padding: 26px 100px 10px;
-`;
-const Keywords = styled.div`
-  display: flex;
-  justify-content: center;
-  border-bottom: 1px solid var(--color-gray);
-  margin: 0 100px;
-`;
-const Keyword = styled.div`
-  display: inline-block;
-  font-size: 14px;
-  border: 1px solid var(--color-gray);
-  border-radius: 10px;
-  padding: 6px;
-  margin: 6px 3px;
-`;
+const HeaderContainer = styled.div<{ imgurl: string }>((props) => ({
+  textAlign: "center",
+  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${props.imgurl})`,
+  padding: "26px 15% 10px",
+}));
 
-const Title = styled.h1`
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
-`;
-const ColumnInfo = styled.div`
-  font-size: 16px;
-  color: #fff;
-  width: 100%;
-  text-align: right;
-`;
+const Keywords = styled.div({
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "center",
+  gap: "6px",
+  borderBottom: "1px solid var(--color-gray)",
+  margin: "0 15%",
+  padding: "6px 0",
+});
+const Keyword = styled.div({
+  display: "inline-block",
+  fontSize: "var(--font-size-small)",
+  border: "1px solid var(--color-gray)",
+  borderRadius: "10px",
+  padding: "6px",
+  whiteSpace: "nowrap",
+});
+
+const Title = styled.h1({
+  fontSize: "var(--font-size-large)",
+  fontWeight: "bold",
+  color: "#fff",
+});
+const ColumnInfo = styled.div({
+  fontSize: "var(--font-size-base)",
+  color: "#fff",
+  width: "100%",
+  textAlign: "right",
+});
