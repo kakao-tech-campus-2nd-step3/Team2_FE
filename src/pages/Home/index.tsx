@@ -90,7 +90,7 @@ const OverlayText = styled.div`
   font-weight: bold;
   text-align: center;
   font-weight: 1600;
-  opacity: 0.85;
+  opacity: 0.8;
   z-index: 1;
   white-space: nowrap;
   width: 90%;
