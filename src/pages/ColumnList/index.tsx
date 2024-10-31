@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import { useSearchParams } from "react-router-dom";
 
+import Pagination, { queryKey as pageToken } from "@/components/Pagination";
+import SortingBtns, { queryKey as sortBy } from "@/components/SortingBtns";
+
 import ColumnCard from "./ColumnCard";
-import Pagination, { queryKey as pageToken } from "./Pagination";
-import SortingBtns, { queryKey as sortBy } from "./SortingBtns";
 import { ColumnListResponse } from "./type";
 
 const data: ColumnListResponse = {
