@@ -15,11 +15,7 @@ export default function Home() {
           onMouseLeave={() => setIsHoveredLeft(false)}
           onClick={() => navigate("/Products")}
         >
-          <StyledImage
-            src="src\pages\Home\Shop Now.webp"
-            alt="Shop Now"
-            isHovered={isHoveredLeft}
-          />
+          <StyledImage src="src\assets\Shop Now.webp" alt="Shop Now" isHovered={isHoveredLeft} />
           <OverlayText>SHOP NOW</OverlayText>
         </ImageContainer>
         <ImageContainer
@@ -28,7 +24,7 @@ export default function Home() {
           onClick={() => navigate("/columns")}
         >
           <StyledImage
-            src="src\pages\Home\Read The Column.webp"
+            src="src\assets\Read The Column.webp"
             alt="Read The Column"
             isHovered={isHoveredRight}
           />
