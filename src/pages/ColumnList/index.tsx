@@ -1,67 +1,37 @@
 import styled from "@emotion/styled";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 
-import ColumnCard from "./ColumnCard";
-import Pagination, { queryKey as pageToken } from "./Pagination";
-import SortingBtns, { queryKey as sortBy } from "./SortingBtns";
-import { ColumnListResponse } from "./type";
+import Pagination, { queryKey as pageToken } from "@/components/Pagination";
+import SortingBtns, { queryKey as sortBy } from "@/components/SortingBtns";
 
-const data: ColumnListResponse = {
-  columns: [
-    {
-      id: 1,
-      title: "이탈리아 프리프롬 식품, 이대로 괜찮은가?",
-      subtitle:
-        "Column Subtitle 1 Column Subtitle 1Column Subtitle 1Column Subtitle 1Column Subtitle 1Column Subtitle 1Column Subtitle 1Column Subtitle 1Column Subtitle 1Column Subtitle 1",
-      imgurl: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg",
-    },
-    {
-      id: 2,
-      title: "이탈리아 프리프롬 식품, 이대로 괜찮은가?",
-      subtitle: "Column Subtitle 2",
-      imgurl: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg",
-    },
-    {
-      id: 3,
-      title: "Column Title 3",
-      subtitle: "Column Subtitle 3",
-      imgurl: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg",
-    },
-    {
-      id: 4,
-      title: "Column Title 4",
-      subtitle: "Column Subtitle 4",
-      imgurl:
-        "https://octapi.lxzin.com/interior/vImgFileSeq/202210/11/8ede80a1-1d0c-4839-bcc3-97bd4f357ecd.jpg",
-    },
-    {
-      id: 5,
-      title: "Column Title 5",
-      subtitle: "Column Subtitle 5",
-      imgurl: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg",
-    },
-    {
-      id: 6,
-      title: "Column Title 6",
-      subtitle: "Column Subtitle 6",
-      imgurl: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg",
-    },
-    {
-      id: 7,
-      title: "Column Title 7",
-      subtitle: "Column Subtitle 7",
-      imgurl: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598",
-    },
-  ],
-  nextPageToken: "1",
-  pageInfo: {
-    totalResults: 7,
-    resultsPerPage: 5,
-  },
-};
+import ColumnCard from "./ColumnCard";
+import { ColumnListResponse } from "./type";
 
 export default function ColumnList() {
   const [searchParams] = useSearchParams();
+  const columnsKey = (pageToken: string, sortBy: string) => ["columns", pageToken, sortBy];
+
+  const { data, isError, isPending } = useQuery<ColumnListResponse>({
+    queryKey: columnsKey(searchParams.get(pageToken) || "0", searchParams.get(sortBy) || "recent"),
+    queryFn: async () => {
+      const response = await axios.get(
+        `https://aeatbe.jeje.work/api/columns`,
+        // `https://aeatbe.jeje.work/api/columns?sortBy=${searchParams.get(sortBy) ?? "recent"}&pageToken=${searchParams.get(pageToken) ?? "0"}`,
+      );
+      console.log(response.data);
+      return response.data;
+    },
+  });
+
+  if (isPending) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>Error</div>;
+  }
+
   return (
     <>
       <H1>읽을거리</H1>
@@ -80,17 +50,15 @@ export default function ColumnList() {
         />
       </SortingBtnsSection>
       <ColumnListSection>
-        <div>
-          {/* TODO sort와 page 쿼리 적용하기 */}
-          {searchParams.get(sortBy)} {searchParams.get(pageToken)}
-        </div>
         {data.columns.map((column) => (
           <ColumnCard key={column.id} {...column} />
         ))}
       </ColumnListSection>
       <Pagination
-        totalResults={data.pageInfo.totalResults}
-        resultsPerPage={data.pageInfo.resultsPerPage}
+        // totalResults={data.pageInfo.totalResults}
+        // resultsPerPage={data.pageInfo.resultsPerPage}
+        totalResults={3}
+        resultsPerPage={10}
       />
     </>
   );
