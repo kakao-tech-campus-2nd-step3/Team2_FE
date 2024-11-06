@@ -10,7 +10,7 @@ const Header: React.FC = () => {
   return (
     <header style={styles.header}>
       {/* 왼쪽 로고(SVG 사용) */}
-      <div style={styles.logoContainer}>
+      <Link to="/" style={styles.logoContainer}>
         <svg
           width="100"
           height="74"
@@ -30,10 +30,12 @@ const Header: React.FC = () => {
             strokeWidth="3"
           />
         </svg>
-      </div>
+      </Link>
 
       {/* 중앙 텍스트 (AEat) */}
-      <div style={styles.title}>AEat</div>
+      <Link to="/" style={styles.title}>
+        AEat
+      </Link>
 
       {/* 오른쪽 아이콘 3개 */}
       <div style={styles.iconContainer}>
@@ -65,6 +67,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     flexGrow: 1,
+    textDecoration: "none",
   },
   logo: {
     width: "50px",
@@ -77,6 +80,7 @@ const styles = {
     fontSize: "30px",
     fontWeight: "bold",
     color: "#9BC678",
+    textDecoration: "none",
   },
   iconContainer: {
     display: "flex",
