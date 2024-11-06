@@ -13,6 +13,14 @@ const initInstance = (config: AxiosRequestConfig) => {
       ...config.headers,
     },
   });
+  instance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      // TODO token 만료 오류일 경우 refresh 로직
+
+      return Promise.reject(error);
+    },
+  );
   return instance;
 };
 
