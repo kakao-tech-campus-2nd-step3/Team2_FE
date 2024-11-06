@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { JSX } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -60,6 +61,8 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 /**
  * The main application component.
  * @returns {JSX.Element} The rendered application component.
@@ -68,7 +71,9 @@ function App(): JSX.Element {
   return (
     <div>
       <GlobalStyles />
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </div>
   );
 }
