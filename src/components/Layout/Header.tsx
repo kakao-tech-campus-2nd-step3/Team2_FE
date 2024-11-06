@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { RouterPath } from "@/utils/path";
+import { authLocalStorage } from "@/utils/storage";
+
 import cloumnIcon from "./image/icon_column.png"; // column 아이콘을 news로 사용
 import loginIcon from "./image/icon_login.png";
 import storeIcon from "./image/icon_store.png";
@@ -43,9 +46,15 @@ const Header: React.FC = () => {
         <Link to="/columns">
           <img src={cloumnIcon} alt="News" style={styles.icon} />
         </Link>
-        <Link to="/login">
-          <img src={loginIcon} alt="Login" style={styles.icon} />
-        </Link>
+        {authLocalStorage.get() ? (
+          <Link to={RouterPath.myAccount.getPath()} className="material-symbols-outlined">
+            person
+          </Link>
+        ) : (
+          <Link to="/login">
+            <img src={loginIcon} alt="Login" style={styles.icon} />
+          </Link>
+        )}
       </div>
     </header>
   );
