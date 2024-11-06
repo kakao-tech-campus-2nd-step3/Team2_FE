@@ -6,6 +6,7 @@ import ColumnDetail from "@/pages/ColumnDetail";
 import ColumnList from "@/pages/ColumnList";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
+import LoginRedirect from "@/pages/LoginRedeirect";
 import MyAccount from "@/pages/MyAccount";
 import NotFound from "@/pages/NotFound";
 import ProductDetail from "@/pages/ProductDetail";
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: RouterPath.login.path,
         element: <Login />,
+      },
+      {
+        path: RouterPath.loginRedirect.path,
+        element: <LoginRedirect />,
       },
       {
         path: RouterPath.notFound.path,
