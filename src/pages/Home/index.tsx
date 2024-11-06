@@ -37,11 +37,10 @@ export default function Home() {
 
 const HomeContainer = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
+  justify-content: center;
   background-color: #f9f9f9;
-  padding: 0 10px;
+  padding: 10px;
 `;
 
 const ImageSection = styled.div`
@@ -61,7 +60,6 @@ const ImageContainer = styled.div`
   position: relative;
   overflow: hidden;
   width: 48%;
-  height: auto;
   @media (max-width: 768px) {
     width: 90%;
     margin-bottom: 20px;
@@ -70,7 +68,6 @@ const ImageContainer = styled.div`
 
 const StyledImage = styled.img<{ isHovered: boolean }>`
   width: 100%;
-  height: 100%;
   object-fit: cover;
   filter: ${({ isHovered }) => (isHovered ? "none" : "grayscale(100%)")};
   transition: filter 0.5s ease;
