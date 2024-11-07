@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { JSX } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -6,6 +7,7 @@ import ColumnDetail from "@/pages/ColumnDetail";
 import ColumnList from "@/pages/ColumnList";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
+import LoginRedirect from "@/pages/LoginRedeirect";
 import MyAccount from "@/pages/MyAccount";
 import NotFound from "@/pages/NotFound";
 import ProductDetail from "@/pages/ProductDetail";
@@ -58,12 +60,18 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
+        path: RouterPath.loginRedirect.path,
+        element: <LoginRedirect />,
+      },
+      {
         path: RouterPath.notFound.path,
         element: <NotFound />,
       },
     ],
   },
 ]);
+
+const queryClient = new QueryClient();
 
 /**
  * The main application component.
@@ -73,7 +81,9 @@ function App(): JSX.Element {
   return (
     <div>
       <GlobalStyles />
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </div>
   );
 }

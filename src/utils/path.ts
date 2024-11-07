@@ -41,6 +41,10 @@ export const RouterPath = {
       return `${RouterPath.login}?redirect=${encodeURIComponent(currentRedirect)}`;
     },
   },
+  loginRedirect: {
+    path: "/login/redirect",
+    getPath: () => RouterPath.loginRedirect.path,
+  },
   notFound: {
     path: "*",
   },
