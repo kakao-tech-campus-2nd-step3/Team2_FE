@@ -34,7 +34,6 @@ export default function DashBoard({ allergies, freefrom }: Props) {
 }
 
 const Container = styled.div({
-  height: "45vh",
   display: "grid",
   gridTemplateColumns: "4.5fr 1fr",
   margin: "1rem",

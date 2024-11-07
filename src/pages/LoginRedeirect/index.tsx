@@ -8,11 +8,10 @@ export default function LoginRedirect() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  console.log(searchParams.get("code"));
   fetchInstance()
     .get(`/api/users/callback?code=${searchParams.get("code")}`)
     .then((res) => {
-      authLocalStorage.set(res.data.token);
+      authLocalStorage.set(res.data.accessToken);
       navigate(RouterPath.home.getPath());
     })
     .catch((err) => console.log(err));

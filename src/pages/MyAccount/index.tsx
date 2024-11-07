@@ -1,26 +1,42 @@
 import styled from "@emotion/styled";
+import { useQuery } from "@tanstack/react-query";
 
 import Background from "@/components/Background";
+import { fetchInstance } from "@/utils/axiosInstance";
 
 import DashBoard from "./DashBoard";
 
-// /api/users/info
-const userInfo = {
-  id: 1,
-  user_name: "이름",
-  user_img_url: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
-  allergies: ["달걀", "이름이 길이이일다란 알러지"],
-  freefrom: ["글루텐프리"],
+type UserInfo = {
+  id: number;
+  userName: string;
+  userImgUrl: string;
+  allergies: string[];
+  freefrom: string[];
 };
 
 export default function MyAccount() {
+  const { data, isPending, isError } = useQuery<UserInfo>({
+    queryKey: ["myAccount"],
+    queryFn: async () => {
+      const response = await fetchInstance().get("/api/users/info");
+      return response.data;
+    },
+  });
+
+  if (isPending) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>Error</div>;
+  }
+
   return (
     <Background>
       <Profile>
-        <img src={userInfo.user_img_url} alt="user profile image" />
-        <h2>{userInfo.user_name}</h2>
+        <img src={data.userImgUrl} alt="user profile image" />
+        <h2>{data.userName}</h2>
       </Profile>
-      <DashBoard allergies={userInfo.allergies} freefrom={userInfo.freefrom} />
+      <DashBoard allergies={data.allergies} freefrom={data.freefrom} />
     </Background>
   );
 }
