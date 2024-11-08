@@ -23,47 +23,47 @@ const exampleReviews: Review[] = [
   {
     id: 1,
     user: {
-      name: "John Doe",
-      avatarUrl: "https://example.com/avatar1.jpg",
+      id: 101,
+      userName: "John Doe",
+      userImageUrl: "https://example.com/avatar1.jpg",
     },
     rate: 4.7,
     content:
       "로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.",
-    date: "2023-09-01",
-    productid: 1,
+    date: new Date("2023-09-01"),
   },
   {
     id: 2,
     user: {
-      name: "Jane Smith",
-      avatarUrl: "https://example.com/avatar2.jpg",
+      id: 102,
+      userName: "Jane Smith",
+      userImageUrl: "https://example.com/avatar2.jpg",
     },
     rate: 2.5,
     content: "기대보다는 좀 아쉬웠어요. 사람이 너무 많아서 제대로 보기가 힘들었네요.",
-    date: "2023-09-10",
-    productid: 1,
+    date: new Date("2023-09-10"),
   },
   {
     id: 3,
     user: {
-      name: "Alice Brown",
-      avatarUrl: "https://example.com/avatar3.jpg",
+      id: 103,
+      userName: "Alice Brown",
+      userImageUrl: "https://example.com/avatar3.jpg",
     },
     rate: 5.0,
     content: "완벽한 경험이었습니다! 다시 오고 싶어요.",
-    date: "2023-09-15",
-    productid: 1,
+    date: new Date("2023-09-15"),
   },
   {
     id: 4,
     user: {
-      name: "Bob White",
-      avatarUrl: "https://example.com/avatar4.jpg",
+      id: 104,
+      userName: "Bob White",
+      userImageUrl: "https://example.com/avatar4.jpg",
     },
     rate: 4.3,
     content: "멋진 투어였어요! 추천합니다.",
-    date: "2023-09-20",
-    productid: 1,
+    date: new Date("2023-09-20"),
   },
 ];
 
@@ -75,7 +75,7 @@ export default function ProductDetail(): JSX.Element {
     <>
       <ProductInfo product={data} />
       <Product detail={data} />
-      <ProductReview productId={data.id} reviews={exampleReviews} />
+      <ProductReview reviews={exampleReviews} />
     </>
   );
 }

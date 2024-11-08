@@ -6,18 +6,12 @@ import Review from "@/components/Review";
 
 import type { Review as ReviewType } from "./type";
 
-export default function ProductReview({
-  productId,
-  reviews,
-}: {
-  productId: number;
-  reviews: ReviewType[];
-}): JSX.Element {
+export default function ProductReview({ reviews }: { reviews: ReviewType[] }): JSX.Element {
   const [isReviewOpen, setReviewOpen] = useState(true);
 
   const toggleReview = () => setReviewOpen(!isReviewOpen);
 
-  const filteredReviews = reviews.filter((review) => review.productid === productId);
+  const filteredReviews = reviews.filter((review) => review);
 
   return (
     <ReviewContainer>
@@ -33,10 +27,13 @@ export default function ProductReview({
             filteredReviews.map((review) => (
               <Review
                 key={review.id}
-                user={review.user}
+                user={{
+                  name: review.user.userName,
+                  avatarUrl: review.user.userImageUrl,
+                }}
                 rate={review.rate}
                 content={review.content}
-                date={review.date}
+                date={review.date.toString()}
               />
             ))
           ) : (
