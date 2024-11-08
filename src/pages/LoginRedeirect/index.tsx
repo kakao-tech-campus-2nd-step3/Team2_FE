@@ -7,7 +7,7 @@ export default function LoginRedirect() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  fetchInstance()
+  fetchInstance({ withCredentials: true })
     .get(`/api/users/callback?code=${searchParams.get("code")}`)
     .then(() => {
       navigate(RouterPath.home.getPath());
