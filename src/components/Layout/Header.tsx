@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { RouterPath } from "@/utils/path";
+import { authLocalStorage } from "@/utils/storage";
+
 import cloumnIcon from "./image/icon_column.png"; // column 아이콘을 news로 사용
 import loginIcon from "./image/icon_login.png";
 import storeIcon from "./image/icon_store.png";
@@ -10,7 +13,7 @@ const Header: React.FC = () => {
   return (
     <header style={styles.header}>
       {/* 왼쪽 로고(SVG 사용) */}
-      <div style={styles.logoContainer}>
+      <Link to="/" style={styles.logoContainer}>
         <svg
           width="100"
           height="74"
@@ -30,10 +33,12 @@ const Header: React.FC = () => {
             strokeWidth="3"
           />
         </svg>
-      </div>
+      </Link>
 
       {/* 중앙 텍스트 (AEat) */}
-      <div style={styles.title}>AEat</div>
+      <Link to="/" style={styles.title}>
+        AEat
+      </Link>
 
       {/* 오른쪽 아이콘 3개 */}
       <div style={styles.iconContainer}>
@@ -43,9 +48,15 @@ const Header: React.FC = () => {
         <Link to="/columns">
           <img src={cloumnIcon} alt="News" style={styles.icon} />
         </Link>
-        <Link to="/login">
-          <img src={loginIcon} alt="Login" style={styles.icon} />
-        </Link>
+        {authLocalStorage.get() ? (
+          <Link to={RouterPath.myAccount.getPath()} className="material-symbols-outlined">
+            person
+          </Link>
+        ) : (
+          <Link to="/login">
+            <img src={loginIcon} alt="Login" style={styles.icon} />
+          </Link>
+        )}
       </div>
     </header>
   );
@@ -65,6 +76,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     flexGrow: 1,
+    textDecoration: "none",
   },
   logo: {
     width: "50px",
@@ -77,6 +89,7 @@ const styles = {
     fontSize: "30px",
     fontWeight: "bold",
     color: "#9BC678",
+    textDecoration: "none",
   },
   iconContainer: {
     display: "flex",

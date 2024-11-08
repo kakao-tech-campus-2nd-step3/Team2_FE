@@ -1,4 +1,4 @@
-import { css, Global } from "@emotion/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { JSX } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -7,11 +7,16 @@ import ColumnDetail from "@/pages/ColumnDetail";
 import ColumnList from "@/pages/ColumnList";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
+import LoginRedirect from "@/pages/LoginRedeirect";
 import MyAccount from "@/pages/MyAccount";
 import NotFound from "@/pages/NotFound";
 import ProductDetail from "@/pages/ProductDetail";
 import ProductList from "@/pages/ProductList";
 import { RouterPath } from "@/utils/path";
+
+import GlobalStyles from "./globalStyle";
+import MyFavorites from "./pages/MyFavorites";
+import MyReviews from "./pages/MyReviews";
 
 const router = createBrowserRouter([
   {
@@ -43,8 +48,20 @@ const router = createBrowserRouter([
         element: <MyAccount />,
       },
       {
+        path: RouterPath.myReviews.path,
+        element: <MyReviews />,
+      },
+      {
+        path: RouterPath.myFavorites.path,
+        element: <MyFavorites />,
+      },
+      {
         path: RouterPath.login.path,
         element: <Login />,
+      },
+      {
+        path: RouterPath.loginRedirect.path,
+        element: <LoginRedirect />,
       },
       {
         path: RouterPath.notFound.path,
@@ -54,6 +71,8 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 /**
  * The main application component.
  * @returns {JSX.Element} The rendered application component.
@@ -61,25 +80,10 @@ const router = createBrowserRouter([
 function App(): JSX.Element {
   return (
     <div>
-      <Global
-        styles={css`
-          :root {
-            --color-main: #89a06b;
-            --color-side: rgba(0, 66, 47, 43);
-            --color-background: #f7ffef;
-            --color-gray: #aaa;
-            --color-black: #2c2c2c;
-          }
-          p,
-          li {
-            line-height: 120%;
-          }
-          body {
-            color: var(--color-black);
-          }
-        `}
-      />
-      <RouterProvider router={router} />
+      <GlobalStyles />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </div>
   );
 }
