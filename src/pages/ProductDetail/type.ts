@@ -20,5 +20,5 @@ export type Review = {
   };
   rate: number;
   content: string;
-  date: string | Date;
+  date: Date;
 };

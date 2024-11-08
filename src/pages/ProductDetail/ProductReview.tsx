@@ -33,7 +33,7 @@ export default function ProductReview({ reviews }: { reviews: ReviewType[] }): J
                 }}
                 rate={review.rate}
                 content={review.content}
-                date={review.date.toString()}
+                date={review.date}
               />
             ))
           ) : (
