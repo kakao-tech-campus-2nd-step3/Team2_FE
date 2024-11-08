@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,6 +7,8 @@ export default function Home() {
   const [isHoveredLeft, setIsHoveredLeft] = useState(false);
   const [isHoveredRight, setIsHoveredRight] = useState(false);
   const navigate = useNavigate();
+
+  console.log(axios.defaults.headers.common.Authorization);
 
   return (
     <HomeContainer>
