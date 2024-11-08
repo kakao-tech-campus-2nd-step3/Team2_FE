@@ -12,7 +12,13 @@ export type ProductDetail = {
 };
 
 export type Review = {
+  id: number;
+  user: {
+    name: string;
+    avatarUrl: string;
+  };
   rate: number;
   content: string;
+  date: string;
   productid: number;
 };
