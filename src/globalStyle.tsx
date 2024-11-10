@@ -31,10 +31,6 @@ export default function GlobalStyles() {
           padding: 0;
           cursor: pointer;
         }
-        a {
-          text-decoration: none;
-          color: #2c2c2c;
-        }
         body {
           color: var(--color-black);
         }
