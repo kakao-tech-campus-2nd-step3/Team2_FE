@@ -7,6 +7,7 @@ const initInstance = (config: AxiosRequestConfig) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      credentials: "include",
       ...config.headers,
     },
   });
