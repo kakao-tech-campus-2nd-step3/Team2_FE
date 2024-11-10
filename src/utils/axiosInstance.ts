@@ -4,11 +4,10 @@ const initInstance = (config: AxiosRequestConfig) => {
   const instance = axios.create({
     timeout: 5000,
     ...config,
+    withCredentials: true,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      withCredentials: true,
-      credentials: "include",
       ...config.headers,
     },
   });
