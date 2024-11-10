@@ -31,7 +31,6 @@ export default function Pagination({ totalResults, resultsPerPage }: Props) {
   const pageBtns = [
     ...Array(maxPageNum - (maxPageNum % 5) < startPageNum ? maxPageNum % 5 : 5).keys(),
   ].map((i) => startPageNum + i);
-  console.log(maxPageNum, pageBtns.length, startPageNum);
 
   const changePage = (page: number) => {
     setStartPageNum(page);
