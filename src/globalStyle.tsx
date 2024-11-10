@@ -38,6 +38,10 @@ export default function GlobalStyles() {
         body {
           color: var(--color-black);
         }
+        a {
+          color: var(--color-black);
+          text-decoration: none;
+        }
       `}
     />
   );

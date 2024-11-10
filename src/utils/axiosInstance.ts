@@ -1,7 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-import { authLocalStorage } from "./storage";
-
 const initInstance = (config: AxiosRequestConfig) => {
   const instance = axios.create({
     timeout: 5000,
@@ -9,7 +7,7 @@ const initInstance = (config: AxiosRequestConfig) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${authLocalStorage.get() ?? ""}`,
+      withCredentials: true,
       ...config.headers,
     },
   });
