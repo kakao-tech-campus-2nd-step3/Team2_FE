@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 
-import Pagination from "@/components/Pagination";
-import SortingBtns from "@/components/SortingBtns";
-
+import Pagination from "../../components/Pagination";
+import SortingBtns from "../../components/SortingBtns";
 import AllergyFiltering from "./AllergyFiltering";
 import exampleData from "./exampleData.json";
 import FreeformFiltering from "./FreeformFiltering";
