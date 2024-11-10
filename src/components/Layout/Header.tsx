@@ -61,7 +61,13 @@ const Header: React.FC = () => {
             person
           </Link>
         ) : (
-          <Link to={RouterPath.login.getPath()}>login</Link>
+          <Link
+            to={RouterPath.login.getPath()}
+            className="material-symbols-outlined"
+            style={styles.btn}
+          >
+            person
+          </Link>
         )}
       </div>
     </header>
