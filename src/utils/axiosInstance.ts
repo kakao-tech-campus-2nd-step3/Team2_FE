@@ -7,7 +7,6 @@ const initInstance = (config: AxiosRequestConfig) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      withCredentials: true,
       ...config.headers,
     },
   });
@@ -23,8 +22,9 @@ const initInstance = (config: AxiosRequestConfig) => {
 };
 
 export const BASE_URL = "https://aeatbe.jeje.work";
-export const fetchInstance = () => {
+export const fetchInstance = (config?: AxiosRequestConfig) => {
   return initInstance({
     baseURL: BASE_URL,
+    ...config,
   });
 };
