@@ -10,10 +10,12 @@ export default function GlobalStyles() {
           --color-background: #f7ffef;
           --color-gray: #aaa;
           --color-black: #2c2c2c;
+          --font-size-exLarge: 36px;
           --font-size-large: 24px;
           --font-size-base: 15px;
           --font-size-small: 12px;
           @media (max-width: 768px) {
+            --font-size-exLarge: 25px;
             --font-size-large: 21px;
             --font-size-base: 12px;
             --font-size-small: 9px;

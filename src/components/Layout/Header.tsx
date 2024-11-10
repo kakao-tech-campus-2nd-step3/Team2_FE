@@ -4,10 +4,6 @@ import { Link } from "react-router-dom";
 import { RouterPath } from "@/utils/path";
 import { authLocalStorage } from "@/utils/storage";
 
-import cloumnIcon from "./image/icon_column.png"; // column 아이콘을 news로 사용
-import loginIcon from "./image/icon_login.png";
-import storeIcon from "./image/icon_store.png";
-
 // Header 컴포넌트
 const Header: React.FC = () => {
   return (
@@ -42,20 +38,30 @@ const Header: React.FC = () => {
 
       {/* 오른쪽 아이콘 3개 */}
       <div style={styles.iconContainer}>
-        <Link to="/products">
-          <img src={storeIcon} alt="Store" style={styles.icon} />
+        <Link
+          to={RouterPath.productList.getPath()}
+          style={styles.btn}
+          className="material-symbols-outlined"
+        >
+          store
         </Link>
-        <Link to="/columns">
-          <img src={cloumnIcon} alt="News" style={styles.icon} />
+        <Link
+          to={RouterPath.columnList.getPath()}
+          style={styles.btn}
+          className="material-symbols-outlined"
+        >
+          newsmode
         </Link>
         {authLocalStorage.get() ? (
-          <Link to={RouterPath.myAccount.getPath()} className="material-symbols-outlined">
+          <Link
+            to={RouterPath.myAccount.getPath()}
+            style={styles.btn}
+            className="material-symbols-outlined"
+          >
             person
           </Link>
         ) : (
-          <Link to="/login">
-            <img src={loginIcon} alt="Login" style={styles.icon} />
-          </Link>
+          <Link to={RouterPath.login.getPath()}>login</Link>
         )}
       </div>
     </header>
@@ -70,7 +76,6 @@ const styles = {
     alignItems: "center",
     backgroundColor: "#f8f8f8",
     padding: "10px 20px",
-    borderBottom: "1px solid #ddd",
   },
   logoContainer: {
     display: "flex",
@@ -86,14 +91,18 @@ const styles = {
     position: "absolute" as const,
     left: "50%",
     transform: "translateX(-50%)",
-    fontSize: "30px",
+    fontSize: "var(--font-size-exLarge)",
     fontWeight: "bold",
-    color: "#9BC678",
+    color: "var(--color-main)",
     textDecoration: "none",
+  },
+  btn: {
+    fontSize: "var(--font-size-exLarge)",
+    color: "var(--color-main)",
   },
   iconContainer: {
     display: "flex",
-    gap: "30px",
+    gap: "15px",
     flexGrow: 1,
     justifyContent: "flex-end",
   },
