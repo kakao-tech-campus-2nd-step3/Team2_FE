@@ -2,6 +2,9 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import imgReadTheColumn from "@/assets/Read The Column.webp";
+import imgShopNow from "@/assets/Shop Now.webp";
+
 export default function Home() {
   const [isHoveredLeft, setIsHoveredLeft] = useState(false);
   const [isHoveredRight, setIsHoveredRight] = useState(false);
@@ -15,7 +18,7 @@ export default function Home() {
           onMouseLeave={() => setIsHoveredLeft(false)}
           onClick={() => navigate("/Products")}
         >
-          <StyledImage src="src\assets\Shop Now.webp" alt="Shop Now" isHovered={isHoveredLeft} />
+          <StyledImage src={imgShopNow} alt="Shop Now" isHovered={isHoveredLeft} />
           <OverlayText>SHOP NOW</OverlayText>
         </ImageContainer>
         <ImageContainer
@@ -23,11 +26,7 @@ export default function Home() {
           onMouseLeave={() => setIsHoveredRight(false)}
           onClick={() => navigate("/columns")}
         >
-          <StyledImage
-            src="src\assets\Read The Column.webp"
-            alt="Read The Column"
-            isHovered={isHoveredRight}
-          />
+          <StyledImage src={imgReadTheColumn} alt="Read The Column" isHovered={isHoveredRight} />
           <OverlayText>Read The Column</OverlayText>
         </ImageContainer>
       </ImageSection>
