@@ -109,6 +109,7 @@ const FilteringSection = styled.section`
   width: 30%;
   padding: 1rem;
   box-sizing: border-box;
+  margin-right: 10px;
 `;
 
 const ProductListSection = styled.section`
@@ -117,6 +118,7 @@ const ProductListSection = styled.section`
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   box-sizing: border-box;
+  margin-left: 28px;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
