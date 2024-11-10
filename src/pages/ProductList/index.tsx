@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 
-import Pagination from "../../components/Pagination";
-import SortingBtns from "../../components/SortingBtns";
-import AllergyFiltering from "./AllergyFiltering";
-import exampleData from "./exampleData.json";
-import FreeformFiltering from "./FreeformFiltering";
-import ProductCard from "./ProductCard";
+import Pagination from "@/components/Pagination";
+import SortingBtns from "@/components/SortingBtns";
+import AllergyFiltering from "@/pages/ProductList/AllergyFiltering";
+import exampleData from "@/pages/ProductList/exampleData.json";
+import FreeformFiltering from "@/pages/ProductList/FreeformFiltering";
+import ProductCard from "@/pages/ProductList/ProductCard";
 
 export default function ProductList() {
   const data = exampleData;
