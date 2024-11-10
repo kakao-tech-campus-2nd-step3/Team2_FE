@@ -4,8 +4,18 @@ import { useQuery } from "@tanstack/react-query";
 import Background from "@/components/Background";
 import { fetchInstance } from "@/utils/axiosInstance";
 
+type Reviews = {
+  reviews: {
+    id: number;
+    rate: number;
+    content: string;
+    productId: number;
+    productImgUrl: string;
+  }[];
+};
+
 export default function MyReviews() {
-  const { data, isPending, isError } = useQuery<object>({
+  const { data, isPending, isError } = useQuery<Reviews>({
     queryKey: ["myReviews"],
     queryFn: async () => {
       const response = await fetchInstance().get("/api/reviews/my");

@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
+import { format } from "date-fns";
 import { useState } from "react";
-
-import { getDateString } from "@/utils/ReviewsUtill";
 
 type ReviewProps = {
   user: {
@@ -28,7 +27,7 @@ export default function Review({ user, rate, content, date }: ReviewProps) {
         <UserInfo>
           <Avatar src={user.avatarUrl} alt={`${user.name}'s avatar`} />
           <UserName>{user.name}</UserName>
-          <ReviewDate>{getDateString(date)}</ReviewDate>
+          <ReviewDate>{format(date, "yyyy-MM-dd HH:mm")}</ReviewDate>
         </UserInfo>
       </Header>
       <Content>
