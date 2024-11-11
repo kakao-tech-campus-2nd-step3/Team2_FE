@@ -23,7 +23,9 @@ export default function Review({ user, rate, content, date }: ReviewProps) {
   return (
     <ReviewContainer>
       <Header>
-        <StarRating>{renderStars(rate)}</StarRating>
+        <StarRating>
+          <Stars rate={rate} />
+        </StarRating>
         <UserInfo>
           <Avatar src={user.avatarUrl} alt={`${user.name}'s avatar`} />
           <UserName>{user.name}</UserName>
@@ -42,8 +44,8 @@ export default function Review({ user, rate, content, date }: ReviewProps) {
   );
 }
 
-// 별점 계산 함수
-const renderStars = (rate: number) => {
+// 별점 컴포넌트
+const Stars = ({ rate }: { rate: number }) => {
   const stars = [];
   for (let i = 1; i <= 5; i++) {
     if (i <= Math.floor(rate)) {
@@ -60,7 +62,7 @@ const renderStars = (rate: number) => {
       stars.push(<StarEmpty key={i}>☆</StarEmpty>);
     }
   }
-  return stars;
+  return <>{stars}</>;
 };
 
 const ReviewContainer = styled.div`

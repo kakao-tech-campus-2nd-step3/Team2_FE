@@ -36,10 +36,7 @@ export const RouterPath = {
   },
   login: {
     path: "/login",
-    getPath: (redirect?: string) => {
-      const currentRedirect = redirect ?? window.location.href;
-      return `${RouterPath.login}?redirect=${encodeURIComponent(currentRedirect)}`;
-    },
+    getPath: () => RouterPath.login.path,
   },
   loginRedirect: {
     path: "/login/redirect",
