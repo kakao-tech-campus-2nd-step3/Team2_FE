@@ -44,6 +44,15 @@ export default function ProductList() {
                   max="100"
                   value={priceRange[1]}
                   onChange={handlePriceChange}
+                  style={{
+                    background: `linear-gradient(
+                      to right,
+                      var(--color-main) 0%,
+                      var(--color-main) ${priceRange[1]}%,
+                      #ddd ${priceRange[1]}%,
+                      #ddd 100%
+                    )`,
+                  }}
                 />
                 <span>{`₩${priceRange[1]}`}</span>
               </PriceRange>
@@ -153,12 +162,9 @@ const PriceRange = styled.div`
 `;
 
 const Slider = styled.input`
-  flex: 1;
-  margin: 0 10px;
-  appearance: none;
+  -webkit-appearance: none;
   width: 100%;
   height: 5px;
-  background: var(--color-main);
   border-radius: 5px;
   outline: none;
 
