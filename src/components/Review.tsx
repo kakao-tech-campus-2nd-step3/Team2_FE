@@ -2,16 +2,17 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 
 type ReviewProps = {
-  user: {
+  product: {
     name: string;
-    avatarUrl: string;
+    productImg: string;
   };
   rate: number;
   content: string;
   date: string;
+  isProduct: boolean;
 };
 
-export default function Review({ user, rate, content, date }: ReviewProps) {
+export default function Review({ product, rate, content, date }: ReviewProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleToggleContent = () => setIsExpanded(!isExpanded);
@@ -25,11 +26,11 @@ export default function Review({ user, rate, content, date }: ReviewProps) {
         <StarRating>
           <Stars rate={rate} />
         </StarRating>
-        <UserInfo>
-          <Avatar src={user.avatarUrl} alt={`${user.name}'s avatar`} />
-          <UserName>{user.name}</UserName>
+        <ProductInfo>
+          <ProductImg src={product.productImg} alt={`${product.name}'s avatar`} />
+          <ProductName>{product.name}</ProductName>
           <ReviewDate>{date}</ReviewDate>
-        </UserInfo>
+        </ProductInfo>
       </Header>
       <Content>
         {displayContent}
@@ -111,19 +112,19 @@ const StarEmpty = styled.span`
   font-size: 18px;
 `;
 
-const UserInfo = styled.div`
+const ProductInfo = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const Avatar = styled.img`
+const ProductImg = styled.img`
   width: 24px;
   height: 24px;
   border-radius: 50%;
   margin-right: 8px;
 `;
 
-const UserName = styled.span`
+const ProductName = styled.span`
   font-weight: bold;
   margin-right: 6px;
 `;

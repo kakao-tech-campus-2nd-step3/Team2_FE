@@ -24,10 +24,10 @@ const data: ProductDetail = {
 const exampleReviews: Review[] = [
   {
     id: 1,
-    user: {
+    product: {
       id: 101,
-      userName: "John Doe",
-      userImageUrl: "https://example.com/avatar1.jpg",
+      productName: "John Doe",
+      productImg: "https://example.com/avatar1.jpg",
     },
     rate: 4.7,
     content:
@@ -36,10 +36,10 @@ const exampleReviews: Review[] = [
   },
   {
     id: 2,
-    user: {
+    product: {
       id: 102,
-      userName: "Jane Smith",
-      userImageUrl: "https://example.com/avatar2.jpg",
+      productName: "Jane Smith",
+      productImg: "https://example.com/avatar2.jpg",
     },
     rate: 2.5,
     content: "기대보다는 좀 아쉬웠어요. 사람이 너무 많아서 제대로 보기가 힘들었네요.",
@@ -47,10 +47,10 @@ const exampleReviews: Review[] = [
   },
   {
     id: 3,
-    user: {
+    product: {
       id: 103,
-      userName: "Alice Brown",
-      userImageUrl: "https://example.com/avatar3.jpg",
+      productName: "Alice Brown",
+      productImg: "https://example.com/avatar3.jpg",
     },
     rate: 5.0,
     content: "완벽한 경험이었습니다! 다시 오고 싶어요.",
@@ -58,10 +58,10 @@ const exampleReviews: Review[] = [
   },
   {
     id: 4,
-    user: {
+    product: {
       id: 104,
-      userName: "Bob White",
-      userImageUrl: "https://example.com/avatar4.jpg",
+      productName: "Bob White",
+      productImg: "https://example.com/avatar4.jpg",
     },
     rate: 4.3,
     content: "멋진 투어였어요! 추천합니다.",

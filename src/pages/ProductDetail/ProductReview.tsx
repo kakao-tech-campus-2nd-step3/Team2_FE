@@ -1,39 +1,59 @@
+// ProductReview.tsx
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
+import CreateReview from "@/components/CreateReview";
 import Review from "@/components/Review";
 
 import type { Review as ReviewType } from "./type";
 
 export default function ProductReview({ reviews }: { reviews: ReviewType[] }): JSX.Element {
   const [isReviewOpen, setReviewOpen] = useState(true);
+  const [allReviews, setAllReviews] = useState<ReviewType[]>(reviews);
 
   const toggleReview = () => setReviewOpen(!isReviewOpen);
 
-  const filteredReviews = reviews.filter((review) => review);
+  const handleReviewSubmit = (rating: number, reviewText: string) => {
+    const newReview: ReviewType = {
+      id: allReviews.length + 1,
+      product: {
+        id: 0, // 임시 ID
+        productName: "사용자", // 임시 사용자
+        productImg: "https://example.com/avatar.jpg", // 임시 이미지 URL
+      },
+      rate: rating,
+      content: reviewText,
+      date: new Date().toISOString(),
+    };
+    setAllReviews([newReview, ...allReviews]);
+  };
+
+  const filteredReviews = allReviews.filter((review) => review);
 
   return (
     <ReviewContainer>
+      <CreateReview onSubmit={handleReviewSubmit} />
+
       <ToggleSection onClick={toggleReview}>
         <h3>리뷰</h3>
         {isReviewOpen ? <FaChevronUp /> : <FaChevronDown />}
       </ToggleSection>
 
-      {/* 리뷰 섹션 */}
       {isReviewOpen && (
         <ReviewList>
           {filteredReviews.length > 0 ? (
             filteredReviews.map((review) => (
               <Review
                 key={review.id}
-                user={{
-                  name: review.user.userName,
-                  avatarUrl: review.user.userImageUrl,
+                product={{
+                  name: review.product.productName,
+                  productImg: review.product.productImg,
                 }}
                 rate={review.rate}
                 content={review.content}
                 date={review.date.toString()}
+                isProduct={true}
               />
             ))
           ) : (
