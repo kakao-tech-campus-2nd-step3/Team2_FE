@@ -16,7 +16,7 @@ export default function Login(): JSX.Element {
           <img src={logo} alt="로고" />
           <h1>로그인</h1>
         </Header>
-        <a href="">
+        <a href="https://aeatbe.jeje.work/api/users/login">
           <img src={kakaoLoginImg} alt="카카오 로그인" />
         </a>
       </Container>

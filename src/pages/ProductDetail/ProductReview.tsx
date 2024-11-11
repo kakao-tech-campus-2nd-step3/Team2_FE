@@ -2,20 +2,16 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
-import type { Review } from "./type";
+import Review from "@/components/Review";
 
-export default function ProductReview({
-  productId,
-  reviews,
-}: {
-  productId: number;
-  reviews: Review[];
-}): JSX.Element {
+import type { Review as ReviewType } from "./type";
+
+export default function ProductReview({ reviews }: { reviews: ReviewType[] }): JSX.Element {
   const [isReviewOpen, setReviewOpen] = useState(true);
 
   const toggleReview = () => setReviewOpen(!isReviewOpen);
 
-  const filteredReviews = reviews.filter((review) => review.productid === productId);
+  const filteredReviews = reviews.filter((review) => review);
 
   return (
     <ReviewContainer>
@@ -28,11 +24,17 @@ export default function ProductReview({
       {isReviewOpen && (
         <ReviewList>
           {filteredReviews.length > 0 ? (
-            filteredReviews.map((review, index) => (
-              <ReviewItem key={index}>
-                <p>{`평점: ${review.rate}`}</p>
-                <p>{review.content}</p>
-              </ReviewItem>
+            filteredReviews.map((review) => (
+              <Review
+                key={review.id}
+                user={{
+                  name: review.user.userName,
+                  avatarUrl: review.user.userImageUrl,
+                }}
+                rate={review.rate}
+                content={review.content}
+                date={review.date}
+              />
             ))
           ) : (
             <p>리뷰가 없습니다.</p>
@@ -67,12 +69,4 @@ const ToggleSection = styled.div`
 
 const ReviewList = styled.div`
   margin-top: 20px;
-`;
-
-const ReviewItem = styled.div`
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
-  p {
-    margin: 0;
-  }
 `;

@@ -58,8 +58,6 @@ const FavoriteIcon = styled.button<{ isLiked: boolean }>((props) => ({
 
 const MyLink = styled(Link)({
   fontSize: "var(--font-size-base)",
-  color: "black",
-  textDecoration: "none",
   display: "flex",
   alignItems: "center",
   fontVariationSettings: "'wght' 300",

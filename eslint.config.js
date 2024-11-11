@@ -26,7 +26,7 @@ export default [
         "error",
         {
           selector: "default",
-          format: ["camelCase", "PascalCase"],
+          format: ["camelCase", "PascalCase", "UPPER_CASE"],
           leadingUnderscore: "forbid"
         },
         {

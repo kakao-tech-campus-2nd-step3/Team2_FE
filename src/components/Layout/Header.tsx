@@ -1,16 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import cloumnIcon from "./image/icon_column.png"; // column 아이콘을 news로 사용
-import loginIcon from "./image/icon_login.png";
-import storeIcon from "./image/icon_store.png";
+import { RouterPath } from "@/utils/path";
+import { authLocalStorage } from "@/utils/storage";
 
 // Header 컴포넌트
 const Header: React.FC = () => {
   return (
     <header style={styles.header}>
       {/* 왼쪽 로고(SVG 사용) */}
-      <div style={styles.logoContainer}>
+      <Link to="/" style={styles.logoContainer}>
         <svg
           width="100"
           height="74"
@@ -30,22 +29,46 @@ const Header: React.FC = () => {
             strokeWidth="3"
           />
         </svg>
-      </div>
+      </Link>
 
       {/* 중앙 텍스트 (AEat) */}
-      <div style={styles.title}>AEat</div>
+      <Link to="/" style={styles.title}>
+        AEat
+      </Link>
 
       {/* 오른쪽 아이콘 3개 */}
       <div style={styles.iconContainer}>
-        <Link to="/products">
-          <img src={storeIcon} alt="Store" style={styles.icon} />
+        <Link
+          to={RouterPath.productList.getPath()}
+          style={styles.btn}
+          className="material-symbols-outlined"
+        >
+          store
         </Link>
-        <Link to="/columns">
-          <img src={cloumnIcon} alt="News" style={styles.icon} />
+        <Link
+          to={RouterPath.columnList.getPath()}
+          style={styles.btn}
+          className="material-symbols-outlined"
+        >
+          newsmode
         </Link>
-        <Link to="/login">
-          <img src={loginIcon} alt="Login" style={styles.icon} />
-        </Link>
+        {authLocalStorage.get() ? (
+          <Link
+            to={RouterPath.myAccount.getPath()}
+            style={styles.btn}
+            className="material-symbols-outlined"
+          >
+            person
+          </Link>
+        ) : (
+          <Link
+            to={RouterPath.login.getPath()}
+            className="material-symbols-outlined"
+            style={styles.btn}
+          >
+            person
+          </Link>
+        )}
       </div>
     </header>
   );
@@ -59,12 +82,12 @@ const styles = {
     alignItems: "center",
     backgroundColor: "#f8f8f8",
     padding: "10px 20px",
-    borderBottom: "1px solid #ddd",
   },
   logoContainer: {
     display: "flex",
     alignItems: "center",
     flexGrow: 1,
+    textDecoration: "none",
   },
   logo: {
     width: "50px",
@@ -74,13 +97,18 @@ const styles = {
     position: "absolute" as const,
     left: "50%",
     transform: "translateX(-50%)",
-    fontSize: "30px",
+    fontSize: "var(--font-size-exLarge)",
     fontWeight: "bold",
-    color: "#9BC678",
+    color: "var(--color-main)",
+    textDecoration: "none",
+  },
+  btn: {
+    fontSize: "var(--font-size-exLarge)",
+    color: "var(--color-main)",
   },
   iconContainer: {
     display: "flex",
-    gap: "30px",
+    gap: "15px",
     flexGrow: 1,
     justifyContent: "flex-end",
   },

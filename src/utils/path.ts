@@ -26,12 +26,21 @@ export const RouterPath = {
     path: "/my-account",
     getPath: () => RouterPath.myAccount.path,
   },
+  myReviews: {
+    path: "/my-account/reviews",
+    getPath: () => RouterPath.myReviews.path,
+  },
+  myFavorites: {
+    path: "/my-account/favorites",
+    getPath: () => RouterPath.myFavorites.path,
+  },
   login: {
     path: "/login",
-    getPath: (redirect?: string) => {
-      const currentRedirect = redirect ?? window.location.href;
-      return `${RouterPath.login}?redirect=${encodeURIComponent(currentRedirect)}`;
-    },
+    getPath: () => RouterPath.login.path,
+  },
+  loginRedirect: {
+    path: "/login/redirect",
+    getPath: () => RouterPath.loginRedirect.path,
   },
   notFound: {
     path: "*",
