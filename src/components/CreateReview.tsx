@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import styled from "@emotion/styled";
 import { useState } from "react";
 
@@ -47,7 +48,7 @@ export default function CreateReview({
       <h3>리뷰 작성</h3>
       <StarRatingContainer>
         <StarRating onMouseLeave={() => setHoverRating(null)}>
-          {[...Array(5)].map((blank, index) => (
+          {[...Array(5)].map((_, index) => (
             <StarWrapper
               key={index}
               onMouseDown={() => handleMouseDown(index)}
