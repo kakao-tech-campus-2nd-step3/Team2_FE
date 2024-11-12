@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { format } from "date-fns";
 import { useState } from "react";
 
 type ReviewProps = {
@@ -8,8 +9,9 @@ type ReviewProps = {
   };
   rate: number;
   content: string;
-  date: string;
+  date: Date;
   isProduct: boolean;
+
 };
 
 export default function Review({ product, rate, content, date }: ReviewProps) {
@@ -29,7 +31,7 @@ export default function Review({ product, rate, content, date }: ReviewProps) {
         <ProductInfo>
           <ProductImg src={product.productImg} alt={`${product.name}'s avatar`} />
           <ProductName>{product.name}</ProductName>
-          <ReviewDate>{date}</ReviewDate>
+          <ReviewDate>{format(date, "yyyy-MM-dd HH:mm")}</ReviewDate>
         </ProductInfo>
       </Header>
       <Content>
