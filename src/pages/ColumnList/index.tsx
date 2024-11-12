@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 
 import Pagination, { queryKey as pageToken } from "@/components/Pagination";
 import SortingBtns, { queryKey as sortBy } from "@/components/SortingBtns";
+import { fetchInstance } from "@/utils/axiosInstance";
 
 import ColumnCard from "./ColumnCard";
 import { ColumnListResponse } from "./type";
@@ -16,8 +16,8 @@ export default function ColumnList() {
   const { data, isError, isPending } = useQuery<ColumnListResponse>({
     queryKey: columnsKey(searchParams.get(pageToken) || "0", searchParams.get(sortBy) || "recent"),
     queryFn: async () => {
-      const response = await axios.get(
-        `https://aeatbe.jeje.work/api/columns`,
+      const response = await fetchInstance().get(
+        `/api/columns`,
         // `https://aeatbe.jeje.work/api/columns?sortBy=${searchParams.get(sortBy) ?? "recent"}&pageToken=${searchParams.get(pageToken) ?? "0"}`,
       );
       console.log(response.data);
