@@ -11,7 +11,6 @@ type ReviewProps = {
   content: string;
   date: Date;
   isProduct: boolean;
-
 };
 
 export default function Review({ product, rate, content, date }: ReviewProps) {
