@@ -30,6 +30,8 @@ const initInstance = (config: AxiosRequestConfig) => {
             return axios.request(error.config);
           })
           .catch((error) => {
+            accessTokenStorage.set();
+            refreshTokenStorage.set();
             return Promise.reject(error);
           });
       }
