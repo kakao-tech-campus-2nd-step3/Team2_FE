@@ -24,7 +24,7 @@ export default function ProductReview({ reviews }: { reviews: ReviewType[] }): J
       },
       rate: rating,
       content: reviewText,
-      date: new Date().toISOString(),
+      date: new Date(),
     };
     setAllReviews([newReview, ...allReviews]);
   };
