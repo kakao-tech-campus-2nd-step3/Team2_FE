@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { RouterPath } from "@/utils/path";
-import { authLocalStorage } from "@/utils/storage";
+import { accessTokenStorage } from "@/utils/storage";
 
 // Header 컴포넌트
 const Header: React.FC = () => {
@@ -52,7 +52,7 @@ const Header: React.FC = () => {
         >
           newsmode
         </Link>
-        {authLocalStorage.get() ? (
+        {accessTokenStorage.get() ? (
           <Link
             to={RouterPath.myAccount.getPath()}
             style={styles.btn}
@@ -66,7 +66,7 @@ const Header: React.FC = () => {
             className="material-symbols-outlined"
             style={styles.btn}
           >
-            person
+            login
           </Link>
         )}
       </div>
