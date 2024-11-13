@@ -17,7 +17,6 @@ const initInstance = (config: AxiosRequestConfig) => {
     (response) => response,
     (error) => {
       // refresh 수행
-      // TODO 잘실행되는지 확인 필요
       if (error.response.status === 401 && refreshTokenStorage.get()) {
         return axios
           .post(`${BASE_URL}/api/token/refresh`, {
@@ -32,6 +31,7 @@ const initInstance = (config: AxiosRequestConfig) => {
           .catch((error) => {
             accessTokenStorage.set();
             refreshTokenStorage.set();
+            alert("로그인이 필요합니다.");
             return Promise.reject(error);
           });
       }
