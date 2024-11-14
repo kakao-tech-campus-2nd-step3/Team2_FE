@@ -9,7 +9,7 @@ import DashBoard from "./DashBoard";
 type UserInfo = {
   id: number;
   userName: string;
-  userImgUrl: string;
+  userImageUrl: string;
   allergies: string[];
   freefrom: string[];
 };
@@ -33,7 +33,7 @@ export default function MyAccount() {
   return (
     <Background>
       <Profile>
-        <img src={data.userImgUrl} alt="user profile image" />
+        <img src={data.userImageUrl} alt="user profile image" />
         <h2>{data.userName}</h2>
       </Profile>
       <DashBoard allergies={data.allergies} freefrom={data.freefrom} />

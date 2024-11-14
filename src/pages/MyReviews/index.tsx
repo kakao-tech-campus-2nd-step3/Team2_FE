@@ -2,24 +2,24 @@ import styled from "@emotion/styled";
 import { useQuery } from "@tanstack/react-query";
 
 import Background from "@/components/Background";
+import Review from "@/components/Review";
 import { fetchInstance } from "@/utils/axiosInstance";
 
 type Reviews = {
-  reviews: {
-    id: number;
-    rate: number;
-    content: string;
-    productId: number;
-    productImgUrl: string;
-  }[];
-};
+  id: number;
+  rate: number;
+  content: string;
+  productId: number;
+  productName: string;
+  productImgUrl: string;
+  date: Date;
+}[];
 
 export default function MyReviews() {
   const { data, isPending, isError } = useQuery<Reviews>({
     queryKey: ["myReviews"],
     queryFn: async () => {
       const response = await fetchInstance().get("/api/reviews/my");
-      console.log(response.data);
       return response.data;
     },
   });
@@ -27,16 +27,19 @@ export default function MyReviews() {
   if (isPending) return <div>Loading...</div>;
   if (isError) return <div>Error</div>;
 
-  console.log(data); // TODO 리뷰 컴포넌트로 랜더링
   return (
     <Background>
       <H1>나의 리뷰</H1>
       <Container>
-        <TmpCard />
-        <TmpCard />
-        <TmpCard />
-        <TmpCard />
-        <TmpCard />
+        {data.map((review) => (
+          <Review
+            key={review.id}
+            {...review}
+            info={{ name: review.productName, img: review.productImgUrl }}
+            infoIsProduct={true}
+            productId={review.productId}
+          />
+        ))}
       </Container>
     </Background>
   );
@@ -58,8 +61,4 @@ const Container = styled.div({
   border: "1px solid #ddd",
   borderRadius: "1rem",
   backgroundColor: "white",
-});
-const TmpCard = styled.div({
-  backgroundColor: "red",
-  height: "300px",
 });
