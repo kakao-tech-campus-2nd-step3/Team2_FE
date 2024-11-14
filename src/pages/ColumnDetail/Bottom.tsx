@@ -23,8 +23,8 @@ export default function Bottom() {
           setLikeCount(res.data.count);
         })
         .catch(() => {
-          setArticleLikeId(1);
-          setLikeCount((prev) => prev + 1);
+          setArticleLikeId(-1);
+          setLikeCount((prev) => prev - 1);
           alert("처리 중 오류가 발생했습니다. 다시 시도해주세요.");
         });
     } else
