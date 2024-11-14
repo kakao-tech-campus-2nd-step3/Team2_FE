@@ -20,7 +20,7 @@ export const useQueryParam = (queryParamKey: string, values: string[]) => {
       setSearchParams(searchParams, { replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [queryParamKey, setSearchParams, values]);
   const changeState = (value: string) => {
     searchParams.set(queryParamKey, value);
     setActiveState(value);

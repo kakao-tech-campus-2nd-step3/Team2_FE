@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { format } from "date-fns";
 import { JSX } from "react";
 
 /**
@@ -29,7 +30,7 @@ export default function Header({ title, imgurl, createdAt, auth, keyword }: Prop
       <HeaderContainer imgurl={imgurl}>
         <Title>{title}</Title>
         <ColumnInfo>
-          {createdAt} {auth}
+          {format(createdAt, "yyyy-MM-dd")} {auth}
         </ColumnInfo>
       </HeaderContainer>
       <Keywords>
