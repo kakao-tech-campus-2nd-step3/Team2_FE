@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 /**
  * Content 컴포넌트
  * @param {object} props - 컴포넌트가 받을 props
- * @param {string} props.content - 콘텐츠 배열
+ * @param {string} props.content - 콘텐츠 문자열
  * @returns {JSX.Element} - 콘텐츠를 렌더링하는 JSX 요소
  */
 export default function Content({ content }: { content: string }): JSX.Element {
@@ -48,7 +48,9 @@ export default function Content({ content }: { content: string }): JSX.Element {
         })}
       </Index> */}
       <ContentContainer>
-        <Markdown>{content}</Markdown>
+        <StyledMarkdownWrapper>
+          <ReactMarkdown>{content}</ReactMarkdown>
+        </StyledMarkdownWrapper>
       </ContentContainer>
     </Container>
   );
@@ -90,7 +92,7 @@ const highlight = keyframes`
   }
 `;
 
-const Markdown = styled(ReactMarkdown)({
+const StyledMarkdownWrapper = styled.div({
   fontSize: "var(--font-size-base)",
   lineHeight: 1.3,
   marginTop: "10px",
