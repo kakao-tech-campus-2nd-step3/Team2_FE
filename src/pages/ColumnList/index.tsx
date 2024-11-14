@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useSearchParams } from "react-router-dom";
 
+import { Loading } from "@/components/Loading.tsx";
 import Pagination, { queryKey as pageToken } from "@/components/Pagination";
 import SortingBtns, { queryKey as sortBy } from "@/components/SortingBtns";
 import { fetchInstance } from "@/utils/axiosInstance";
@@ -25,7 +26,7 @@ export default function ColumnList() {
   });
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   if (isError) {
     return <div>Error</div>;
