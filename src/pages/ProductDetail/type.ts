@@ -13,10 +13,9 @@ export type ProductDetail = {
 
 export type Review = {
   id: number;
-  product: {
-    id: number;
-    productName: string;
-    productImg: string;
+  user: {
+    userName: string;
+    userImageUrl: string;
   };
   rate: number;
   content: string;

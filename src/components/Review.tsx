@@ -1,20 +1,32 @@
 import styled from "@emotion/styled";
 import { format } from "date-fns";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { RouterPath } from "@/utils/path";
 
 type ReviewProps = {
-  product: {
+  info: {
     name: string;
-    productImg: string;
+    img: string;
   };
   rate: number;
   content: string;
   date: Date;
-  isProduct: boolean;
+  infoIsProduct: boolean;
+  productId?: number;
 };
 
-export default function Review({ product, rate, content, date }: ReviewProps) {
+export default function Review({
+  info,
+  rate,
+  content,
+  date,
+  infoIsProduct,
+  productId,
+}: ReviewProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
 
   const handleToggleContent = () => setIsExpanded(!isExpanded);
 
@@ -27,11 +39,19 @@ export default function Review({ product, rate, content, date }: ReviewProps) {
         <StarRating>
           <Stars rate={rate} />
         </StarRating>
-        <ProductInfo>
-          <ProductImg src={product.productImg} alt={`${product.name}'s avatar`} />
-          <ProductName>{product.name}</ProductName>
-          <ReviewDate>{format(date, "yyyy-MM-dd HH:mm")}</ReviewDate>
-        </ProductInfo>
+        <Info
+          onClick={
+            infoIsProduct
+              ? () => navigate(RouterPath.productDetail.getPath(String(productId)))
+              : undefined
+          }
+        >
+          <InfoImg src={info.img} alt={`${info.name}'s avatar`} infoIsProduct={infoIsProduct} />
+          <InfoRight infoIsProduct={infoIsProduct}>
+            <InfoName>{info.name}</InfoName>
+            <ReviewDate>{format(date, "yyyy-MM-dd HH:mm")}</ReviewDate>
+          </InfoRight>
+        </Info>
       </Header>
       <Content>
         {displayContent}
@@ -75,9 +95,7 @@ const ReviewContainer = styled.div`
 `;
 
 const Header = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 15px;
 `;
 
 const StarRating = styled.div`
@@ -85,6 +103,7 @@ const StarRating = styled.div`
   color: #9bc678;
   font-size: 18px;
   margin-right: 10px;
+  margin-bottom: 10px;
 `;
 
 const Star = styled.span`
@@ -113,26 +132,39 @@ const StarEmpty = styled.span`
   font-size: 18px;
 `;
 
-const ProductInfo = styled.div`
+const Info = styled.div`
   display: flex;
   align-items: center;
+  gap: 3px;
 `;
 
-const ProductImg = styled.img`
-  width: 24px;
-  height: 24px;
+const InfoImg = styled.img<{ infoIsProduct: boolean }>`
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
+  ${(props) =>
+    props.infoIsProduct
+      ? `
+    border-radius: 0.3rem;
+    width: 60px;
+    height: 60px;
+  `
+      : ""}
   margin-right: 8px;
 `;
 
-const ProductName = styled.span`
-  font-weight: bold;
-  margin-right: 6px;
+const InfoRight = styled.div<{ infoIsProduct: boolean }>`
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => (props.infoIsProduct ? "10px" : "4px")};
 `;
-
+const InfoName = styled.span`
+  font-weight: bold;
+  font-size: var(--font-size-small);
+`;
 const ReviewDate = styled.span`
   color: #888;
-  font-size: 12px;
+  font-size: var(--font-size-small);
 `;
 
 const Content = styled.div`

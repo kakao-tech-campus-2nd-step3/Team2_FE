@@ -17,10 +17,9 @@ export default function ProductReview({ reviews }: { reviews: ReviewType[] }): J
   const handleReviewSubmit = (rating: number, reviewText: string) => {
     const newReview: ReviewType = {
       id: allReviews.length + 1,
-      product: {
-        id: 0, // 임시 ID
-        productName: "사용자", // 임시 사용자
-        productImg: "https://example.com/avatar.jpg", // 임시 이미지 URL
+      user: {
+        userName: "사용자", // 임시 사용자
+        userImageUrl: "https://example.com/avatar.jpg", // 임시 이미지 URL
       },
       rate: rating,
       content: reviewText,
@@ -46,14 +45,14 @@ export default function ProductReview({ reviews }: { reviews: ReviewType[] }): J
             filteredReviews.map((review) => (
               <Review
                 key={review.id}
-                product={{
-                  name: review.product.productName,
-                  productImg: review.product.productImg,
+                info={{
+                  name: review.user.userName,
+                  img: review.user.userImageUrl,
                 }}
                 rate={review.rate}
                 content={review.content}
                 date={review.date}
-                isProduct={true}
+                infoIsProduct={false}
               />
             ))
           ) : (
