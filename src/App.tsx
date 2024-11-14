@@ -1,14 +1,15 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React, { JSX, Suspense } from "react";
+import { JSX, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from "@/components/Layout";
+import { Loading } from "@/components/Loading.tsx";
 import { RouterPath } from "@/utils/path";
 
 import GlobalStyles from "./globalStyle";
 
 const lazyLoad = (componets: () => Promise<{ default: React.ComponentType<unknown> }>) => (
-  <Suspense fallback={<div>Loading...</div>}>{React.createElement(React.lazy(componets))}</Suspense>
+  <Suspense fallback={<Loading />}>{React.createElement(React.lazy(componets))}</Suspense>
 );
 
 const router = createBrowserRouter([

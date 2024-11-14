@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useQuery } from "@tanstack/react-query";
 
 import Background from "@/components/Background";
+import { Loading } from "@/components/Loading.tsx";
 import { fetchInstance } from "@/utils/axiosInstance";
 
 import DashBoard from "./DashBoard";
@@ -24,7 +25,7 @@ export default function MyAccount() {
   });
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   if (isError) {
     return <div>Error</div>;
