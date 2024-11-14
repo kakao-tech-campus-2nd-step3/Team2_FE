@@ -1,6 +1,5 @@
 interface StorageKey {
   accessToken?: string;
-  refreshToken?: string;
 }
 
 const initStorage = <T extends keyof StorageKey>(key: T, storage: Storage) => {
@@ -9,7 +8,7 @@ const initStorage = <T extends keyof StorageKey>(key: T, storage: Storage) => {
     const value = storage.getItem(storageKey);
     return JSON.parse(value as string);
   };
-  const set = (value?: StorageKey[T]) => {
+  const set = (value: StorageKey[T]) => {
     if (value == undefined || value == null) {
       return storage.removeItem(storageKey);
     }
@@ -18,5 +17,4 @@ const initStorage = <T extends keyof StorageKey>(key: T, storage: Storage) => {
   return { get, set };
 };
 
-export const accessTokenStorage = initStorage("accessToken", localStorage);
-export const refreshTokenStorage = initStorage("refreshToken", localStorage);
+export const authLocalStorage = initStorage("accessToken", localStorage);
