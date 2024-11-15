@@ -21,3 +21,9 @@ export type Review = {
   content: string;
   date: Date;
 };
+
+export type ProductReviewProps = {
+  rate: number;
+  content: string;
+  productId: number;
+};

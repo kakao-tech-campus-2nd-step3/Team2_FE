@@ -3,7 +3,7 @@ import { JSX } from "react";
 import Product from "./Product";
 import ProductInfo from "./ProductInfo";
 import ProductReview from "./ProductReview";
-import type { ProductDetail, Review } from "./type";
+import type { ProductDetail } from "./type";
 
 const data: ProductDetail = {
   id: 1,
@@ -19,49 +19,6 @@ const data: ProductDetail = {
   allregycate: ["땅콩", "카테고리2"],
 };
 
-const exampleReviews: Review[] = [
-  {
-    id: 1,
-    user: {
-      userName: "John Doe",
-      userImageUrl: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg",
-    },
-    rate: 4.7,
-    content: "로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.",
-    date: new Date("2023-09-01"),
-  },
-  {
-    id: 2,
-    user: {
-      userName: "Jane Smith",
-      userImageUrl: "https://example.com/avatar2.jpg",
-    },
-    rate: 2.5,
-    content: "기대보다는 좀 아쉬웠어요. 사람이 너무 많아서 제대로 보기가 힘들었네요.",
-    date: new Date("2023-09-10"),
-  },
-  {
-    id: 3,
-    user: {
-      userName: "Alice Brown",
-      userImageUrl: "https://example.com/avatar3.jpg",
-    },
-    rate: 5.0,
-    content: "완벽한 경험이었습니다! 다시 오고 싶어요.",
-    date: new Date("2023-09-15"),
-  },
-  {
-    id: 4,
-    user: {
-      userName: "Bob White",
-      userImageUrl: "https://example.com/avatar4.jpg",
-    },
-    rate: 4.3,
-    content: "멋진 투어였어요! 추천합니다.",
-    date: new Date("2023-09-20"),
-  },
-];
-
 /**
  * @returns {JSX.Element} - 상세 페이지를 렌더링하는 JSX 요소
  */
@@ -70,7 +27,7 @@ export default function ProductDetail(): JSX.Element {
     <>
       <ProductInfo product={data} />
       <Product detail={data} />
-      <ProductReview reviews={exampleReviews} />
+      <ProductReview productId={data.id} />
     </>
   );
 }
