@@ -3,25 +3,23 @@ import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 export default function FilteringSection() {
-  const [isAllergyOpen, setAllergyOpen] = useState(false);
+  const [isFreeFromOpen, setFreeFromOpen] = useState(true);
 
-  const toggleAllergy = () => setAllergyOpen(!isAllergyOpen);
+  const toggleFreeFrom = () => setFreeFromOpen(!isFreeFromOpen);
 
   return (
     <FilterContainer>
-      <ToggleSection onClick={toggleAllergy}>
-        <FilterTitle>알레르기 성분 필터링</FilterTitle>
-        {isAllergyOpen ? <FaChevronUp /> : <FaChevronDown />}
+      <ToggleSection onClick={toggleFreeFrom}>
+        <FilterTitle>프리프롬 필터링</FilterTitle>
+        {isFreeFromOpen ? <FaChevronUp /> : <FaChevronDown />}
       </ToggleSection>
-      {isAllergyOpen && (
+      {isFreeFromOpen && (
         <FilterContent>
-          {/* 알레르기 성분 필터링 내용 */}
-          <Tag>메밀</Tag>
-          <Tag>땅콩</Tag>
-          <Tag>계</Tag>
-          <Tag>새우</Tag>
-          <Tag>토마토</Tag>
-          <Tag>닭고기</Tag>
+          {/* 프리프롬 필터링 내용 */}
+          <Tag>피넛 프리</Tag>
+          <Tag>나트륨 프리</Tag>
+          <Tag>슈가 프리</Tag>
+          <Tag>디카페인</Tag>
         </FilterContent>
       )}
     </FilterContainer>

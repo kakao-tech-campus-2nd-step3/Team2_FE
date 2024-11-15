@@ -12,6 +12,9 @@ export const useQueryParam = (queryParamKey: string, values: string[]) => {
   const [activeState, setActiveState] = useState(values[0]);
   const [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
+    // default 값이 설정이 안돼 있을 경우 무시
+    if (!activeState) return;
+
     const queryValue = searchParams.get(queryParamKey);
     if (queryValue && values.includes(queryValue)) {
       setActiveState(queryValue);
@@ -20,7 +23,7 @@ export const useQueryParam = (queryParamKey: string, values: string[]) => {
       setSearchParams(searchParams, { replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [queryParamKey, setSearchParams, values]);
+  }, [values]);
   const changeState = (value: string) => {
     searchParams.set(queryParamKey, value);
     setActiveState(value);

@@ -1,33 +1,52 @@
 import styled from "@emotion/styled";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
-import Pagination from "@/components/Pagination";
-import SortingBtns from "@/components/SortingBtns";
-import AllergyFiltering from "@/pages/ProductList/AllergyFiltering";
-import exampleData from "@/pages/ProductList/exampleData.json";
-import FreefromFiltering from "@/pages/ProductList/FreeFromFiltering";
-import ProductCard from "@/pages/ProductList/ProductCard";
+import { Loading } from "@/components/Loading";
+import Pagination, { queryKey as pageToken } from "@/components/Pagination";
+import SortingBtns, { queryKey as sortBy } from "@/components/SortingBtns";
+import { fetchInstance } from "@/utils/axiosInstance";
+
+import AllergyFiltering from "./AllergyFiltering";
+import FreeformFiltering from "./FreeformFiltering";
+import ProductCard from "./ProductCard";
+import { ProductListResponse } from "./type";
+
 
 export default function ProductList() {
-  const data = exampleData; // 더미 데이터를 변수로 선언하여 사용
+  const [priceRange, setPriceRange] = useState([0, 50000]);
+  const [q, setq] = useState("");
+  const [searchParams] = useSearchParams();
 
-  const [priceRange, setPriceRange] = useState([0, 100]);
+  const { data, isPending, isError } = useQuery<ProductListResponse>({
+    queryKey: ["products", searchParams.get(pageToken)!, searchParams.get(sortBy)!],
+    queryFn: async () =>
+      (
+        await fetchInstance().get(
+          `/api/products?maxResults=10&pageToken=${Number(searchParams.get(pageToken)) < 1 ? 1 : 0}&sortby=${searchParams.get(sortBy)}&q=${q}${priceRange[1] === 50000 ? "" : "priceMax=" + priceRange[1]}`,
+        )
+      ).data,
+  });
 
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value);
     setPriceRange([0, value]);
   };
 
+  if (isPending) return <Loading />;
+  if (isError) return <div>Error</div>;
+
   return (
     <Container>
-      <ContentSection>
+      <ContentWrapper>
         <SortingBtnsSection>
           <SortingBtns
             sortingBtns={[
-              { name: "신상품", value: "recent" },
+              { name: "신상품", value: "new" },
               { name: "가격 순", value: "price" },
-              { name: "추천 순", value: "recommendations" },
-              { name: "구매량", value: "Purchases" },
+              { name: "추천 순", value: "rate" },
+              { name: "구매량", value: "sales" },
             ]}
           />
         </SortingBtnsSection>
@@ -41,43 +60,51 @@ export default function ProductList() {
                 <Slider
                   type="range"
                   min="0"
-                  max="100"
-                  value={priceRange[1]}
+                  max="50000"
+                  value={Math.ceil(priceRange[1])}
                   onChange={handlePriceChange}
+                  style={{
+                    background: `linear-gradient(
+                      to right,
+                      #ddd ${priceRange[1]}%,
+                      #ddd 100%
+                    )`,
+                  }}
                 />
-                <span>{`₩${priceRange[1]}`}</span>
+                <span>{`₩${priceRange[1] === 50000 ? "5만원 이상" : Math.ceil(priceRange[1])}`}</span>
               </PriceRange>
-
-              <FilterLabel>선택된 필터</FilterLabel>
-              <SearchBox type="text" placeholder="검색어를 입력하세요" />
-
-              <FreefromFiltering />
+              <FilterLabel>제품명을 입력하세요</FilterLabel>
+              <SearchBox
+                type="text"
+                placeholder="검색어를 입력하세요"
+                value={q}
+                onChange={(v) => setq(v.target.value)}
+              />
+              <FreeformFiltering />
               <AllergyFiltering />
             </FilterBox>
           </FilteringSection>
-
           <ProductListSection>
-            {data.products.map((product) => (
+            {data.content.map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
           </ProductListSection>
         </MainContent>
-
-        <Pagination
-          totalResults={data.pageInfo.totalResults}
-          resultsPerPage={data.pageInfo.resultsPerPage}
-        />
-      </ContentSection>
+        
+        <PaginationSection>
+          <Pagination totalResults={data.totalElements} resultsPerPage={10} />
+        </PaginationSection>
+        
+      </ContentWrapper>
     </Container>
   );
 }
 
 const Container = styled.div`
   display: flex;
-  max-width: 1200px;
+  justify-content: center;
   width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
+  padding: 20px;
   box-sizing: border-box;
 `;
 
@@ -88,13 +115,6 @@ const MainContent = styled.div`
   padding: 1rem 0;
 `;
 
-const SortingBtnsSection = styled.section`
-  display: flex;
-  justify-content: right;
-  width: 100%;
-  padding: 1rem 0;
-`;
-
 const FilteringSection = styled.section`
   width: 30%;
   padding: 1rem;
@@ -102,24 +122,39 @@ const FilteringSection = styled.section`
   justify-content: left;
 `;
 
-const ContentSection = styled.section`
+const ContentWrapper = styled.div`
   width: 100%;
-  padding: 1rem;
-  box-sizing: border-box;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const SortingBtnsSection = styled.section`
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  padding: 1rem 0;
 `;
 
 const ProductListSection = styled.section`
-  width: 90%;
-  margin: 0 auto;
+  width: 70%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  justify-content: right;
+  box-sizing: border-box;
+  margin-left: 28px;
 
   @media (max-width: 768px) {
-    width: 90%;
     grid-template-columns: 1fr;
   }
+`;
+
+const PaginationSection = styled.section`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
 `;
 
 const FilterBox = styled.div`
@@ -144,12 +179,9 @@ const PriceRange = styled.div`
 `;
 
 const Slider = styled.input`
-  flex: 1;
-  margin: 0 10px;
-  appearance: none;
+  -webkit-appearance: none;
   width: 100%;
   height: 5px;
-  background: var(--color-main);
   border-radius: 5px;
   outline: none;
 

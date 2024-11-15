@@ -53,7 +53,6 @@ const Btn = styled.button<{ isActive: boolean }>((props) => ({
     ? {
         backgroundColor: "var(--color-main)",
         color: "#fff",
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         ":before": { content: '"✓"', marginRight: "0.3rem" },
       }
     : { backgroundColor: "#eee", color: "#999" }),
