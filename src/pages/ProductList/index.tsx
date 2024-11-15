@@ -3,13 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
+import CategoriesSelect from "@/components/CategoriesSelect";
 import { Loading } from "@/components/Loading";
 import Pagination, { queryKey as pageToken } from "@/components/Pagination";
 import SortingBtns, { queryKey as sortBy } from "@/components/SortingBtns";
 import { fetchInstance } from "@/utils/axiosInstance";
 
-import AllergyFiltering from "./AllergyFiltering";
-import FreeformFiltering from "./FreeformFiltering";
 import ProductCard from "./ProductCard";
 import { ProductListResponse } from "./type";
 
@@ -78,8 +77,22 @@ export default function ProductList() {
                 value={q}
                 onChange={(v) => setq(v.target.value)}
               />
-              <FreeformFiltering />
-              <AllergyFiltering />
+              <CateFilterContainer>
+                <CategoriesSelect
+                  isAllergy={true}
+                  onCategoryChange={(categories) => {
+                    console.log(categories);
+                  }}
+                />
+              </CateFilterContainer>
+              <CateFilterContainer>
+                <CategoriesSelect
+                  isAllergy={false}
+                  onCategoryChange={(categories) => {
+                    console.log(categories);
+                  }}
+                />
+              </CateFilterContainer>
             </FilterBox>
           </FilteringSection>
           <ProductListSection>
@@ -125,7 +138,13 @@ const MainContent = styled.div`
   gap: 20px;
   padding: 1rem 0;
 `;
-
+const CateFilterContainer = styled.div`
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5px 16px;
+  background-color: #f9f9f9;
+  margin: 5px 0;
+`;
 const FilteringSection = styled.section`
   width: 30%;
   padding: 1rem;
