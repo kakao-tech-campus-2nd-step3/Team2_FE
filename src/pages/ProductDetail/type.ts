@@ -14,7 +14,6 @@ export type ProductDetail = {
 export type Review = {
   id: number;
   user: {
-    id: number;
     userName: string;
     userImageUrl: string;
   };

@@ -23,19 +23,16 @@ const exampleReviews: Review[] = [
   {
     id: 1,
     user: {
-      id: 101,
       userName: "John Doe",
-      userImageUrl: "https://example.com/avatar1.jpg",
+      userImageUrl: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg",
     },
     rate: 4.7,
-    content:
-      "로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.",
+    content: "로마 콜로세움은 정말 멋졌습니다! 투어도 만족스럽고 가이드도 친절했어요.",
     date: new Date("2023-09-01"),
   },
   {
     id: 2,
     user: {
-      id: 102,
       userName: "Jane Smith",
       userImageUrl: "https://example.com/avatar2.jpg",
     },
@@ -46,7 +43,6 @@ const exampleReviews: Review[] = [
   {
     id: 3,
     user: {
-      id: 103,
       userName: "Alice Brown",
       userImageUrl: "https://example.com/avatar3.jpg",
     },
@@ -57,7 +53,6 @@ const exampleReviews: Review[] = [
   {
     id: 4,
     user: {
-      id: 104,
       userName: "Bob White",
       userImageUrl: "https://example.com/avatar4.jpg",
     },
@@ -68,7 +63,7 @@ const exampleReviews: Review[] = [
 ];
 
 /**
- * @returns {JSX.Element} - 상품 상세 페이지를 렌더링하는 JSX 요소
+ * @returns {JSX.Element} - 상세 페이지를 렌더링하는 JSX 요소
  */
 export default function ProductDetail(): JSX.Element {
   return (
