@@ -1,42 +1,78 @@
 import styled from "@emotion/styled";
-// import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 
-// import { fetchInstance } from "@/utils/axiosInstance";
+import { fetchInstance } from "@/utils/axiosInstance";
 
-// import { AllergyCategories } from "./type";
+import { Loading } from "../Loading";
 
-// type Props = {
-//   isAllergy: boolean;
-//   onCategoryChange: (category: string) => void;
-// };
+type Props = {
+  isAllergy: boolean;
+  initCategory?: (setSelectedCategory: (categories: string[]) => void) => void;
+  onCategoryChange: (selectedCategory: string[]) => void;
+};
+type Categories = {
+  id: number;
+  type: string;
+}[];
 
 /**
- * 불러올 정보가 알러지인지 프리프롬인지 구분할 변수랑
- * 카테고리 중 어떤 것이 새로 셋 되면 수행할 작업 함수를 받아서 수행
+ * @param isAllergy 알러지인지 프리프롬인지 구분
+ * @param initCategory 카테고리 초기화 함수(setSelectedCategory)를 받아서 세팅알아서 수행하는 함수
+ * @param onCategoryChange 카테고리 변경 시 수행할 함수(주로 백엔드에 저장/조회 요청)
  * @returns
  */
-export default function CategoriesSelect(): JSX.Element {
-  // const { data, isPending, isError } = useQuery<AllergyCategories>({
-  //   queryKey: [ isAllergy ? "allergy" : "freefrom" ],
-  //   queryFn: async () => (await fetchInstance().get("/api/allergyCategorie/all")).data,
-  // });
+export default function CategoriesSelect({
+  isAllergy,
+  initCategory,
+  onCategoryChange,
+}: Props): JSX.Element {
+  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
+  const { data, isPending, isError } = useQuery<Categories>({
+    queryKey: [isAllergy ? "allergy" : "freefrom"],
+    queryFn: async () =>
+      (
+        await fetchInstance().get(
+          `/api/${isAllergy ? "allergyCategorie" : "freefromCategories"}/all`,
+        )
+      ).data,
+  });
+
+  useEffect(() => {
+    if (initCategory) initCategory(setSelectedCategory);
+  }, [initCategory]);
+
+  const handleCategoryClick = (categoryType: string) => {
+    if (selectedCategory.includes(categoryType)) {
+      setSelectedCategory(selectedCategory.filter((category) => category !== categoryType));
+    } else {
+      setSelectedCategory([...selectedCategory, categoryType]);
+    }
+    onCategoryChange(selectedCategory);
+  };
+
+  if (isPending) return <Loading />;
+  if (isError) return <div>Error</div>;
+
   return (
-    <Container>
-      <Btn isActive={true}>전체</Btn>
-      <Btn isActive={true}>전체</Btn>
-      <Btn isActive={false}>전체</Btn>
-      <Btn isActive={true}>전체</Btn>
-    </Container>
+    <>
+      {data?.map((category) => (
+        <Btn
+          key={category.id}
+          isActive={selectedCategory.includes(category.type)}
+          onClick={() => handleCategoryClick(category.type)}
+        >
+          {category.type}
+        </Btn>
+      ))}
+    </>
   );
 }
-export const Container = styled.div({
-  display: "flex",
-  gap: "0.5rem",
-});
 export const Btn = styled.button<{ isActive: boolean }>((props) => ({
   borderRadius: "0.8rem",
   cursor: "pointer",
   border: "none",
+  margin: "0.3rem",
   padding: "0.3rem 0.7rem",
   textAlign: "center",
   flexBasis: "8rem",
