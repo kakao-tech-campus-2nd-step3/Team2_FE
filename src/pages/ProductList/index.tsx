@@ -64,6 +64,8 @@ export default function ProductList() {
 
             <FilterLabel>제품명을 입력하세요</FilterLabel>
             <SearchBox type="text" placeholder="검색어를 입력하세요" />
+            <FilterLabel>알러지</FilterLabel>
+            <FilterLabel>프리프롬</FilterLabel>
           </FilterBox>
         </FilteringSection>
 
