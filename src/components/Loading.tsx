@@ -22,7 +22,7 @@ const Container = styled.div({
 });
 
 const StyledLottie = styled(Lottie)({
-  width: "80%",
+  width: "20%",
   height: "auto",
 });
 
