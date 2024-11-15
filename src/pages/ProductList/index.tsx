@@ -15,14 +15,23 @@ import { ProductListResponse } from "./type";
 export default function ProductList() {
   const [priceRange, setPriceRange] = useState([0, 50000]);
   const [q, setq] = useState("");
+  const [allergyString, setAllergyString] = useState("");
+  const [freeFromString, setFreeFromString] = useState("");
   const [searchParams] = useSearchParams();
 
   const { data, isPending, isError } = useQuery<ProductListResponse>({
-    queryKey: ["products", searchParams.get(pageToken)!, searchParams.get(sortBy)!],
+    queryKey: [
+      "products",
+      searchParams.get(pageToken)!,
+      searchParams.get(sortBy)!,
+      q,
+      allergyString,
+      freeFromString,
+    ],
     queryFn: async () =>
       (
         await fetchInstance().get(
-          `/api/products?maxResults=10&pageToken=${Number(searchParams.get(pageToken)) < 1 ? 1 : 0}&sortby=${searchParams.get(sortBy)}&q=${q}${priceRange[1] === 50000 ? "" : "priceMax=" + priceRange[1]}`,
+          `/api/products?maxResults=10&pageToken=${Number(searchParams.get(pageToken)) < 1 ? 1 : Number(searchParams.get(pageToken)) - 1}&sortby=${searchParams.get(sortBy)}&q=${q}${priceRange[1] === 50000 ? "" : "priceMax=" + priceRange[1]}&allergy=${allergyString}&freeFroms=${freeFromString}`,
         )
       ).data,
   });
@@ -81,7 +90,7 @@ export default function ProductList() {
                 <CategoriesSelect
                   isAllergy={true}
                   onCategoryChange={(categories) => {
-                    console.log(categories);
+                    setAllergyString(categories.join(","));
                   }}
                 />
               </CateFilterContainer>
@@ -89,7 +98,7 @@ export default function ProductList() {
                 <CategoriesSelect
                   isAllergy={false}
                   onCategoryChange={(categories) => {
-                    console.log(categories);
+                    setFreeFromString(categories.join(","));
                   }}
                 />
               </CateFilterContainer>
