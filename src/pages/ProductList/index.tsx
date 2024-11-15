@@ -12,6 +12,7 @@ import { fetchInstance } from "@/utils/axiosInstance";
 import ProductCard from "./ProductCard";
 import { ProductListResponse } from "./type";
 
+
 export default function ProductList() {
   const [priceRange, setPriceRange] = useState([0, 50000]);
   const [q, setq] = useState("");
@@ -57,6 +58,7 @@ export default function ProductList() {
             ]}
           />
         </SortingBtnsSection>
+
         <MainContent>
           <FilteringSection>
             <FilterBox>
@@ -110,9 +112,11 @@ export default function ProductList() {
             ))}
           </ProductListSection>
         </MainContent>
+        
         <PaginationSection>
           <Pagination totalResults={data.totalElements} resultsPerPage={10} />
         </PaginationSection>
+        
       </ContentWrapper>
     </Container>
   );
@@ -124,6 +128,20 @@ const Container = styled.div`
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
+`;
+
+const MainContent = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  padding: 1rem 0;
+`;
+
+const FilteringSection = styled.section`
+  width: 30%;
+  padding: 1rem;
+  box-sizing: border-box;
+  justify-content: left;
 `;
 
 const ContentWrapper = styled.div`
@@ -141,24 +159,12 @@ const SortingBtnsSection = styled.section`
   padding: 1rem 0;
 `;
 
-const MainContent = styled.div`
-  display: flex;
-  width: 100%;
-  gap: 20px;
-  padding: 1rem 0;
-`;
 const CateFilterContainer = styled.div`
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 5px 16px;
   background-color: #f9f9f9;
   margin: 5px 0;
-`;
-const FilteringSection = styled.section`
-  width: 30%;
-  padding: 1rem;
-  box-sizing: border-box;
-  margin-right: 10px;
 `;
 
 const ProductListSection = styled.section`

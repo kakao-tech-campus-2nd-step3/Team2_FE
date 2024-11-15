@@ -29,7 +29,7 @@ export default function CreateReview({
 
   const handleMouseUp = () => {
     if (hoverRating !== null) {
-      setRating(hoverRating);
+      setRating(Math.round(hoverRating));
     }
     setIsDragging(false);
     setHoverRating(null);
