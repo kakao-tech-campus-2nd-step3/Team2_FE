@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 import Background from "@/components/Background";
+import { Loading } from "@/components/Loading.tsx";
 import { fetchInstance, isAuthFail } from "@/utils/axiosInstance";
 import { RouterPath } from "@/utils/path";
 
@@ -32,7 +33,7 @@ export default function MyAccount() {
   });
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   if (isError) {
     return <div>Error</div>;

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { JSX } from "react";
 import { useParams } from "react-router-dom";
 
+import { Loading } from "@/components/Loading.tsx";
 import { fetchInstance } from "@/utils/axiosInstance";
 
 import Bottom from "./Bottom";
@@ -29,7 +30,7 @@ export default function ColumnDetail(): JSX.Element {
     },
   });
 
-  if (isPending) return <div>Loading...</div>;
+  if (isPending) return <Loading />;
   if (isError) return <div>Error!</div>;
 
   return (
