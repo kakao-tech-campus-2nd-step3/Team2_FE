@@ -51,10 +51,20 @@ export default function ProductInfo({ product }: { product: ProductDetail }): JS
       {/* 상품 정보 섹션 */}
       <InfoContainer>
         <ProductName>{product.name}</ProductName>
-        <Tag>{product.freformcate.join(", ")}</Tag>
+        <TagList>
+          {product.freeformCate.map((category) => (
+            <Tag key={category}>{category}</Tag>
+          ))}
+        </TagList>
+        <TagList>
+          {product.allregyCate.map((category) => (
+            <Tag key={category}>{category}</Tag>
+          ))}
+        </TagList>
         <Price>{product.price}원</Price>
-        <Text>{product.moreinfo}</Text>
-        <BuyButton onClick={() => window.open(product.producturl, "_blank")}>바로가기</BuyButton>
+        <BuyButton onClick={() => window.open(product.producturl, "_blank")}>
+          {product.mallName} &gt;
+        </BuyButton>
         <RatingSection>
           <p>별점</p>
           <Stars>{renderStars(product.totalrate)}</Stars>
@@ -107,6 +117,10 @@ const ProductName = styled.h1`
   margin-bottom: 15px;
 `;
 
+const TagList = styled.div`
+  display: flex;
+  gap: 10px;
+`;
 const Tag = styled.div`
   background-color: #dff5e2;
   padding: 5px 10px;
@@ -119,11 +133,6 @@ const Price = styled.h2`
   font-size: 26px;
   font-weight: bold;
   margin-bottom: 20px;
-`;
-
-const Text = styled.p`
-  margin-bottom: 20px;
-  color: #666666;
 `;
 
 const BuyButton = styled.button`

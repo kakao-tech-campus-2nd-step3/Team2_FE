@@ -11,12 +11,16 @@ const data: ProductDetail = {
   price: "5000",
   imgurl: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg",
   totalrate: "3.6",
-  moreinfo: "추가 설명",
   producturl:
     "https://www.getyourguide.com/ko-kr/roma-l33/roma-kolroseum-igseupeureseu-tueo-mic-poreom-ibjang-t457508/?ranking_uuid=db08e83a-62a1-4717-9945-6a2da1739289",
+  mallName: "쿠팡",
   imageurl2: "https://cdn.imweb.me/upload/S2017101359e025984d346/ad539f598e444.jpg",
-  freformcate: ["글로텐 프리"],
-  allregycate: ["땅콩", "카테고리2"],
+  freeformCate: ["글로텐 프리", "락토 프리"],
+  allregyCate: ["땅콩", "카테고리2"],
+  ingredients: "성분",
+  capacity: "용량",
+  nutritionInfo: "영양정보",
+  manufacturer: "제조사",
 };
 
 const exampleReviews: Review[] = [
