@@ -50,16 +50,13 @@ export default function ColumnList() {
         />
       </SortingBtnsSection>
       <ColumnListSection>
-        {data.columns.map((column) => (
+        {data.content.map((column) => (
           <Link to={`/columns/${column.id}`} key={column.id}>
             <ColumnCard {...column} />
           </Link>
         ))}
       </ColumnListSection>
-      <Pagination
-        totalResults={data.pageInfo.totalResults}
-        resultsPerPage={data.pageInfo.resultsPerPage}
-      />
+      <Pagination totalResults={data.totalElements} resultsPerPage={10} />
     </>
   );
 }
