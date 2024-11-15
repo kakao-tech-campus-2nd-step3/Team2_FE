@@ -14,16 +14,16 @@ export type ProductDetail = {
   id: number;
   name: string;
   price: string;
-  imgurl: string;
-  totalrate: string;
-  producturl: string;
+  imgUrl: string;
+  rating: number;
+  ProductUrl: string;
   mallName: string;
-  imageurl2: string;
-  freeformCate: string[];
-  allregyCate: string[];
+  description: string;
+  freeFrom: string[];
+  allergy: string[];
   ingredients: string;
   capacity: string;
-  nutritionInfo: string;
+  nutritionalInfo: string;
   manufacturer: string;
 };
 

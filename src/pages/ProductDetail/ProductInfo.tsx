@@ -17,8 +17,8 @@ export default function ProductInfo({ product }: { product: ProductDetail }): JS
   const toggleFavorite = () => setFavorite(!isFavorite);
 
   // 별점 계산
-  const renderStars = (totalrate: string) => {
-    const rate = parseFloat(totalrate);
+  const renderStars = (totalrate: number) => {
+    const rate = totalrate;
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= Math.floor(rate)) {
@@ -42,7 +42,7 @@ export default function ProductInfo({ product }: { product: ProductDetail }): JS
     <ProductContainer>
       {/* 이미지 섹션 */}
       <ImageContainer>
-        <Image src={product.imgurl} alt={product.name} />
+        <Image src={product.imgUrl} alt={product.name} />
         <LikeButton onClick={toggleFavorite}>
           {isFavorite ? <FaHeart color="red" size={24} /> : <FaRegHeart size={24} />}
         </LikeButton>
@@ -52,22 +52,22 @@ export default function ProductInfo({ product }: { product: ProductDetail }): JS
       <InfoContainer>
         <ProductName>{product.name}</ProductName>
         <TagList>
-          {product.freeformCate.map((category) => (
+          {product.freeFrom.map((category) => (
             <Tag key={category}>{category}</Tag>
           ))}
         </TagList>
         <TagList>
-          {product.allregyCate.map((category) => (
+          {product.allergy.map((category) => (
             <Tag key={category}>{category}</Tag>
           ))}
         </TagList>
         <Price>{product.price}원</Price>
-        <BuyButton onClick={() => window.open(product.producturl, "_blank")}>
+        <BuyButton onClick={() => window.open(product.ProductUrl, "_blank")}>
           {product.mallName} &gt;
         </BuyButton>
         <RatingSection>
           <p>별점</p>
-          <Stars>{renderStars(product.totalrate)}</Stars>
+          <Stars>{renderStars(product.rating)}</Stars>
         </RatingSection>
       </InfoContainer>
     </ProductContainer>

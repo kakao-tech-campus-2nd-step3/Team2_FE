@@ -18,20 +18,22 @@ export default function Product({ detail }: { detail: ProductDetail }): JSX.Elem
 
       {isDetailOpen && (
         <>
-          <DetailImage src={detail.imageurl2} alt="상품 상세 이미지" />
+          <DetailImage src={detail.description} alt="상품 상세 이미지" />
           <DetailTable>
             <tbody>
               <tr>
-                <th>성분</th>
-                <td>{detail.ingredients}</td>
-                <th>용량</th>
+                <TableHeader>제조사</TableHeader>
+                <td>{detail.manufacturer}</td>
+                <TableHeader>용량</TableHeader>
                 <td>{detail.capacity}</td>
               </tr>
               <tr>
-                <th>영양성분</th>
-                <td>{detail.nutritionInfo}</td>
-                <th>제조사</th>
-                <td>{detail.manufacturer}</td>
+                <TableHeader>영양성분</TableHeader>
+                <td colSpan={3}>{detail.nutritionalInfo}</td>
+              </tr>
+              <tr>
+                <TableHeader>성분</TableHeader>
+                <td colSpan={3}>{detail.ingredients}</td>
               </tr>
             </tbody>
           </DetailTable>
@@ -88,4 +90,9 @@ const DetailTable = styled.table`
     background-color: #f2f2f2;
     font-weight: bold;
   }
+`;
+
+const TableHeader = styled.th`
+  white-space: nowrap;
+  font-weight: bold;
 `;
