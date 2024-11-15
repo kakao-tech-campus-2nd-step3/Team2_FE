@@ -2,10 +2,7 @@
 
 2조 프론트엔드
 
-## review
-
-- 상품 상세와 컬럼 리스트 페이지를 추가하였습니다.
-- 컬럼 상세 페이지 수정을 했습니다.
+- [백엔드 레포지토리 + 프로젝트 소개](https://github.com/kakao-tech-campus-2nd-step3/Team2_BE/blob/main/README.md)
 
 ## project structure
 
