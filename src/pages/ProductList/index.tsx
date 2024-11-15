@@ -1,21 +1,37 @@
 import styled from "@emotion/styled";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
-import Pagination from "@/components/Pagination";
-import SortingBtns from "@/components/SortingBtns";
+import { Loading } from "@/components/Loading";
+import Pagination, { queryKey as pageToken } from "@/components/Pagination";
+import SortingBtns, { queryKey as sortBy } from "@/components/SortingBtns";
+import { fetchInstance } from "@/utils/axiosInstance";
 
-import exampleData from "./exampleData.json";
 import ProductCard from "./ProductCard";
+import { ProductListResponse } from "./type";
 
 export default function ProductList() {
-  const data = exampleData; // 더미 데이터를 변수로 선언하여 사용
+  const [priceRange, setPriceRange] = useState([0, 50000]);
+  const [searchParams] = useSearchParams();
 
-  const [priceRange, setPriceRange] = useState([0, 100]);
+  const { data, isPending, isError } = useQuery<ProductListResponse>({
+    queryKey: ["products", searchParams.get(pageToken)!, searchParams.get(sortBy)!],
+    queryFn: async () =>
+      (
+        await fetchInstance().get(
+          `/api/products?maxResults=10&pageToken=${Number(searchParams.get(pageToken)) - 1}&sortby=${searchParams.get(sortBy)}`,
+        )
+      ).data,
+  });
 
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value);
     setPriceRange([0, value]);
   };
+
+  if (isPending) return <Loading />;
+  if (isError) return <div>Error</div>;
 
   return (
     <Container>
@@ -23,10 +39,10 @@ export default function ProductList() {
         <SortingBtnsSection>
           <SortingBtns
             sortingBtns={[
-              { name: "신상품", value: "recent" },
+              { name: "신상품", value: "new" },
               { name: "가격 순", value: "price" },
-              { name: "추천 순", value: "recommendations" },
-              { name: "구매량", value: "Purchases" },
+              { name: "추천 순", value: "rate" },
+              { name: "구매량", value: "sales" },
             ]}
           />
         </SortingBtnsSection>
@@ -39,11 +55,11 @@ export default function ProductList() {
               <Slider
                 type="range"
                 min="0"
-                max="100"
+                max="50000"
                 value={priceRange[1]}
                 onChange={handlePriceChange}
               />
-              <span>{`₩${priceRange[1]}`}</span>
+              <span>{`₩${priceRange[1] === 50000 ? "5만원 이상" : priceRange[1]}`}</span>
             </PriceRange>
 
             <FilterLabel>제품명을 입력하세요</FilterLabel>
@@ -52,15 +68,12 @@ export default function ProductList() {
         </FilteringSection>
 
         <ProductListSection>
-          {data.products.map((product) => (
+          {data.content.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}
         </ProductListSection>
 
-        <Pagination
-          totalResults={data.pageInfo.totalResults}
-          resultsPerPage={data.pageInfo.resultsPerPage}
-        />
+        <Pagination totalResults={data.totalElements} resultsPerPage={10} />
       </ContentSection>
     </Container>
   );
