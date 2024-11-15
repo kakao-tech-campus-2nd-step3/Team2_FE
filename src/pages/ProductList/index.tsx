@@ -3,27 +3,35 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
+import CategoriesSelect from "@/components/CategoriesSelect";
 import { Loading } from "@/components/Loading";
 import Pagination, { queryKey as pageToken } from "@/components/Pagination";
 import SortingBtns, { queryKey as sortBy } from "@/components/SortingBtns";
 import { fetchInstance } from "@/utils/axiosInstance";
 
-import AllergyFiltering from "./AllergyFiltering";
-import FreeformFiltering from "./FreeformFiltering";
 import ProductCard from "./ProductCard";
 import { ProductListResponse } from "./type";
 
 export default function ProductList() {
   const [priceRange, setPriceRange] = useState([0, 50000]);
   const [q, setq] = useState("");
+  const [allergyString, setAllergyString] = useState("");
+  const [freeFromString, setFreeFromString] = useState("");
   const [searchParams] = useSearchParams();
 
   const { data, isPending, isError } = useQuery<ProductListResponse>({
-    queryKey: ["products", searchParams.get(pageToken)!, searchParams.get(sortBy)!],
+    queryKey: [
+      "products",
+      searchParams.get(pageToken)!,
+      searchParams.get(sortBy)!,
+      q,
+      allergyString,
+      freeFromString,
+    ],
     queryFn: async () =>
       (
         await fetchInstance().get(
-          `/api/products?maxResults=10&pageToken=${Number(searchParams.get(pageToken)) < 1 ? 1 : 0}&sortby=${searchParams.get(sortBy)}&q=${q}${priceRange[1] === 50000 ? "" : "priceMax=" + priceRange[1]}`,
+          `/api/products?maxResults=10&pageToken=${Number(searchParams.get(pageToken)) < 1 ? 1 : Number(searchParams.get(pageToken)) - 1}&sortby=${searchParams.get(sortBy)}&q=${q}${priceRange[1] === 50000 ? "" : "priceMax=" + priceRange[1]}&allergy=${allergyString}&freeFroms=${freeFromString}`,
         )
       ).data,
   });
@@ -78,8 +86,22 @@ export default function ProductList() {
                 value={q}
                 onChange={(v) => setq(v.target.value)}
               />
-              <FreeformFiltering />
-              <AllergyFiltering />
+              <CateFilterContainer>
+                <CategoriesSelect
+                  isAllergy={true}
+                  onCategoryChange={(categories) => {
+                    setAllergyString(categories.join(","));
+                  }}
+                />
+              </CateFilterContainer>
+              <CateFilterContainer>
+                <CategoriesSelect
+                  isAllergy={false}
+                  onCategoryChange={(categories) => {
+                    setFreeFromString(categories.join(","));
+                  }}
+                />
+              </CateFilterContainer>
             </FilterBox>
           </FilteringSection>
           <ProductListSection>
@@ -125,7 +147,13 @@ const MainContent = styled.div`
   gap: 20px;
   padding: 1rem 0;
 `;
-
+const CateFilterContainer = styled.div`
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5px 16px;
+  background-color: #f9f9f9;
+  margin: 5px 0;
+`;
 const FilteringSection = styled.section`
   width: 30%;
   padding: 1rem;
