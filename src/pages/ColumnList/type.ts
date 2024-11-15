@@ -5,10 +5,6 @@ export type ColumnList = {
   imgurl: string;
 };
 export type ColumnListResponse = {
-  columns: ColumnList[];
-  nextPageToken: string;
-  pageInfo: {
-    totalResults: number;
-    resultsPerPage: number;
-  };
+  content: ColumnList[];
+  totalElements: number;
 };

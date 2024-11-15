@@ -1,18 +1,14 @@
-export type WishProductDTO = {
-  id: number;
+export type Product = {
+  id: string;
   name: string;
   price: number;
   imgUrl: string;
-  tag?: string;
-};
-
-export type PageInfo = {
-  totalResults: number;
-  resultsPerPage: number;
+  ProductUrl: string;
+  mallName: string;
+  tag: string;
 };
 
 export type ProductListResponse = {
-  products: WishProductDTO[];
-  nextPageToken: string;
-  pageInfo: PageInfo;
+  content: Product[];
+  totalElements: number;
 };

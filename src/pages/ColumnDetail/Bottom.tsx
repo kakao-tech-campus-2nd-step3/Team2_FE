@@ -1,59 +1,61 @@
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import { fetchInstance } from "@/utils/axiosInstance";
 import { RouterPath } from "@/utils/path";
+import { accessTokenStorage } from "@/utils/storage";
 
 export default function Bottom() {
-  const [articleLikeId, setArticleLikeId] = useState(-1);
+  const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const { columnId } = useParams<{ columnId: string }>();
 
+  const fetchLikeCount = useCallback((columnId: string) => {
+    fetchInstance()
+      .get(`/api/columns/likes/count?articleId=${columnId}`)
+      .then((res) => setLikeCount(res.data.count));
+  }, []);
+
   const handleLike = () => {
-    if (articleLikeId < 0) {
-      setArticleLikeId(1);
-      setLikeCount((prev) => prev + 1);
-      fetchInstance()
+    if (isLiked) {
+      setIsLiked(true);
+      setLikeCount(likeCount + 1);
+      fetchInstance(true)
         .post("/api/columns/likes", { articleId: columnId })
-        .then((res) => {
-          setArticleLikeId(res.data.articleLikeId);
-          setLikeCount(res.data.count);
-        })
+        .then(() => fetchLikeCount(columnId ?? ""))
         .catch(() => {
-          setArticleLikeId(1);
-          setLikeCount((prev) => prev + 1);
+          setIsLiked(false);
+          setLikeCount(likeCount - 1);
           alert("처리 중 오류가 발생했습니다. 다시 시도해주세요.");
         });
     } else
-      fetchInstance()
-        .delete(`/api/columns/likes/${articleLikeId}`)
+      fetchInstance(true)
+        .delete(`/api/columns/likes/${columnId}`)
         .then(() => {
-          setArticleLikeId(-1);
-          setLikeCount((prev) => prev - 1);
+          setIsLiked(false);
+          fetchLikeCount(columnId ?? "");
         })
         .catch(() => {
           alert("처리 중 오류가 발생했습니다. 다시 시도해주세요.");
         });
   };
   useEffect(() => {
-    fetchInstance()
+    fetchLikeCount(columnId ?? "");
+
+    if (!accessTokenStorage.get()) return;
+    fetchInstance(true)
       .get(`/api/columns/likes?articleId=${columnId}`)
       .then((res) => {
-        setArticleLikeId(res.data.articleLikeId);
-        setLikeCount(res.data.count);
+        setIsLiked(res.data.isliked);
       });
-  }, [columnId]);
+  }, [columnId, fetchLikeCount]);
   return (
     <Container>
       <Favorite>
-        <FavoriteIcon
-          className="material-symbols-outlined"
-          isLiked={articleLikeId >= 0}
-          onClick={handleLike}
-        >
+        <FavoriteIcon className="material-symbols-outlined" isLiked={isLiked} onClick={handleLike}>
           favorite
         </FavoriteIcon>
         <span>{likeCount}</span>
