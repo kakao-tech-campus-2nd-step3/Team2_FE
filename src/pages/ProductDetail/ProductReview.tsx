@@ -1,4 +1,3 @@
-// ProductReview.tsx
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";

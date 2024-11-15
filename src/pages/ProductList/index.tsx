@@ -3,9 +3,10 @@ import { useState } from "react";
 
 import Pagination from "@/components/Pagination";
 import SortingBtns from "@/components/SortingBtns";
-
-import exampleData from "./exampleData.json";
-import ProductCard from "./ProductCard";
+import AllergyFiltering from "@/pages/ProductList/AllergyFiltering";
+import exampleData from "@/pages/ProductList/exampleData.json";
+import FreefromFiltering from "@/pages/ProductList/FreeFromFiltering";
+import ProductCard from "@/pages/ProductList/ProductCard";
 
 export default function ProductList() {
   const data = exampleData; // 더미 데이터를 변수로 선언하여 사용
@@ -31,31 +32,36 @@ export default function ProductList() {
           />
         </SortingBtnsSection>
 
-        <FilteringSection>
-          <FilterBox>
-            <FilterLabel>가격</FilterLabel>
-            <PriceRange>
-              <span>{`₩${priceRange[0]}`}</span>
-              <Slider
-                type="range"
-                min="0"
-                max="100"
-                value={priceRange[1]}
-                onChange={handlePriceChange}
-              />
-              <span>{`₩${priceRange[1]}`}</span>
-            </PriceRange>
+        <MainContent>
+          <FilteringSection>
+            <FilterBox>
+              <FilterLabel>가격</FilterLabel>
+              <PriceRange>
+                <span>{`₩${priceRange[0]}`}</span>
+                <Slider
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={priceRange[1]}
+                  onChange={handlePriceChange}
+                />
+                <span>{`₩${priceRange[1]}`}</span>
+              </PriceRange>
 
-            <FilterLabel>제품명을 입력하세요</FilterLabel>
-            <SearchBox type="text" placeholder="검색어를 입력하세요" />
-          </FilterBox>
-        </FilteringSection>
+              <FilterLabel>선택된 필터</FilterLabel>
+              <SearchBox type="text" placeholder="검색어를 입력하세요" />
 
-        <ProductListSection>
-          {data.products.map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
-        </ProductListSection>
+              <FreefromFiltering />
+              <AllergyFiltering />
+            </FilterBox>
+          </FilteringSection>
+
+          <ProductListSection>
+            {data.products.map((product) => (
+              <ProductCard key={product.id} {...product} />
+            ))}
+          </ProductListSection>
+        </MainContent>
 
         <Pagination
           totalResults={data.pageInfo.totalResults}
@@ -75,6 +81,20 @@ const Container = styled.div`
   box-sizing: border-box;
 `;
 
+const MainContent = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  padding: 1rem 0;
+`;
+
+const SortingBtnsSection = styled.section`
+  display: flex;
+  justify-content: right;
+  width: 100%;
+  padding: 1rem 0;
+`;
+
 const FilteringSection = styled.section`
   width: 30%;
   padding: 1rem;
@@ -86,13 +106,6 @@ const ContentSection = styled.section`
   width: 100%;
   padding: 1rem;
   box-sizing: border-box;
-`;
-
-const SortingBtnsSection = styled.section`
-  display: flex;
-  justify-content: right;
-  width: 100%;
-  padding: 1rem 0;
 `;
 
 const ProductListSection = styled.section`
