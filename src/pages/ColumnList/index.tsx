@@ -1,32 +1,32 @@
 import styled from "@emotion/styled";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
+import { Loading } from "@/components/Loading.tsx";
 import Pagination, { queryKey as pageToken } from "@/components/Pagination";
 import SortingBtns, { queryKey as sortBy } from "@/components/SortingBtns";
+import { fetchInstance } from "@/utils/axiosInstance";
 
 import ColumnCard from "./ColumnCard";
 import { ColumnListResponse } from "./type";
 
+const columnsKey = (pageToken: string, sortBy: string) => ["columns", pageToken, sortBy];
+
 export default function ColumnList() {
   const [searchParams] = useSearchParams();
-  const columnsKey = (pageToken: string, sortBy: string) => ["columns", pageToken, sortBy];
 
   const { data, isError, isPending } = useQuery<ColumnListResponse>({
-    queryKey: columnsKey(searchParams.get(pageToken) || "0", searchParams.get(sortBy) || "recent"),
+    queryKey: columnsKey(searchParams.get(pageToken)!, searchParams.get(sortBy)!),
     queryFn: async () => {
-      const response = await axios.get(
-        `https://aeatbe.jeje.work/api/columns`,
-        // `https://aeatbe.jeje.work/api/columns?sortBy=${searchParams.get(sortBy) ?? "recent"}&pageToken=${searchParams.get(pageToken) ?? "0"}`,
+      const response = await fetchInstance().get(
+        `/api/columns?sortby=${searchParams.get(sortBy)}&page=${Number(searchParams.get(pageToken)) - 1}`,
       );
-      console.log(response.data);
       return response.data;
     },
   });
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   if (isError) {
     return <div>Error</div>;
@@ -40,7 +40,7 @@ export default function ColumnList() {
           sortingBtns={[
             {
               name: "최신 순",
-              value: "recent",
+              value: "new",
             },
             {
               name: "인기 순",
@@ -51,14 +51,14 @@ export default function ColumnList() {
       </SortingBtnsSection>
       <ColumnListSection>
         {data.columns.map((column) => (
-          <ColumnCard key={column.id} {...column} />
+          <Link to={`/columns/${column.id}`} key={column.id}>
+            <ColumnCard {...column} />
+          </Link>
         ))}
       </ColumnListSection>
       <Pagination
-        // totalResults={data.pageInfo.totalResults}
-        // resultsPerPage={data.pageInfo.resultsPerPage}
-        totalResults={3}
-        resultsPerPage={10}
+        totalResults={data.pageInfo.totalResults}
+        resultsPerPage={data.pageInfo.resultsPerPage}
       />
     </>
   );

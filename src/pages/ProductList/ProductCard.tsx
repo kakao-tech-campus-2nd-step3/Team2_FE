@@ -1,23 +1,36 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
-import type { WishProductDTO } from "./type";
+import { RouterPath } from "@/utils/path";
 
-function ProductCard({ name, price, imgUrl, tag }: WishProductDTO) {
+type Props = {
+  id: string;
+  name: string;
+  price: number;
+  imgUrl: string;
+  tag?: string;
+  ProductUrl: string;
+  mallName: string;
+};
+
+function ProductCard({ id, name, price, imgUrl, tag, ProductUrl, mallName }: Props) {
   return (
-    <CardContainer>
+    <CardContainer to={RouterPath.productDetail.getPath(id)}>
+      {tag && tag !== "NULL" && <ProductTag>{tag}</ProductTag>}
       <ProductImage src={imgUrl} alt={name} />
       <ProductName>{name}</ProductName>
-      <ProductPriceTagContainer>
-        <ProductPrice>{price}원</ProductPrice>
-        {tag && <ProductTag>{tag}</ProductTag>}
-      </ProductPriceTagContainer>
+      <ProductUrlA href={ProductUrl} onClick={(ent) => ent.stopPropagation()}>
+        {mallName} &gt;
+      </ProductUrlA>
+      <ProductPrice>{price}원</ProductPrice>
     </CardContainer>
   );
 }
 
 export default ProductCard;
 
-const CardContainer = styled.div`
+const CardContainer = styled(Link)`
+  position: relative;
   border: 1px solid #ddd;
   padding: 16px;
   border-radius: 10px;
@@ -28,27 +41,28 @@ const ProductImage = styled.img`
 `;
 
 const ProductName = styled.h3`
-  font-size: 18px;
-  margin: 8px 0;
-`;
-
-const ProductPriceTagContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  font-size: var(--font-size-base);
   margin-top: 8px;
 `;
 
 const ProductPrice = styled.p`
-  font-size: 16px;
-  color: #333;
-  margin: 0;
+  font-size: var(--font-size-base);
+  font-weight: bold;
+  margin-top: 8px;
 `;
 
 const ProductTag = styled.span`
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background-color: var(--color-main);
-  padding: 4px 8px;
+  padding: 5px 12px;
   font-size: 14px;
-  border-radius: 4px;
+  border-radius: 20px;
   color: white;
+  opacity: 0.8;
+`;
+const ProductUrlA = styled.a`
+  font-size: var(--font-size-small);
+  color: var(--color-main);
 `;

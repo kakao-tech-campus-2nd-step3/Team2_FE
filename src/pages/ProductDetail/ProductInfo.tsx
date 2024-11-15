@@ -17,8 +17,8 @@ export default function ProductInfo({ product }: { product: ProductDetail }): JS
   const toggleFavorite = () => setFavorite(!isFavorite);
 
   // 별점 계산
-  const renderStars = (totalrate: string) => {
-    const rate = parseFloat(totalrate);
+  const renderStars = (totalrate: number) => {
+    const rate = totalrate;
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= Math.floor(rate)) {
@@ -42,7 +42,7 @@ export default function ProductInfo({ product }: { product: ProductDetail }): JS
     <ProductContainer>
       {/* 이미지 섹션 */}
       <ImageContainer>
-        <Image src={product.imgurl} alt={product.name} />
+        <Image src={product.imgUrl} alt={product.name} />
         <LikeButton onClick={toggleFavorite}>
           {isFavorite ? <FaHeart color="red" size={24} /> : <FaRegHeart size={24} />}
         </LikeButton>
@@ -51,13 +51,23 @@ export default function ProductInfo({ product }: { product: ProductDetail }): JS
       {/* 상품 정보 섹션 */}
       <InfoContainer>
         <ProductName>{product.name}</ProductName>
-        <Tag>{product.freformcate.join(", ")}</Tag>
+        <TagList>
+          {product.freeFrom.map((category) => (
+            <Tag key={category}>{category}</Tag>
+          ))}
+        </TagList>
+        <TagList>
+          {product.allergy.map((category) => (
+            <Tag key={category}>{category}</Tag>
+          ))}
+        </TagList>
         <Price>{product.price}원</Price>
-        <Text>{product.moreinfo}</Text>
-        <BuyButton onClick={() => window.open(product.producturl, "_blank")}>바로가기</BuyButton>
+        <BuyButton onClick={() => window.open(product.ProductUrl, "_blank")}>
+          {product.mallName} &gt;
+        </BuyButton>
         <RatingSection>
           <p>별점</p>
-          <Stars>{renderStars(product.totalrate)}</Stars>
+          <Stars>{renderStars(product.rating)}</Stars>
         </RatingSection>
       </InfoContainer>
     </ProductContainer>
@@ -107,6 +117,10 @@ const ProductName = styled.h1`
   margin-bottom: 15px;
 `;
 
+const TagList = styled.div`
+  display: flex;
+  gap: 10px;
+`;
 const Tag = styled.div`
   background-color: #dff5e2;
   padding: 5px 10px;
@@ -119,11 +133,6 @@ const Price = styled.h2`
   font-size: 26px;
   font-weight: bold;
   margin-bottom: 20px;
-`;
-
-const Text = styled.p`
-  margin-bottom: 20px;
-  color: #666666;
 `;
 
 const BuyButton = styled.button`

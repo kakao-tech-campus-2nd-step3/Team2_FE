@@ -1,19 +1,16 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { JSX } from "react";
+import React, { JSX, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from "@/components/Layout";
-import ColumnDetail from "@/pages/ColumnDetail";
-import ColumnList from "@/pages/ColumnList";
-import Home from "@/pages/Home";
-import Login from "@/pages/Login";
-import MyAccount from "@/pages/MyAccount";
-import NotFound from "@/pages/NotFound";
-import ProductDetail from "@/pages/ProductDetail";
-import ProductList from "@/pages/ProductList";
+import { Loading } from "@/components/Loading.tsx";
 import { RouterPath } from "@/utils/path";
 
 import GlobalStyles from "./globalStyle";
+
+const lazyLoad = (componets: () => Promise<{ default: React.ComponentType<unknown> }>) => (
+  <Suspense fallback={<Loading />}>{React.createElement(React.lazy(componets))}</Suspense>
+);
 
 const router = createBrowserRouter([
   {
@@ -22,35 +19,47 @@ const router = createBrowserRouter([
     children: [
       {
         path: RouterPath.home.path,
-        element: <Home />,
+        element: lazyLoad(() => import("@/pages/Home")),
       },
       {
         path: RouterPath.productList.path,
-        element: <ProductList />,
+        element: lazyLoad(() => import("@/pages/ProductList")),
       },
       {
         path: RouterPath.columnList.path,
-        element: <ColumnList />,
+        element: lazyLoad(() => import("@/pages/ColumnList")),
       },
       {
         path: RouterPath.columnDetail.path,
-        element: <ColumnDetail />,
+        element: lazyLoad(() => import("@/pages/ColumnDetail")),
       },
       {
         path: RouterPath.productDetail.path,
-        element: <ProductDetail />,
+        element: lazyLoad(() => import("@/pages/ProductDetail")),
       },
       {
         path: RouterPath.myAccount.path,
-        element: <MyAccount />,
+        element: lazyLoad(() => import("@/pages/MyAccount")),
+      },
+      {
+        path: RouterPath.myReviews.path,
+        element: lazyLoad(() => import("@/pages/MyReviews")),
+      },
+      {
+        path: RouterPath.myFavorites.path,
+        element: lazyLoad(() => import("@/pages/MyFavorites")),
       },
       {
         path: RouterPath.login.path,
-        element: <Login />,
+        element: lazyLoad(() => import("@/pages/Login")),
+      },
+      {
+        path: RouterPath.loginRedirect.path,
+        element: lazyLoad(() => import("@/pages/LoginRedirect")),
       },
       {
         path: RouterPath.notFound.path,
-        element: <NotFound />,
+        element: lazyLoad(() => import("@/pages/NotFound")),
       },
     ],
   },

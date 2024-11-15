@@ -6,7 +6,6 @@ export type ColumnList = {
 };
 export type ColumnListResponse = {
   columns: ColumnList[];
-  nextPageToken: string;
   pageInfo: {
     totalResults: number;
     resultsPerPage: number;
