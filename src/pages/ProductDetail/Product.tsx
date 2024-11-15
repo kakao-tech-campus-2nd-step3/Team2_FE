@@ -16,8 +16,29 @@ export default function Product({ detail }: { detail: ProductDetail }): JSX.Elem
         {isDetailOpen ? <FaChevronUp /> : <FaChevronDown />}
       </ToggleSection>
 
-      {/* 상품 상세 이미지 */}
-      {isDetailOpen && <DetailImage src={detail.imageurl2} alt="상품 상세 이미지" />}
+      {isDetailOpen && (
+        <>
+          <DetailImage src={detail.description} alt="상품 상세 이미지" />
+          <DetailTable>
+            <tbody>
+              <tr>
+                <TableHeader>제조사</TableHeader>
+                <td>{detail.manufacturer}</td>
+                <TableHeader>용량</TableHeader>
+                <td>{detail.capacity}</td>
+              </tr>
+              <tr>
+                <TableHeader>영양성분</TableHeader>
+                <td colSpan={3}>{detail.nutritionalInfo}</td>
+              </tr>
+              <tr>
+                <TableHeader>성분</TableHeader>
+                <td colSpan={3}>{detail.ingredients}</td>
+              </tr>
+            </tbody>
+          </DetailTable>
+        </>
+      )}
     </DetailContainer>
   );
 }
@@ -53,4 +74,25 @@ const DetailImage = styled.img`
   background-color: #eaeaea;
   display: block;
   background-color: #eaeaea;
+`;
+
+const DetailTable = styled.table`
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+`;
+
+const TableHeader = styled.th`
+  white-space: nowrap;
+  font-weight: bold;
 `;

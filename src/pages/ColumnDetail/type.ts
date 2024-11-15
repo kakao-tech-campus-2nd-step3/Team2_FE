@@ -1,8 +1,3 @@
-export type Content = {
-  tag: "h2" | "h3" | "p" | "img";
-  content: string;
-};
-
 export type ColumnDetail = {
   id: string;
   title: string;
@@ -10,5 +5,5 @@ export type ColumnDetail = {
   createdAt: string;
   auth: string;
   keyword: string[];
-  content: Content[];
+  content: string;
 };

@@ -19,7 +19,8 @@ type Props = {
  * @returns
  */
 export default function Pagination({ totalResults, resultsPerPage }: Props) {
-  const maxPageNum = Math.ceil(totalResults / resultsPerPage);
+  const maxPageNum =
+    totalResults < 1 || resultsPerPage < 1 ? 1 : Math.ceil(totalResults / resultsPerPage);
 
   const { activeState, changeState } = useQueryParam(
     queryKey,
@@ -36,6 +37,8 @@ export default function Pagination({ totalResults, resultsPerPage }: Props) {
     setStartPageNum(page);
     changeState(String(resultsPerPage * (page - 1) + 1));
   };
+
+  if (totalResults < 1 || resultsPerPage < 1) return <></>;
 
   return (
     <Container>

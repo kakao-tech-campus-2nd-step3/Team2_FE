@@ -1,30 +1,39 @@
 import styled from "@emotion/styled";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 import Background from "@/components/Background";
-import { fetchInstance } from "@/utils/axiosInstance";
+import { Loading } from "@/components/Loading.tsx";
+import { fetchInstance, isAuthFail } from "@/utils/axiosInstance";
+import { RouterPath } from "@/utils/path";
 
 import DashBoard from "./DashBoard";
 
 type UserInfo = {
   id: number;
   userName: string;
-  userImgUrl: string;
+  userImageUrl: string;
   allergies: string[];
   freefrom: string[];
 };
 
 export default function MyAccount() {
+  const navigate = useNavigate();
   const { data, isPending, isError } = useQuery<UserInfo>({
     queryKey: ["myAccount"],
     queryFn: async () => {
-      const response = await fetchInstance().get("/api/users/info");
+      const response = await fetchInstance(true)
+        .get("/api/users/info")
+        .catch((err) => {
+          if (isAuthFail(err)) navigate(RouterPath.login.getPath());
+          return Promise.reject();
+        });
       return response.data;
     },
   });
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   if (isError) {
     return <div>Error</div>;
@@ -33,7 +42,7 @@ export default function MyAccount() {
   return (
     <Background>
       <Profile>
-        <img src={data.userImgUrl} alt="user profile image" />
+        <img src={data.userImageUrl} alt="user profile image" />
         <h2>{data.userName}</h2>
       </Profile>
       <DashBoard allergies={data.allergies} freefrom={data.freefrom} />
