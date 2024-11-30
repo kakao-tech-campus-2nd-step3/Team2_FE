@@ -68,7 +68,7 @@ const ReviewContainer = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   margin: 40px auto;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-gray2);
   border-radius: 10px;
   padding: 20px;
   background-color: #f9f9f9;

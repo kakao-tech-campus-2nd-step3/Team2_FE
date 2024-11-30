@@ -9,6 +9,7 @@ export default function GlobalStyles() {
           --color-side: rgba(0, 66, 47, 43);
           --color-background: #f7ffef;
           --color-gray: #aaa;
+          --color-gray2: #ddd;
           --color-black: #2c2c2c;
           --font-size-exLarge: 36px;
           --font-size-large: 24px;

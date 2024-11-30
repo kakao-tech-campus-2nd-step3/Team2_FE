@@ -105,7 +105,7 @@ const StarWrapper = styled.div`
 
 const Star = styled.span<{ selected: boolean }>`
   font-size: 30px;
-  color: ${(props) => (props.selected ? "#ffd700" : "#ddd")};
+  color: ${(props) => (props.selected ? "#ffd700" : "var(--color-gray2)")};
 `;
 
 const StarPartial = styled.div<{ width: string }>`
@@ -129,7 +129,7 @@ const ReviewInput = styled.textarea`
   height: 80px;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-gray2);
   border-radius: 5px;
   resize: none;
 `;
@@ -137,7 +137,7 @@ const ReviewInput = styled.textarea`
 const SubmitButton = styled.button`
   align-self: flex-end;
   padding: 8px 16px;
-  background-color: #89a06b;
+  background-color: var(--color-main);
   color: #fff;
   border: none;
   border-radius: 5px;

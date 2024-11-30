@@ -137,7 +137,7 @@ const Price = styled.h2`
 
 const BuyButton = styled.button`
   padding: 10px 20px;
-  background-color: #89a06b;
+  background-color: var(--color-main);
   border-radius: 5px;
   border: none;
   color: #fff;
@@ -164,7 +164,7 @@ const Star = styled.span`
 const StarEmpty = styled.span`
   z-index: 0;
   font-size: 24px;
-  color: #ddd;
+  color: var(--color-gray);
 `;
 
 const StarPartial = styled.div`

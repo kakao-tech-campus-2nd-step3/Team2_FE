@@ -31,7 +31,7 @@ export default ProductCard;
 
 const CardContainer = styled(Link)`
   position: relative;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-gray2);
   padding: 16px;
   border-radius: 10px;
 `;

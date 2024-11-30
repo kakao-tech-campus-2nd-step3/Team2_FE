@@ -77,7 +77,7 @@ const OverlayText = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #89a06b;
+  color: var(--color-main);
   font-size: calc(2vw + 2vh);
   font-weight: bold;
   text-align: center;

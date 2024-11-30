@@ -72,8 +72,8 @@ export default function ProductList() {
                   style={{
                     background: `linear-gradient(
                       to right,
-                      #ddd ${priceRange[1]}%,
-                      #ddd 100%
+                      var(--color-gray2) ${priceRange[1]}%,
+                      var(--color-gray2) 100%
                     )`,
                   }}
                 />
@@ -148,7 +148,7 @@ const MainContent = styled.div`
   padding: 1rem 0;
 `;
 const CateFilterContainer = styled.div`
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-gray2);
   border-radius: 8px;
   padding: 5px 16px;
   background-color: #f9f9f9;
@@ -182,7 +182,7 @@ const PaginationSection = styled.section`
 `;
 
 const FilterBox = styled.div`
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-gray2);
   border-radius: 8px;
   padding: 16px;
   background-color: #f9f9f9;
@@ -231,7 +231,7 @@ const SearchBox = styled.input`
   width: 90%;
   padding: 8px;
   margin-top: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-gray2);
   border-radius: 4px;
   outline: none;
 `;
