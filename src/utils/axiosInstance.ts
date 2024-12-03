@@ -2,6 +2,14 @@ import axios, { AxiosRequestConfig } from "axios";
 
 import { accessTokenStorage, refreshTokenStorage } from "./storage";
 
+const handleNotAuth = () => {
+  accessTokenStorage.set();
+  refreshTokenStorage.set();
+  alert("로그인이 필요합니다.");
+  window.open("/login", "_self");
+  return;
+};
+
 const initInstance = (config: AxiosRequestConfig, authContained: boolean) => {
   const instance = axios.create({
     timeout: 5000,
@@ -14,10 +22,15 @@ const initInstance = (config: AxiosRequestConfig, authContained: boolean) => {
     },
   });
   instance.interceptors.request.use((config) => {
+    const controller = new AbortController();
     if (authContained && !accessTokenStorage.get()) {
-      return handleNotAuth();
+      handleNotAuth();
+      controller.abort();
     }
-    return config;
+    return {
+      ...config,
+      signal: controller.signal,
+    };
   });
   instance.interceptors.response.use(
     (response) => response,
@@ -70,11 +83,4 @@ export const fetchInstance = (authContained?: boolean, config?: AxiosRequestConf
     },
     authContained ?? false,
   );
-};
-
-const handleNotAuth = () => {
-  accessTokenStorage.set();
-  refreshTokenStorage.set();
-  alert("로그인이 필요합니다.");
-  return Promise.reject("empty auth");
 };
