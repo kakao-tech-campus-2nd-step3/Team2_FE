@@ -41,7 +41,6 @@ export default function ProductList() {
     setPriceRange([0, value]);
   };
 
-  if (isPending) return <Loading />;
   if (isError) return <div>Error</div>;
 
   return (
@@ -104,14 +103,18 @@ export default function ProductList() {
               </CateFilterContainer>
             </FilterBox>
           </FilteringSection>
-          <ProductListSection>
-            {data.content.map((product) => (
-              <ProductCard key={product.id} {...product} />
-            ))}
-          </ProductListSection>
+          {isPending ? (
+            <Loading />
+          ) : (
+            <ProductListSection>
+              {data.content.map((product) => (
+                <ProductCard key={product.id} {...product} />
+              ))}
+            </ProductListSection>
+          )}
         </MainContent>
         <PaginationSection>
-          <Pagination totalResults={data.totalElements} resultsPerPage={10} />
+          <Pagination totalResults={data?.totalElements ?? 0} resultsPerPage={10} />
         </PaginationSection>
       </ContentWrapper>
     </Container>
