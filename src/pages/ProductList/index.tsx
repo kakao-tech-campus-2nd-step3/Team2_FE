@@ -15,8 +15,8 @@ import { ProductListResponse } from "./type";
 export default function ProductList() {
   const [priceRange, setPriceRange] = useState([0, 50000]);
   const [q, setq] = useState("");
-  const [allergyString, setAllergyString] = useState("");
-  const [freeFromString, setFreeFromString] = useState("");
+  const [allergy, setAllergy] = useState<string[]>([]);
+  const [freeFrom, setFreeFrom] = useState<string[]>([]);
   const [searchParams] = useSearchParams();
 
   const { data, isPending, isError } = useQuery<ProductListResponse>({
@@ -25,14 +25,14 @@ export default function ProductList() {
       searchParams.get(pageToken)!,
       searchParams.get(sortBy)!,
       q,
-      allergyString,
-      freeFromString,
+      allergy.join(","),
+      freeFrom.join(","),
     ],
     queryFn: async () => {
       let url = "/api/products?";
       url += `maxResults=10&pageToken=${Number(searchParams.get(pageToken)) < 1 ? 1 : Number(searchParams.get(pageToken)) - 1}`;
       url += `&sortby=${searchParams.get(sortBy)}&q=${q}${priceRange[1] === 50000 ? "" : "&priceMax=" + priceRange[1]}`;
-      url += `&allergy=${allergyString}&freeFroms=${freeFromString}`;
+      url += `&allergy=${allergy.join(",")}&freeFroms=${freeFrom.join(",")}`;
       const response = await fetchInstance().get(url);
       return response.data;
     },
@@ -88,20 +88,10 @@ export default function ProductList() {
                 onChange={(v) => setq(v.target.value)}
               />
               <CateFilterContainer>
-                <CategoriesSelect
-                  isAllergy={true}
-                  onCategoryChange={(categories) => {
-                    setAllergyString(categories.join(","));
-                  }}
-                />
+                <CategoriesSelect isAllergy={true} onCategoryChange={setAllergy} />
               </CateFilterContainer>
               <CateFilterContainer>
-                <CategoriesSelect
-                  isAllergy={false}
-                  onCategoryChange={(categories) => {
-                    setFreeFromString(categories.join(","));
-                  }}
-                />
+                <CategoriesSelect isAllergy={false} onCategoryChange={setFreeFrom} />
               </CateFilterContainer>
             </FilterBox>
           </FilteringSection>

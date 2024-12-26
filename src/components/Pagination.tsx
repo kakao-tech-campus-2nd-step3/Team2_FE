@@ -22,7 +22,12 @@ export default function Pagination({ totalResults, resultsPerPage }: Props) {
   const maxPageNum =
     totalResults < 1 || resultsPerPage < 1 ? 0 : Math.ceil(totalResults / resultsPerPage);
 
-  const { activeState, changeState } = useQueryParam(queryKey, "1");
+  const { activeState, changeState } = useQueryParam<number>(
+    queryKey,
+    1,
+    (state) => String(state),
+    (params) => Number(params),
+  );
 
   // 페이지 버튼을 5개씩 보여주기 위한 로직
   const [startPageNum, setStartPageNum] = useState(1);
@@ -32,34 +37,30 @@ export default function Pagination({ totalResults, resultsPerPage }: Props) {
 
   useEffect(() => {
     if (!activeState) return;
-    setStartPageNum(Number(activeState) - ((Number(activeState) - 1) % 5));
+    setStartPageNum(activeState - ((activeState - 1) % 5));
   }, [activeState]);
 
   return (
     <Container>
       <PageBtn
         aria-label="이전 페이지"
-        onClick={() => changeState(String(Number(activeState) - 1))}
-        disabled={activeState === "1"}
+        onClick={() => changeState(activeState - 1)}
+        disabled={activeState === 1}
       >
         <span className="material-symbols-outlined">arrow_left_alt</span>
         <span>이전</span>
       </PageBtn>
       <div>
         {pageBtns.map((i) => (
-          <PageNumBtn
-            key={i}
-            onClick={() => changeState(String(i))}
-            disabled={activeState === String(i)}
-          >
+          <PageNumBtn key={i} onClick={() => changeState(i)} disabled={activeState === i}>
             {i}
           </PageNumBtn>
         ))}
       </div>
       <PageBtn
         aria-label="다음 페이지"
-        onClick={() => changeState(String(Number(activeState) + 1))}
-        disabled={activeState === String(maxPageNum)}
+        onClick={() => changeState(activeState + 1)}
+        disabled={activeState === maxPageNum}
       >
         <span>다음</span>
         <span className="material-symbols-outlined">arrow_right_alt</span>
