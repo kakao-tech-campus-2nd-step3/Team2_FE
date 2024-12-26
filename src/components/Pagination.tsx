@@ -22,10 +22,7 @@ export default function Pagination({ totalResults, resultsPerPage }: Props) {
   const maxPageNum =
     totalResults < 1 || resultsPerPage < 1 ? 0 : Math.ceil(totalResults / resultsPerPage);
 
-  const { activeState, changeState } = useQueryParam(
-    queryKey,
-    [...Array(maxPageNum).keys()].map((i) => String(i + 1)),
-  );
+  const { activeState, changeState } = useQueryParam(queryKey, "1");
 
   // 페이지 버튼을 5개씩 보여주기 위한 로직
   const [startPageNum, setStartPageNum] = useState(1);

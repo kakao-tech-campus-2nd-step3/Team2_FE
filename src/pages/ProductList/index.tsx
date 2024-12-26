@@ -28,12 +28,14 @@ export default function ProductList() {
       allergyString,
       freeFromString,
     ],
-    queryFn: async () =>
-      (
-        await fetchInstance().get(
-          `/api/products?maxResults=10&pageToken=${Number(searchParams.get(pageToken)) < 1 ? 1 : Number(searchParams.get(pageToken)) - 1}&sortby=${searchParams.get(sortBy)}&q=${q}${priceRange[1] === 50000 ? "" : "priceMax=" + priceRange[1]}&allergy=${allergyString}&freeFroms=${freeFromString}`,
-        )
-      ).data,
+    queryFn: async () => {
+      let url = "/api/products?";
+      url += `maxResults=10&pageToken=${Number(searchParams.get(pageToken)) < 1 ? 1 : Number(searchParams.get(pageToken)) - 1}`;
+      url += `&sortby=${searchParams.get(sortBy)}&q=${q}${priceRange[1] === 50000 ? "" : "&priceMax=" + priceRange[1]}`;
+      url += `&allergy=${allergyString}&freeFroms=${freeFromString}`;
+      const response = await fetchInstance().get(url);
+      return response.data;
+    },
   });
 
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {

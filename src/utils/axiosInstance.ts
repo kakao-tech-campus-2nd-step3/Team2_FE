@@ -69,7 +69,7 @@ const initInstance = (config: AxiosRequestConfig, authContained: boolean) => {
  */
 export const isAuthFail = (err: unknown) => !axios.isAxiosError(err);
 
-export const BASE_URL = "https://aeatbe.jeje.work";
+export const BASE_URL = "https://beaeatbe.jeje.work";
 /**
  * @param config 추가 헤더 config
  * @param authContained 요청에 인증정보가 필요한가? (인증정보 없으면 로그인이 필요합니다 출력)

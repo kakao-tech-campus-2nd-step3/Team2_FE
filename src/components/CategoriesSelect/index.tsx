@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { fetchInstance } from "@/utils/axiosInstance";
+import { useQueryParam } from "@/utils/hooks/useQueryParam";
 
 import { Loading } from "../Loading";
 
@@ -16,6 +17,9 @@ type Categories = {
   type: string;
 }[];
 
+const setSelectedCategory = (categories: string[], changeState: (v: string) => void) =>
+  changeState(categories.join(","));
+
 /**
  * @param isAllergy 알러지인지 프리프롬인지 구분
  * @param initCategory 카테고리 초기화 함수(setSelectedCategory)를 받아서 세팅알아서 수행하는 함수
@@ -27,7 +31,6 @@ export default function CategoriesSelect({
   initCategory,
   onCategoryChange,
 }: Props): JSX.Element {
-  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
   const { data, isPending, isError } = useQuery<Categories>({
     queryKey: [isAllergy ? "allergy" : "freefrom"],
     queryFn: async () =>
@@ -37,18 +40,27 @@ export default function CategoriesSelect({
         )
       ).data,
   });
+  const { activeState: selectedCategory, changeState } = useQueryParam(
+    isAllergy ? "allergy" : "freefrom",
+    "",
+  );
 
   useEffect(() => {
-    if (initCategory) initCategory(setSelectedCategory);
-  }, [initCategory]);
+    if (initCategory) initCategory((categories) => setSelectedCategory(categories, changeState));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory]);
 
   const handleCategoryClick = (categoryType: string) => {
-    if (selectedCategory.includes(categoryType)) {
-      setSelectedCategory(selectedCategory.filter((category) => category !== categoryType));
+    const foundIndex = selectedCategory.indexOf(categoryType);
+    if (foundIndex >= 0) {
+      changeState(
+        selectedCategory.slice(0, foundIndex) +
+          selectedCategory.slice(foundIndex + categoryType.length + 1),
+      );
     } else {
-      setSelectedCategory([...selectedCategory, categoryType]);
+      changeState(selectedCategory + categoryType + ",");
     }
-    onCategoryChange(selectedCategory);
+    onCategoryChange(selectedCategory.split(","));
   };
 
   if (isPending) return <Loading />;

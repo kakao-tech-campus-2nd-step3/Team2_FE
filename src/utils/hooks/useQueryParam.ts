@@ -5,25 +5,23 @@ import { useSearchParams } from "react-router-dom";
  * activeState의 변경에 따라 queryParam을 변경하는 hook
  *
  * @param queryParamKey query parameter key
- * @param values query paramter의 가능한 값들
+ * @param defaultValue
  * @returns activeState: 현재 query parameter의 값, changeState: query parameter의 값을 변경하는 함수
  */
-export const useQueryParam = (queryParamKey: string, values: string[]) => {
-  const [activeState, setActiveState] = useState(values[0]);
+export const useQueryParam = (queryParamKey: string, defaultValue: string) => {
+  const [activeState, setActiveState] = useState(defaultValue);
   const [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
-    if (!values[0]) return;
-
     const queryValue = searchParams.get(queryParamKey);
-    if (queryValue && values.includes(queryValue)) {
+    if (queryValue) {
       setActiveState(queryValue);
     } else {
-      searchParams.set(queryParamKey, values[0]);
-      setActiveState(values[0]);
+      searchParams.set(queryParamKey, defaultValue);
+      setActiveState(defaultValue);
       setSearchParams(searchParams, { replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values]);
+  }, []);
   const changeState = (value: string) => {
     searchParams.set(queryParamKey, value);
     setActiveState(value);
