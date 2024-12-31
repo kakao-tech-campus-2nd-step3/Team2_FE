@@ -21,10 +21,7 @@ interface SortingBtn {
  * @returns 정렬 버튼 컴포넌트
  */
 export default function SortingBtns({ sortingBtns }: { sortingBtns: SortingBtn[] }) {
-  const { activeState, changeState } = useQueryParam(
-    queryKey,
-    sortingBtns.map((btn) => btn.value),
-  );
+  const { activeState, changeState } = useQueryParam(queryKey, sortingBtns[0].value);
   return (
     <Container>
       {sortingBtns.map((btn, index) => (

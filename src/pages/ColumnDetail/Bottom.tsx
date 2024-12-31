@@ -1,6 +1,6 @@
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -8,42 +8,42 @@ import { fetchInstance } from "@/utils/axiosInstance";
 import { RouterPath } from "@/utils/path";
 import { accessTokenStorage } from "@/utils/storage";
 
+const fetchLikeCount = (columnId: string, setLikeCount: (v: number) => void) => {
+  if (!columnId) return;
+  fetchInstance()
+    .get(`/api/columns/likes/count?articleId=${columnId}`)
+    .then((res) => setLikeCount(res.data.count));
+};
+
+/**
+ * @returns 칼럼 하단 좋아요, 다른 칼럼 보러가기 버튼
+ */
 export default function Bottom() {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const { columnId } = useParams<{ columnId: string }>();
 
-  const fetchLikeCount = useCallback((columnId: string) => {
-    fetchInstance()
-      .get(`/api/columns/likes/count?articleId=${columnId}`)
-      .then((res) => setLikeCount(res.data.count));
-  }, []);
-
   const handleLike = () => {
-    if (isLiked) {
+    if (!isLiked) {
       setIsLiked(true);
       setLikeCount(likeCount + 1);
       fetchInstance(true)
         .post("/api/columns/likes", { articleId: columnId })
-        .then(() => fetchLikeCount(columnId ?? ""))
+        .then(() => fetchLikeCount(columnId ?? "", setLikeCount))
         .catch(() => {
           setIsLiked(false);
           setLikeCount(likeCount - 1);
-          alert("처리 중 오류가 발생했습니다. 다시 시도해주세요.");
         });
     } else
       fetchInstance(true)
         .delete(`/api/columns/likes/${columnId}`)
         .then(() => {
           setIsLiked(false);
-          fetchLikeCount(columnId ?? "");
-        })
-        .catch(() => {
-          alert("처리 중 오류가 발생했습니다. 다시 시도해주세요.");
+          fetchLikeCount(columnId ?? "", setLikeCount);
         });
   };
   useEffect(() => {
-    fetchLikeCount(columnId ?? "");
+    fetchLikeCount(columnId ?? "", setLikeCount);
 
     if (!accessTokenStorage.get()) return;
     fetchInstance(true)
@@ -51,7 +51,7 @@ export default function Bottom() {
       .then((res) => {
         setIsLiked(res.data.isliked);
       });
-  }, [columnId, fetchLikeCount]);
+  }, [columnId]);
   return (
     <Container>
       <Favorite>

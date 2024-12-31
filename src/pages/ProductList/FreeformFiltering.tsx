@@ -27,7 +27,7 @@ export default function FilteringSection() {
 }
 
 const FilterContainer = styled.div`
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-gray2);
   border-radius: 8px;
   padding: 5px 16px;
   background-color: #f9f9f9;
@@ -46,7 +46,7 @@ const ToggleSection = styled.div`
   align-items: center;
   cursor: pointer;
   padding: 8px 0;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--color-gray2);
   &:first-of-type {
     border-top: none;
   }

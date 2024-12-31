@@ -15,8 +15,8 @@ import { ProductListResponse } from "./type";
 export default function ProductList() {
   const [priceRange, setPriceRange] = useState([0, 50000]);
   const [q, setq] = useState("");
-  const [allergyString, setAllergyString] = useState("");
-  const [freeFromString, setFreeFromString] = useState("");
+  const [allergy, setAllergy] = useState<string[]>([]);
+  const [freeFrom, setFreeFrom] = useState<string[]>([]);
   const [searchParams] = useSearchParams();
 
   const { data, isPending, isError } = useQuery<ProductListResponse>({
@@ -25,15 +25,17 @@ export default function ProductList() {
       searchParams.get(pageToken)!,
       searchParams.get(sortBy)!,
       q,
-      allergyString,
-      freeFromString,
+      allergy.join(","),
+      freeFrom.join(","),
     ],
-    queryFn: async () =>
-      (
-        await fetchInstance().get(
-          `/api/products?maxResults=10&pageToken=${Number(searchParams.get(pageToken)) < 1 ? 1 : Number(searchParams.get(pageToken)) - 1}&sortby=${searchParams.get(sortBy)}&q=${q}${priceRange[1] === 50000 ? "" : "priceMax=" + priceRange[1]}&allergy=${allergyString}&freeFroms=${freeFromString}`,
-        )
-      ).data,
+    queryFn: async () => {
+      let url = "/api/products?";
+      url += `maxResults=10&pageToken=${Number(searchParams.get(pageToken)) < 1 ? 1 : Number(searchParams.get(pageToken)) - 1}`;
+      url += `&sortby=${searchParams.get(sortBy)}&q=${q}${priceRange[1] === 50000 ? "" : "&priceMax=" + priceRange[1]}`;
+      url += `&allergy=${allergy.join(",")}&freeFroms=${freeFrom.join(",")}`;
+      const response = await fetchInstance().get(url);
+      return response.data;
+    },
   });
 
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +43,6 @@ export default function ProductList() {
     setPriceRange([0, value]);
   };
 
-  if (isPending) return <Loading />;
   if (isError) return <div>Error</div>;
 
   return (
@@ -72,8 +73,8 @@ export default function ProductList() {
                   style={{
                     background: `linear-gradient(
                       to right,
-                      #ddd ${priceRange[1]}%,
-                      #ddd 100%
+                      var(--color-gray2) ${priceRange[1]}%,
+                      var(--color-gray2) 100%
                     )`,
                   }}
                 />
@@ -87,31 +88,25 @@ export default function ProductList() {
                 onChange={(v) => setq(v.target.value)}
               />
               <CateFilterContainer>
-                <CategoriesSelect
-                  isAllergy={true}
-                  onCategoryChange={(categories) => {
-                    setAllergyString(categories.join(","));
-                  }}
-                />
+                <CategoriesSelect isAllergy={true} onCategoryChange={setAllergy} />
               </CateFilterContainer>
               <CateFilterContainer>
-                <CategoriesSelect
-                  isAllergy={false}
-                  onCategoryChange={(categories) => {
-                    setFreeFromString(categories.join(","));
-                  }}
-                />
+                <CategoriesSelect isAllergy={false} onCategoryChange={setFreeFrom} />
               </CateFilterContainer>
             </FilterBox>
           </FilteringSection>
-          <ProductListSection>
-            {data.content.map((product) => (
-              <ProductCard key={product.id} {...product} />
-            ))}
-          </ProductListSection>
+          {isPending ? (
+            <Loading />
+          ) : (
+            <ProductListSection>
+              {data.content.map((product) => (
+                <ProductCard key={product.id} {...product} />
+              ))}
+            </ProductListSection>
+          )}
         </MainContent>
         <PaginationSection>
-          <Pagination totalResults={data.totalElements} resultsPerPage={10} />
+          <Pagination totalResults={data?.totalElements ?? 0} resultsPerPage={10} />
         </PaginationSection>
       </ContentWrapper>
     </Container>
@@ -148,7 +143,7 @@ const MainContent = styled.div`
   padding: 1rem 0;
 `;
 const CateFilterContainer = styled.div`
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-gray2);
   border-radius: 8px;
   padding: 5px 16px;
   background-color: #f9f9f9;
@@ -182,7 +177,7 @@ const PaginationSection = styled.section`
 `;
 
 const FilterBox = styled.div`
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-gray2);
   border-radius: 8px;
   padding: 16px;
   background-color: #f9f9f9;
@@ -231,7 +226,7 @@ const SearchBox = styled.input`
   width: 90%;
   padding: 8px;
   margin-top: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-gray2);
   border-radius: 4px;
   outline: none;
 `;

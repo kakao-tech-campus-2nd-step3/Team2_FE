@@ -2,6 +2,14 @@ import axios, { AxiosRequestConfig } from "axios";
 
 import { accessTokenStorage, refreshTokenStorage } from "./storage";
 
+const handleNotAuth = () => {
+  accessTokenStorage.set();
+  refreshTokenStorage.set();
+  alert("로그인이 필요합니다.");
+  window.open("/login", "_self");
+  return;
+};
+
 const initInstance = (config: AxiosRequestConfig, authContained: boolean) => {
   const instance = axios.create({
     timeout: 5000,
@@ -14,10 +22,15 @@ const initInstance = (config: AxiosRequestConfig, authContained: boolean) => {
     },
   });
   instance.interceptors.request.use((config) => {
+    const controller = new AbortController();
     if (authContained && !accessTokenStorage.get()) {
-      return handleNotAuth();
+      handleNotAuth();
+      controller.abort();
     }
-    return config;
+    return {
+      ...config,
+      signal: controller.signal,
+    };
   });
   instance.interceptors.response.use(
     (response) => response,
@@ -56,7 +69,7 @@ const initInstance = (config: AxiosRequestConfig, authContained: boolean) => {
  */
 export const isAuthFail = (err: unknown) => !axios.isAxiosError(err);
 
-export const BASE_URL = "https://aeatbe.jeje.work";
+export const BASE_URL = "https://beaeatbe.jeje.work";
 /**
  * @param config 추가 헤더 config
  * @param authContained 요청에 인증정보가 필요한가? (인증정보 없으면 로그인이 필요합니다 출력)
@@ -70,11 +83,4 @@ export const fetchInstance = (authContained?: boolean, config?: AxiosRequestConf
     },
     authContained ?? false,
   );
-};
-
-const handleNotAuth = () => {
-  accessTokenStorage.set();
-  refreshTokenStorage.set();
-  alert("로그인이 필요합니다.");
-  return Promise.reject("empty auth");
 };

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useQueryParam } from "@/utils/hooks/useQueryParam";
 
@@ -20,11 +20,13 @@ type Props = {
  */
 export default function Pagination({ totalResults, resultsPerPage }: Props) {
   const maxPageNum =
-    totalResults < 1 || resultsPerPage < 1 ? 1 : Math.ceil(totalResults / resultsPerPage);
+    totalResults < 1 || resultsPerPage < 1 ? 0 : Math.ceil(totalResults / resultsPerPage);
 
-  const { activeState, changeState } = useQueryParam(
+  const { activeState, changeState } = useQueryParam<number>(
     queryKey,
-    [...Array(maxPageNum).keys()].map((i) => String(i + 1)),
+    1,
+    (state) => String(state),
+    (params) => Number(params),
   );
 
   // 페이지 버튼을 5개씩 보여주기 위한 로직
@@ -33,38 +35,32 @@ export default function Pagination({ totalResults, resultsPerPage }: Props) {
     ...Array(maxPageNum - (maxPageNum % 5) < startPageNum ? maxPageNum % 5 : 5).keys(),
   ].map((i) => startPageNum + i);
 
-  const changePage = (page: number) => {
-    setStartPageNum(page);
-    changeState(String(resultsPerPage * (page - 1) + 1));
-  };
-
-  if (totalResults < 1 || resultsPerPage < 1) return <></>;
+  useEffect(() => {
+    if (!activeState) return;
+    setStartPageNum(activeState - ((activeState - 1) % 5));
+  }, [activeState]);
 
   return (
     <Container>
       <PageBtn
         aria-label="이전 페이지"
-        onClick={() => changePage(startPageNum - resultsPerPage)}
-        disabled={startPageNum === 1}
+        onClick={() => changeState(activeState - 1)}
+        disabled={activeState === 1}
       >
         <span className="material-symbols-outlined">arrow_left_alt</span>
         <span>이전</span>
       </PageBtn>
       <div>
         {pageBtns.map((i) => (
-          <PageNumBtn
-            key={i}
-            onClick={() => changeState(String(i))}
-            disabled={activeState === String(i)}
-          >
+          <PageNumBtn key={i} onClick={() => changeState(i)} disabled={activeState === i}>
             {i}
           </PageNumBtn>
         ))}
       </div>
       <PageBtn
         aria-label="다음 페이지"
-        onClick={() => changePage(startPageNum + resultsPerPage)}
-        disabled={startPageNum + resultsPerPage > maxPageNum}
+        onClick={() => changeState(activeState + 1)}
+        disabled={activeState === maxPageNum}
       >
         <span>다음</span>
         <span className="material-symbols-outlined">arrow_right_alt</span>

@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { fetchInstance } from "@/utils/axiosInstance";
+import { useQueryParam } from "@/utils/hooks/useQueryParam";
 
 import { Loading } from "../Loading";
 
@@ -27,7 +28,6 @@ export default function CategoriesSelect({
   initCategory,
   onCategoryChange,
 }: Props): JSX.Element {
-  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
   const { data, isPending, isError } = useQuery<Categories>({
     queryKey: [isAllergy ? "allergy" : "freefrom"],
     queryFn: async () =>
@@ -37,16 +37,25 @@ export default function CategoriesSelect({
         )
       ).data,
   });
+  const { activeState: selectedCategory, changeState } = useQueryParam<string[]>(
+    isAllergy ? "allergy" : "freefrom",
+    [],
+    (state) => state.join(","),
+    (params) => params.split(","),
+  );
 
   useEffect(() => {
-    if (initCategory) initCategory(setSelectedCategory);
-  }, [initCategory]);
+    if (initCategory) initCategory((categories) => changeState(categories));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory]);
 
   const handleCategoryClick = (categoryType: string) => {
-    if (selectedCategory.includes(categoryType)) {
-      setSelectedCategory(selectedCategory.filter((category) => category !== categoryType));
+    const foundIndex = selectedCategory.indexOf(categoryType);
+    if (foundIndex >= 0) {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      changeState(selectedCategory.filter((_, index) => index !== foundIndex));
     } else {
-      setSelectedCategory([...selectedCategory, categoryType]);
+      changeState([...selectedCategory, categoryType]);
     }
     onCategoryChange(selectedCategory);
   };

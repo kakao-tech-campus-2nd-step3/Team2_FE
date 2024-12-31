@@ -87,7 +87,7 @@ const Stars = ({ rate }: { rate: number }) => {
 };
 
 const ReviewContainer = styled.div`
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-gray2);
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 12px;
@@ -100,14 +100,14 @@ const Header = styled.div`
 
 const StarRating = styled.div`
   display: flex;
-  color: #9bc678;
+  color: var(--color-main);
   font-size: 18px;
   margin-right: 10px;
   margin-bottom: 10px;
 `;
 
 const Star = styled.span`
-  color: #9bc678;
+  color: var(--color-main);
   font-size: 18px;
 `;
 
@@ -123,12 +123,12 @@ const StarFull = styled.span<{ width: string }>`
   position: absolute;
   overflow: hidden;
   width: ${({ width }) => width};
-  color: #9bc678;
+  color: var(--color-main);
   font-size: 18px;
 `;
 
 const StarEmpty = styled.span`
-  color: #ddd;
+  color: var(--color-gray2);
   font-size: 18px;
 `;
 
@@ -163,7 +163,7 @@ const InfoName = styled.span`
   font-size: var(--font-size-small);
 `;
 const ReviewDate = styled.span`
-  color: #888;
+  color: var(--color-gray);
   font-size: var(--font-size-small);
 `;
 
@@ -175,7 +175,7 @@ const Content = styled.div`
 const ToggleButton = styled.button`
   background: none;
   border: none;
-  color: #9bc678;
+  color: var(--color-main);
   cursor: pointer;
   font-size: 14px;
   margin-left: 5px;

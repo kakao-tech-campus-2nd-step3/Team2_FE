@@ -31,7 +31,7 @@ const Container = styled.div({
 
   padding: "1.5rem",
   margin: "1rem",
-  border: "1px solid #ddd",
+  border: "1px solid var(--color-gray2)",
   borderRadius: "1rem",
   backgroundColor: "white",
 });
