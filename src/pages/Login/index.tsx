@@ -3,6 +3,7 @@ import { JSX } from "react";
 
 import kakaoLoginImg from "@/assets/kakao_login_medium_wide.png";
 import logo from "@/assets/logo.png";
+import { BASE_URL } from "@/utils/axiosInstance.ts";
 
 /**
  * Login page
@@ -16,7 +17,7 @@ export default function Login(): JSX.Element {
           <img src={logo} alt="로고" />
           <h1>로그인</h1>
         </Header>
-        <a href="https://aeatbe.jeje.work/api/users/login">
+        <a href={`${BASE_URL}/api/users/login`}>
           <img src={kakaoLoginImg} alt="카카오 로그인" />
         </a>
       </Container>
